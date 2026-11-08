@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-08T17:52:29.118356+00:00",
+  "updated_at": "2026-11-08T18:48:26.030948+00:00",
   "usd_try_rate": 50.17,
   "active_coupon_codes": [
     "MIND40",
@@ -46,6 +46,24 @@
   ],
   "digital_products": [
     {
+      "product_key": "neon_puzzle_starter_pack",
+      "product_type": "game_asset_pack",
+      "title_en": "Neon Puzzle Engine Starter Asset Pack (2D/3D Templates + Solvers)",
+      "title_tr": "Neon Bulmaca Motoru Başlangıç Asset Paketi (2D/3D Şablonlar)",
+      "itch_slug": "neon-puzzle-engine-starter-pack",
+      "price_usd": 29.0,
+      "version_name": "1.0.0",
+      "source_video_id": "light_path,neon_flow_3d,memory_matrix",
+      "mental_models_json": "[\"NeonLaserSolver\", \"IsometricFlow3DEngine\", \"SpatialMemoryMatrixEngine\"]",
+      "public_url": "https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40",
+      "release_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/neon_puzzle_starter_pack_v1.zip",
+      "qa_passed": 1,
+      "qa_summary": "ZIP: 117.0 KB | 3 Engine + UI Kit | QA: PASS",
+      "status": "published_multi_store",
+      "updated_at": "2026-11-08 18:48:25",
+      "created_at": "2026-11-08 10:38:40"
+    },
+    {
       "product_key": "elite_decision_playbook",
       "product_type": "executive_playbook",
       "title_en": "The Elite Decision Architecture Playbook + Interactive Toolkit",
@@ -58,9 +76,9 @@
       "public_url": "https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40",
       "release_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/elite_decision_playbook_v1.zip",
       "qa_passed": 1,
-      "qa_summary": "PDF: 6 sayfa | ZIP: 1157.5 KB | QA: PASS",
-      "status": "live_gumroad_api",
-      "updated_at": "2026-11-08 17:52:29",
+      "qa_summary": "PDF: 6 sayfa | ZIP: 1157.6 KB | QA: PASS",
+      "status": "published_multi_store",
+      "updated_at": "2026-11-08 18:48:18",
       "created_at": "2026-11-08 10:38:37"
     },
     {
@@ -71,14 +89,14 @@
       "itch_slug": "elite-decision-playbook",
       "price_usd": 19.0,
       "version_name": "1.0.0",
-      "source_video_id": "k687BhPtLoc",
+      "source_video_id": "iKxJF6sEDNU",
       "mental_models_json": "[\"The 40–70 Information Threshold\", \"The Outside View (Reference Class)\", \"Second- & Third-Order Cascade Mapping\", \"Type-1 vs. Type-2 Door Classification\"]",
       "public_url": "https://tepebasili.gumroad.com/l/outside-view-decision-playbook?offer_code=MIND40",
       "release_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/outside_view_decision_playbook_v1.zip",
       "qa_passed": 1,
-      "qa_summary": "PDF: 6 sayfa | ZIP: 1157.5 KB | QA: PASS",
+      "qa_summary": "PDF: 6 sayfa | ZIP: 1035.8 KB | QA: PASS",
       "status": "live_gumroad_api",
-      "updated_at": "2026-11-08 17:52:28",
+      "updated_at": "2026-11-08 13:55:28",
       "created_at": "2026-11-08 11:23:34"
     },
     {
@@ -94,28 +112,10 @@
       "public_url": "https://tepebasili.gumroad.com/l/executive-epub-audiobook-pack?offer_code=MIND40",
       "release_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/executive_epub_audiobook_pack_v1.zip",
       "qa_passed": 1,
-      "qa_summary": "ZIP: 471.6 KB | EPUB 3.0 + MP3 Audiobook | QA: PASS",
+      "qa_summary": "ZIP: 466.0 KB | EPUB 3.0 + MP3 Audiobook | QA: PASS",
       "status": "live_gumroad_api",
-      "updated_at": "2026-11-08 17:52:27",
+      "updated_at": "2026-11-08 13:55:24",
       "created_at": "2026-11-08 11:41:09"
-    },
-    {
-      "product_key": "neon_puzzle_starter_pack",
-      "product_type": "game_asset_pack",
-      "title_en": "Neon Puzzle & Cognitive Engine Starter Asset Pack (2D/3D + Solvers)",
-      "title_tr": "Neon Bulmaca & Bilişsel Motor Başlangıç Asset Paketi",
-      "itch_slug": "neon-puzzle-engine-starter-pack",
-      "price_usd": 29.0,
-      "version_name": "1.0.0",
-      "source_video_id": "light_path,neon_flow_3d,memory_matrix",
-      "mental_models_json": "[\"NeonLaserSolver\", \"IsometricFlow3DEngine\", \"SpatialMemoryMatrixEngine\"]",
-      "public_url": "https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40",
-      "release_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/neon_puzzle_starter_pack_v1.zip",
-      "qa_passed": 1,
-      "qa_summary": "ZIP: 117.0 KB | 3 Engine + UI Kit | QA: PASS",
-      "status": "live_gumroad_api",
-      "updated_at": "2026-11-08 17:52:25",
-      "created_at": "2026-11-08 10:38:40"
     },
     {
       "product_key": "scifi_neon_3d_ui_asset_pack",
@@ -130,9 +130,9 @@
       "public_url": "https://tepebasili.gumroad.com/l/scifi-neon-3d-ui-asset-pack?offer_code=MIND40",
       "release_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/scifi_neon_3d_ui_asset_pack_v1.zip",
       "qa_passed": 1,
-      "qa_summary": "ZIP: 154.1 KB | 3D OBJ + GLSL + HUD | QA: PASS",
+      "qa_summary": "ZIP: 147.8 KB | 3D OBJ + GLSL + HUD | QA: PASS",
       "status": "live_gumroad_api",
-      "updated_at": "2026-11-08 17:52:24",
+      "updated_at": "2026-11-08 13:55:17",
       "created_at": "2026-11-08 11:41:15"
     },
     {
@@ -148,9 +148,9 @@
       "public_url": "https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40",
       "release_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/all_access_mega_bundle_v1.zip",
       "qa_passed": 1,
-      "qa_summary": "ZIP: 1301.3 KB | PDF + EPUB + MP3 + 3D/2D Engine | QA: PASS",
+      "qa_summary": "ZIP: 1204.3 KB | PDF + EPUB + MP3 + 3D/2D Engine | QA: PASS",
       "status": "live_gumroad_api",
-      "updated_at": "2026-11-08 17:52:23",
+      "updated_at": "2026-11-08 13:55:14",
       "created_at": "2026-11-08 11:41:21"
     },
     {
@@ -168,7 +168,7 @@
       "qa_passed": 1,
       "qa_summary": "FREE $0+ Lead Magnet | 1-Page High-Res PDF + 2D Neon Demo + MIND40 Upsell Funnel",
       "status": "live_gumroad_api",
-      "updated_at": "2026-11-08 17:52:23",
+      "updated_at": "2026-11-08 13:55:11",
       "created_at": "2026-11-08 13:54:42"
     }
   ],
