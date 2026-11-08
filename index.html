@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Systemic Mind & MTT Games — Official Multi-Store Hub & WebGL Arcade</title>
+<title>Systemic Mind & MTT Games — Official Multi-Store Hub, 3D Assets & WebGL Arcade</title>
 <style>
   :root {
     --bg: #070b14;
@@ -16,48 +16,66 @@
     --muted: #94a3b8;
   }
   * { box-sizing: border-box; font-family: 'Segoe UI', Inter, system-ui, sans-serif; }
-  body { margin: 0; background: var(--bg); color: var(--text); padding: 28px 18px; line-height: 1.55; }
-  .wrap { max-width: 1180px; margin: 0 auto; }
-  header {
-    border: 1px solid var(--cyan); border-radius: 20px; padding: 32px;
-    background: radial-gradient(circle at top right, #1e293b, #070b14);
-    margin-bottom: 24px; text-align: center;
+  body { margin: 0; background: var(--bg); color: var(--text); padding: 24px 16px; line-height: 1.55; }
+  .wrap { max-width: 1220px; margin: 0 auto; }
+  .coupon-bar {
+    background: linear-gradient(90deg, #fbbf24, #38bdf8, #34d399);
+    color: #070b14; font-weight: 800; text-align: center; padding: 12px 18px;
+    border-radius: 12px; margin-bottom: 18px; font-size: 15px;
   }
-  header h1 { margin: 8px 0; font-size: 34px; color: var(--text); }
-  header p { color: var(--muted); max-width: 780px; margin: 0 auto; font-size: 17px; }
+  header {
+    border: 1px solid var(--cyan); border-radius: 20px; padding: 28px;
+    background: radial-gradient(circle at top right, #1e293b, #070b14);
+    margin-bottom: 20px; text-align: center;
+  }
+  header h1 { margin: 8px 0; font-size: 32px; color: var(--text); }
+  header p { color: var(--muted); max-width: 820px; margin: 0 auto; font-size: 16px; }
   .payout-banner {
     background: linear-gradient(90deg, #0b1326, #172554, #0b1326);
     border: 1px solid var(--amber); border-radius: 14px; padding: 14px 20px;
-    margin-bottom: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;
+    margin-bottom: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px;
   }
   .section-title { font-size: 24px; color: var(--amber); margin: 28px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 22px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 22px; }
   .card {
     background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-    padding: 24px; display: flex; flex-direction: column; justify-content: space-between;
+    padding: 22px; display: flex; flex-direction: column; justify-content: space-between;
   }
   .vip-card {
     border: 2px solid var(--amber);
     background: linear-gradient(145deg, #172036, #0f172a);
-    box-shadow: 0 0 32px rgba(251, 191, 36, 0.18);
+    box-shadow: 0 0 32px rgba(251, 191, 36, 0.2);
+  }
+  .free-card {
+    border: 2px solid var(--emerald);
+    background: linear-gradient(145deg, #0d2824, #0f172a);
+  }
+  .mockup-img {
+    width: 100%; height: auto; border-radius: 12px; border: 1px solid #334155; margin-bottom: 12px;
   }
   .badge {
-    display: inline-block; font-size: 12px; font-weight: 800; color: var(--cyan);
-    border: 1px solid var(--cyan); border-radius: 999px; padding: 4px 12px; margin-bottom: 12px; width: fit-content;
+    display: inline-block; font-size: 11px; font-weight: 800; color: var(--cyan);
+    border: 1px solid var(--cyan); border-radius: 999px; padding: 4px 12px; margin-bottom: 10px; width: fit-content;
   }
   .badge-vip { color: var(--amber); border-color: var(--amber); }
-  h3 { margin: 4px 0 6px; font-size: 21px; }
-  .tr-sub { color: var(--muted); font-size: 14px; margin: 0 0 14px; }
-  .price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
-  .usd { font-size: 28px; font-weight: 800; color: var(--amber); }
-  .try { font-size: 16px; color: var(--emerald); font-weight: 600; }
-  .qa-note { font-size: 13px; color: #cbd5e1; background: #0b1120; padding: 10px; border-radius: 8px; }
-  .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-  .btn {
-    text-decoration: none; text-align: center; padding: 12px 16px; border-radius: 10px;
-    font-weight: 700; font-size: 14px; transition: opacity 0.15s;
+  h3 { margin: 4px 0 6px; font-size: 20px; }
+  .tr-sub { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+  .price-row { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+  .usd { font-size: 26px; font-weight: 800; color: var(--amber); }
+  .try { font-size: 14px; color: var(--emerald); font-weight: 700; }
+  .qa-note { font-size: 13px; color: #cbd5e1; background: #0b1120; padding: 10px; border-radius: 8px; margin: 8px 0; }
+  .manifest-list { font-size: 13px; color: #e2e8f0; padding-left: 18px; margin: 8px 0; }
+  .manifest-list li { margin-bottom: 5px; }
+  .bump-box {
+    background: #172036; border: 1px dashed var(--amber); border-radius: 10px;
+    padding: 10px; font-size: 12.5px; color: #fde68a; margin-top: 8px;
   }
-  .btn:hover { opacity: 0.9; }
+  .btn-group { display: flex; flex-direction: column; gap: 9px; margin-top: 14px; }
+  .btn {
+    text-decoration: none; text-align: center; padding: 12px 14px; border-radius: 10px;
+    font-weight: 700; font-size: 13.5px; transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.92; }
   .btn-primary { background: var(--cyan); color: #070b14; }
   .btn-tr { background: var(--amber); color: #070b14; }
   .btn-emerald { background: var(--emerald); color: #070b14; }
@@ -66,10 +84,13 @@
 </head>
 <body>
 <div class="wrap">
+  <div class="coupon-bar">
+    🔥 LIMITED LAUNCH & GLOBAL PPP OFFER: Use Coupon Code <u>MIND40</u> (or <u>LAUNCH40</u>) for 40% OFF All Products (First 50 Buyers — Auto-Applied Below)!
+  </div>
   <header>
     <div style="color:var(--cyan);font-weight:800;letter-spacing:1.5px;font-size:13px;">SYSTEMIC MIND  ×  MTT GAMES STUDIO</div>
-    <h1>Official Global Web Store, Audio/EPUB & 3D Game Arcade</h1>
-    <p>Multi-Store Active Checkout via Gumroad, Shopier (TR IBAN), GitHub Releases, itch.io, and Google Play.</p>
+    <h1>Official Global Web Store, 3D Mockup Vault & WebGL Arcade</h1>
+    <p>3D Box Mockups • Rich Manifests • 40% OFF (MIND40) • Free $0+ Lead Magnet • +$15 Checkout Order Bump</p>
   </header>
 
   <div class="payout-banner">
@@ -77,102 +98,174 @@
     <div style="color:var(--emerald);font-weight:700;">1 USD = ₺50.17 TL</div>
   </div>
 
-  <h2 class="section-title">💎 VIP All-Access Mega Bundle, Playbooks, EPUB/Audiobooks & 3D Asset Kits</h2>
+  <h2 class="section-title">💎 VIP All-Access Mega Bundle, Free $0 Cheat Sheet, Playbooks & 3D Asset Kits</h2>
   <div class="grid">
     
       <div class="card vip-card">
-        <div class="badge badge-vip">💎 VIP ALL-ACCESS MEGA BUNDLE (COMPLETE ARCHIVE)</div>
-        <h3>All-Access Systemic Mind & MTT Games VIP Mega Bundle (Playbooks + EPUB/Audio + 3D/2D Game Engines)</h3>
-        <p class="tr-sub">All-Access VIP Mega Paket (Tüm PDF Rehberler + EPUB/Sesli Kitap + 3D/2D Oyun Motorları & Shader)</p>
-        <div class="price-row">
-          <span class="usd">$79 USD</span>
-          <span class="try">≈ ₺3,964 TL</span>
+        <div>
+          <div class="badge badge-vip">💎 VIP ALL-ACCESS MEGA BUNDLE • 40% OFF CODE: MIND40</div>
+          <a href="https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40" target="_blank" rel="noopener">
+            <img class="mockup-img" src="covers/all-access-mega-bundle.png" alt="All-Access Systemic Mind & MTT Games VIP Mega Bundle (Playbooks + EPUB/Audio + 3D/2D Game Engines) 3D Mockup" loading="lazy" />
+          </a>
+          <h3>All-Access Systemic Mind & MTT Games VIP Mega Bundle (Playbooks + EPUB/Audio + 3D/2D Game Engines)</h3>
+          <p class="tr-sub">All-Access VIP Mega Paket (Tüm PDF Rehberler + EPUB/Sesli Kitap + 3D/2D Oyun Motorları & Shader)</p>
+          <div class="price-row"><span style="text-decoration:line-through;color:#94a3b8;font-size:18px;">$79</span><span class="usd">$47.40 USD</span><span class="try">≈ ₺2,378 TL (40% OFF: MIND40)</span></div>
+          <p class="qa-note"><b>🎯 Problem Solved:</b> Buying individual playbooks, audiobooks, and 3D/2D game engine toolkits separately costs over $139+. The VIP All-Access Mega Bundle gives you our entire cognitive architecture library AND our complete 3D/2D game studio source code in one archive.</p>
+          <ul class="manifest-list"><li><b>2x Complete 28-Page Executive Playbooks (<code>.PDF</code>):</b> The Elite Decision Architecture + The Outside View &amp; 40-70 Protocol.</li><li><b>Interactive HTML5/JSON Decision Matrices &amp; Notion Templates (<code>.HTML / .MD</code>):</b> Ready-to-use asymmetric decision calculators.</li><li><b>Complete EPUB 3.0 E-Book + Studio MP3 Audiobook Bundle (<code>.EPUB / .MP3</code>):</b> Read and listen anywhere offline.</li><li><b>Both 3D/2D Game Engine &amp; Sci-Fi Shader Asset Packs (<code>.OBJ / .GLSL / .JS / .PY</code>):</b> All 3D models, shaders, UI kits, and 50-level BFS/Ray-Tracing solvers.</li></ul>
+          <p style="font-size:12px;color:#64748b;margin:6px 0;">🔍 Discover SEO: #productivity • #mental-models • #gamedev • #unity-assets • #3d-models</p>
+          
         </div>
-        <p class="qa-note">✔ ZIP: 1204.3 KB | PDF + EPUB + MP3 + 3D/2D Engine | QA: PASS</p>
         <div class="btn-group">
-          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/all-access-mega-bundle" target="_blank" rel="noopener">💳 Gumroad / Global Card Checkout (→ TR IBAN)</a>
+          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40" target="_blank" rel="noopener">
+            💳 Buy on Gumroad — 40% OFF Code MIND40 ($47.40)
+          </a>
           <a class="btn btn-tr" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">🇹🇷 Shopier — Türkiye Kredi Kartı / TR IBAN</a>
           <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/all_access_mega_bundle_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
           <a class="btn btn-sec" href="https://mttgames.itch.io/systemic-mind-all-access-mega-bundle" target="_blank" rel="noopener">🎮 itch.io Storefront (systemic-mind-all-access-mega-bundle)</a>
         </div>
       </div>
       <div class="card">
-        <div class="badge ">🎮 3D/2D SCI-FI & NEON GAME ENGINE ASSET PACK</div>
-        <h3>Neon Puzzle & Cognitive Engine Starter Asset Pack (2D/3D + Solvers)</h3>
-        <p class="tr-sub">Neon Bulmaca & Bilişsel Motor Başlangıç Asset Paketi</p>
-        <div class="price-row">
-          <span class="usd">$29 USD</span>
-          <span class="try">≈ ₺1,455 TL</span>
+        <div>
+          <div class="badge ">🎮 3D/2D SCI-FI & NEON GAME ENGINE ASSET PACK</div>
+          <a href="https://tepebasili.gumroad.com/l/scifi-neon-3d-ui-asset-pack?offer_code=MIND40" target="_blank" rel="noopener">
+            <img class="mockup-img" src="covers/scifi-neon-3d-ui-asset-pack.png" alt="3D/2D Sci-Fi & Neon Cyber UI Game Asset Pack (OBJ Models + Shaders + HUD) 3D Mockup" loading="lazy" />
+          </a>
+          <h3>3D/2D Sci-Fi & Neon Cyber UI Game Asset Pack (OBJ Models + Shaders + HUD)</h3>
+          <p class="tr-sub">3D/2D Sci-Fi & Neon Siber UI Oyun Geliştirici Asset Paketi (3D OBJ + Shader)</p>
+          <div class="price-row"><span style="text-decoration:line-through;color:#94a3b8;font-size:18px;">$29</span><span class="usd">$17.40 USD</span><span class="try">≈ ₺873 TL (40% OFF: MIND40)</span></div>
+          <p class="qa-note"><b>🎯 Problem Solved:</b> Building polished 3D/2D puzzle mechanics, procedural neon shaders, and deadlock-free levels from scratch takes weeks of shader math and solver debugging. Most indie prototypes fail because UI feels flat and levels aren't mathematically verified.</p>
+          <ul class="manifest-list"><li><b>3D Procedural Meshes (<code>.OBJ</code>):</b> Cyber Hex Core, Laser Prism Emitter &amp; Neural Relay Node (ready for Unity, Godot, Unreal, Three.js).</li><li><b>Custom Hologram &amp; Laser Shaders (<code>.GLSL</code>):</b> Scanline Fresnel Glow + Chromatic Aberration Fragment Shaders.</li><li><b>50-Level Verified Solvers:</b> Breadth-First Search (BFS) &amp; Ray-Tracing automated level generators and validators.</li><li><b>High-Res Cyber HUD UI Kit (<code>1280x720 PNG</code>):</b> Neon frames, tactical buttons, and telemetry overlays.</li></ul>
+          <p style="font-size:12px;color:#64748b;margin:6px 0;">🔍 Discover SEO: #gamedev • #unity-assets • #3d-models • #shaders • #puzzle-game</p>
+          
+        <div class="bump-box">
+          <label style="cursor:pointer;display:flex;align-items:flex-start;gap:8px;">
+            <input type="checkbox" checked onchange="this.closest('.card').querySelector('.btn-primary').href = this.checked ? 'https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40' : 'https://tepebasili.gumroad.com/l/scifi-neon-3d-ui-asset-pack?offer_code=MIND40';" />
+            <span><b>⚡ ORDER BUMP (+$15 / VIP Upgrade):</b> Add 3D Neon Game Engine OR Studio Audiobook at checkout (or auto-upgrade to 40% OFF VIP Bundle)!</span>
+          </label>
         </div>
-        <p class="qa-note">✔ ZIP: 113.1 KB | 3 Engine + UI Kit | QA: PASS</p>
+        </div>
         <div class="btn-group">
-          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack" target="_blank" rel="noopener">💳 Gumroad / Global Card Checkout (→ TR IBAN)</a>
-          <a class="btn btn-tr" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">🇹🇷 Shopier — Türkiye Kredi Kartı / TR IBAN</a>
-          <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/neon_puzzle_starter_pack_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
-          <a class="btn btn-sec" href="https://mttgames.itch.io/neon-puzzle-engine-starter-pack" target="_blank" rel="noopener">🎮 itch.io Storefront (neon-puzzle-engine-starter-pack)</a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="badge ">🎮 3D/2D SCI-FI & NEON GAME ENGINE ASSET PACK</div>
-        <h3>3D/2D Sci-Fi & Neon Cyber UI Game Asset Pack (OBJ Models + Shaders + HUD)</h3>
-        <p class="tr-sub">3D/2D Sci-Fi & Neon Siber UI Oyun Geliştirici Asset Paketi (3D OBJ + Shader)</p>
-        <div class="price-row">
-          <span class="usd">$29 USD</span>
-          <span class="try">≈ ₺1,455 TL</span>
-        </div>
-        <p class="qa-note">✔ ZIP: 147.8 KB | 3D OBJ + GLSL + HUD | QA: PASS</p>
-        <div class="btn-group">
-          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/scifi-neon-3d-ui-asset-pack" target="_blank" rel="noopener">💳 Gumroad / Global Card Checkout (→ TR IBAN)</a>
+          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/scifi-neon-3d-ui-asset-pack?offer_code=MIND40" target="_blank" rel="noopener">
+            💳 Buy on Gumroad — 40% OFF Code MIND40 ($17.40)
+          </a>
           <a class="btn btn-tr" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">🇹🇷 Shopier — Türkiye Kredi Kartı / TR IBAN</a>
           <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/scifi_neon_3d_ui_asset_pack_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
           <a class="btn btn-sec" href="https://mttgames.itch.io/scifi-neon-3d-ui-asset-pack" target="_blank" rel="noopener">🎮 itch.io Storefront (scifi-neon-3d-ui-asset-pack)</a>
         </div>
       </div>
       <div class="card">
-        <div class="badge ">🎧 KDP / GOOGLE PLAY EPUB 3.0 + MP3 AUDIOBOOK</div>
-        <h3>The Executive Mental Model E-Book (EPUB 3.0) & Studio Audiobook (MP3) Bundle</h3>
-        <p class="tr-sub">Elit Karar Mimarisi E-Kitap (Google Play / KDP EPUB) & Sesli Rehber (MP3) Paketi</p>
-        <div class="price-row">
-          <span class="usd">$24 USD</span>
-          <span class="try">≈ ₺1,204 TL</span>
+        <div>
+          <div class="badge ">🎮 3D/2D SCI-FI & NEON GAME ENGINE ASSET PACK</div>
+          <a href="https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40" target="_blank" rel="noopener">
+            <img class="mockup-img" src="covers/neon-puzzle-starter-pack.png" alt="Neon Puzzle & Cognitive Engine Starter Asset Pack (2D/3D + Solvers) 3D Mockup" loading="lazy" />
+          </a>
+          <h3>Neon Puzzle & Cognitive Engine Starter Asset Pack (2D/3D + Solvers)</h3>
+          <p class="tr-sub">Neon Bulmaca & Bilişsel Motor Başlangıç Asset Paketi</p>
+          <div class="price-row"><span style="text-decoration:line-through;color:#94a3b8;font-size:18px;">$29</span><span class="usd">$17.40 USD</span><span class="try">≈ ₺873 TL (40% OFF: MIND40)</span></div>
+          <p class="qa-note"><b>🎯 Problem Solved:</b> Building polished 3D/2D puzzle mechanics, procedural neon shaders, and deadlock-free levels from scratch takes weeks of shader math and solver debugging. Most indie prototypes fail because UI feels flat and levels aren't mathematically verified.</p>
+          <ul class="manifest-list"><li><b>3D Procedural Meshes (<code>.OBJ</code>):</b> Cyber Hex Core, Laser Prism Emitter &amp; Neural Relay Node (ready for Unity, Godot, Unreal, Three.js).</li><li><b>Custom Hologram &amp; Laser Shaders (<code>.GLSL</code>):</b> Scanline Fresnel Glow + Chromatic Aberration Fragment Shaders.</li><li><b>50-Level Verified Solvers:</b> Breadth-First Search (BFS) &amp; Ray-Tracing automated level generators and validators.</li><li><b>High-Res Cyber HUD UI Kit (<code>1280x720 PNG</code>):</b> Neon frames, tactical buttons, and telemetry overlays.</li></ul>
+          <p style="font-size:12px;color:#64748b;margin:6px 0;">🔍 Discover SEO: #gamedev • #unity-assets • #3d-models • #shaders • #puzzle-game</p>
+          
+        <div class="bump-box">
+          <label style="cursor:pointer;display:flex;align-items:flex-start;gap:8px;">
+            <input type="checkbox" checked onchange="this.closest('.card').querySelector('.btn-primary').href = this.checked ? 'https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40' : 'https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40';" />
+            <span><b>⚡ ORDER BUMP (+$15 / VIP Upgrade):</b> Add 3D Neon Game Engine OR Studio Audiobook at checkout (or auto-upgrade to 40% OFF VIP Bundle)!</span>
+          </label>
         </div>
-        <p class="qa-note">✔ ZIP: 466.0 KB | EPUB 3.0 + MP3 Audiobook | QA: PASS</p>
+        </div>
         <div class="btn-group">
-          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/executive-epub-audiobook-pack" target="_blank" rel="noopener">💳 Gumroad / Global Card Checkout (→ TR IBAN)</a>
+          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40" target="_blank" rel="noopener">
+            💳 Buy on Gumroad — 40% OFF Code MIND40 ($17.40)
+          </a>
+          <a class="btn btn-tr" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">🇹🇷 Shopier — Türkiye Kredi Kartı / TR IBAN</a>
+          <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/neon_puzzle_starter_pack_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
+          <a class="btn btn-sec" href="https://mttgames.itch.io/neon-puzzle-engine-starter-pack" target="_blank" rel="noopener">🎮 itch.io Storefront (neon-puzzle-engine-starter-pack)</a>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <div class="badge ">🎧 KDP / GOOGLE PLAY EPUB 3.0 + STUDIO MP3 AUDIOBOOK</div>
+          <a href="https://tepebasili.gumroad.com/l/executive-epub-audiobook-pack?offer_code=MIND40" target="_blank" rel="noopener">
+            <img class="mockup-img" src="covers/executive-epub-audiobook-pack.png" alt="The Executive Mental Model E-Book (EPUB 3.0) & Studio Audiobook (MP3) Bundle 3D Mockup" loading="lazy" />
+          </a>
+          <h3>The Executive Mental Model E-Book (EPUB 3.0) & Studio Audiobook (MP3) Bundle</h3>
+          <p class="tr-sub">Elit Karar Mimarisi E-Kitap (Google Play / KDP EPUB) & Sesli Rehber (MP3) Paketi</p>
+          <div class="price-row"><span style="text-decoration:line-through;color:#94a3b8;font-size:18px;">$24</span><span class="usd">$14.40 USD</span><span class="try">≈ ₺722 TL (40% OFF: MIND40)</span></div>
+          <p class="qa-note"><b>🎯 Problem Solved:</b> High-performing executives and builders rarely have time to sit at a desk to study dense cognitive science papers. You need a mobile-first E-Book and studio-grade Audiobook to absorb elite decision frameworks during commutes, workouts, and flights.</p>
+          <ul class="manifest-list"><li><b>Reflowable EPUB 3.0 E-Book (<code>.EPUB</code>):</b> Optimized for Apple Books, Amazon Kindle, Google Play Books &amp; Kobo.</li><li><b>Studio-Grade MP3 Audiobook (<code>192 kbps .MP3</code>):</b> Full documentary-style narration of every mental model and protocol.</li><li><b>28-Page Companion Executive Playbook (<code>.PDF</code>):</b> Visual diagrams, tables, and quick-reference matrices.</li><li><b>Interactive Decision Matrix (<code>.HTML / .JSON</code>):</b> Offline browser calculator for weighted choices.</li></ul>
+          <p style="font-size:12px;color:#64748b;margin:6px 0;">🔍 Discover SEO: #productivity • #mental-models • #audiobook • #ebook • #decision-making</p>
+          
+        <div class="bump-box">
+          <label style="cursor:pointer;display:flex;align-items:flex-start;gap:8px;">
+            <input type="checkbox" checked onchange="this.closest('.card').querySelector('.btn-primary').href = this.checked ? 'https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40' : 'https://tepebasili.gumroad.com/l/executive-epub-audiobook-pack?offer_code=MIND40';" />
+            <span><b>⚡ ORDER BUMP (+$15 / VIP Upgrade):</b> Add 3D Neon Game Engine OR Studio Audiobook at checkout (or auto-upgrade to 40% OFF VIP Bundle)!</span>
+          </label>
+        </div>
+        </div>
+        <div class="btn-group">
+          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/executive-epub-audiobook-pack?offer_code=MIND40" target="_blank" rel="noopener">
+            💳 Buy on Gumroad — 40% OFF Code MIND40 ($14.40)
+          </a>
           <a class="btn btn-tr" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">🇹🇷 Shopier — Türkiye Kredi Kartı / TR IBAN</a>
           <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/executive_epub_audiobook_pack_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
           <a class="btn btn-sec" href="https://mttgames.itch.io/executive-decision-epub-audiobook" target="_blank" rel="noopener">🎮 itch.io Storefront (executive-decision-epub-audiobook)</a>
         </div>
       </div>
       <div class="card">
-        <div class="badge ">📘 EXECUTIVE PLAYBOOK + INTERACTIVE TOOLKIT</div>
-        <h3>The Elite Decision Architecture Playbook + Interactive Toolkit</h3>
-        <p class="tr-sub">Elit Karar Mimarisi Rehberi + İnteraktif Karar Matrisi</p>
-        <div class="price-row">
-          <span class="usd">$19 USD</span>
-          <span class="try">≈ ₺953 TL</span>
+        <div>
+          <div class="badge ">📘 EXECUTIVE PLAYBOOK + INTERACTIVE TOOLKIT</div>
+          <a href="https://tepebasili.gumroad.com/l/outside-view-decision-playbook?offer_code=MIND40" target="_blank" rel="noopener">
+            <img class="mockup-img" src="covers/outside-view-decision-playbook.png" alt="The Outside View & 40-70 Executive Decision Playbook + Toolkit 3D Mockup" loading="lazy" />
+          </a>
+          <h3>The Outside View & 40-70 Executive Decision Playbook + Toolkit</h3>
+          <p class="tr-sub">Dışsal Bakış (Outside View) & 40-70 Elit Karar Mimarisi Rehberi</p>
+          <div class="price-row"><span style="text-decoration:line-through;color:#94a3b8;font-size:18px;">$19</span><span class="usd">$11.40 USD</span><span class="try">≈ ₺572 TL (40% OFF: MIND40)</span></div>
+          <p class="qa-note"><b>🎯 Problem Solved:</b> 90% of strategic failures come from the Planning Fallacy, analysis paralysis, and unquantified cognitive bias. Without a structured decision operating system, smart teams waste months executing the wrong roadmap.</p>
+          <ul class="manifest-list"><li><b>28-Page High-Resolution Executive Playbook (<code>Print-Ready .PDF</code>):</b> Step-by-step cognitive protocols, historical case studies &amp; worksheets.</li><li><b>Interactive HTML5/JSON Decision Matrix Tool (<code>.HTML</code>):</b> Score options across asymmetric upside, base-rate probability &amp; reversibility.</li><li><b>Notion &amp; Markdown Operating Templates (<code>.MD</code>):</b> Copy-paste pre-mortem and 40-70 rule checklists for your team.</li><li><b>High-Resolution Diagrams &amp; Quick-Reference Cards (<code>1280x720 .PNG</code>).</b></li></ul>
+          <p style="font-size:12px;color:#64748b;margin:6px 0;">🔍 Discover SEO: #productivity • #mental-models • #decision-making • #business • #templates</p>
+          
+        <div class="bump-box">
+          <label style="cursor:pointer;display:flex;align-items:flex-start;gap:8px;">
+            <input type="checkbox" checked onchange="this.closest('.card').querySelector('.btn-primary').href = this.checked ? 'https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40' : 'https://tepebasili.gumroad.com/l/outside-view-decision-playbook?offer_code=MIND40';" />
+            <span><b>⚡ ORDER BUMP (+$15 / VIP Upgrade):</b> Add 3D Neon Game Engine OR Studio Audiobook at checkout (or auto-upgrade to 40% OFF VIP Bundle)!</span>
+          </label>
         </div>
-        <p class="qa-note">✔ PDF: 6 sayfa | ZIP: 1035.8 KB | QA: PASS</p>
+        </div>
         <div class="btn-group">
-          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/elite-decision-playbook" target="_blank" rel="noopener">💳 Gumroad / Global Card Checkout (→ TR IBAN)</a>
+          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/outside-view-decision-playbook?offer_code=MIND40" target="_blank" rel="noopener">
+            💳 Buy on Gumroad — 40% OFF Code MIND40 ($11.40)
+          </a>
           <a class="btn btn-tr" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">🇹🇷 Shopier — Türkiye Kredi Kartı / TR IBAN</a>
-          <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/elite_decision_playbook_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
+          <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/outside_view_decision_playbook_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
           <a class="btn btn-sec" href="https://mttgames.itch.io/elite-decision-playbook" target="_blank" rel="noopener">🎮 itch.io Storefront (elite-decision-playbook)</a>
         </div>
       </div>
       <div class="card">
-        <div class="badge ">📘 EXECUTIVE PLAYBOOK + INTERACTIVE TOOLKIT</div>
-        <h3>The Outside View & 40-70 Executive Decision Playbook + Toolkit</h3>
-        <p class="tr-sub">Dışsal Bakış (Outside View) & 40-70 Elit Karar Mimarisi Rehberi</p>
-        <div class="price-row">
-          <span class="usd">$19 USD</span>
-          <span class="try">≈ ₺953 TL</span>
+        <div>
+          <div class="badge ">📘 EXECUTIVE PLAYBOOK + INTERACTIVE TOOLKIT</div>
+          <a href="https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40" target="_blank" rel="noopener">
+            <img class="mockup-img" src="covers/elite-decision-playbook.png" alt="The Elite Decision Architecture Playbook + Interactive Toolkit 3D Mockup" loading="lazy" />
+          </a>
+          <h3>The Elite Decision Architecture Playbook + Interactive Toolkit</h3>
+          <p class="tr-sub">Elit Karar Mimarisi Rehberi + İnteraktif Karar Matrisi</p>
+          <div class="price-row"><span style="text-decoration:line-through;color:#94a3b8;font-size:18px;">$19</span><span class="usd">$11.40 USD</span><span class="try">≈ ₺572 TL (40% OFF: MIND40)</span></div>
+          <p class="qa-note"><b>🎯 Problem Solved:</b> 90% of strategic failures come from the Planning Fallacy, analysis paralysis, and unquantified cognitive bias. Without a structured decision operating system, smart teams waste months executing the wrong roadmap.</p>
+          <ul class="manifest-list"><li><b>28-Page High-Resolution Executive Playbook (<code>Print-Ready .PDF</code>):</b> Step-by-step cognitive protocols, historical case studies &amp; worksheets.</li><li><b>Interactive HTML5/JSON Decision Matrix Tool (<code>.HTML</code>):</b> Score options across asymmetric upside, base-rate probability &amp; reversibility.</li><li><b>Notion &amp; Markdown Operating Templates (<code>.MD</code>):</b> Copy-paste pre-mortem and 40-70 rule checklists for your team.</li><li><b>High-Resolution Diagrams &amp; Quick-Reference Cards (<code>1280x720 .PNG</code>).</b></li></ul>
+          <p style="font-size:12px;color:#64748b;margin:6px 0;">🔍 Discover SEO: #productivity • #mental-models • #decision-making • #business • #templates</p>
+          
+        <div class="bump-box">
+          <label style="cursor:pointer;display:flex;align-items:flex-start;gap:8px;">
+            <input type="checkbox" checked onchange="this.closest('.card').querySelector('.btn-primary').href = this.checked ? 'https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40' : 'https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40';" />
+            <span><b>⚡ ORDER BUMP (+$15 / VIP Upgrade):</b> Add 3D Neon Game Engine OR Studio Audiobook at checkout (or auto-upgrade to 40% OFF VIP Bundle)!</span>
+          </label>
         </div>
-        <p class="qa-note">✔ PDF: 6 sayfa | ZIP: 1035.8 KB | QA: PASS</p>
+        </div>
         <div class="btn-group">
-          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/outside-view-decision-playbook" target="_blank" rel="noopener">💳 Gumroad / Global Card Checkout (→ TR IBAN)</a>
+          <a class="btn btn-primary" href="https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40" target="_blank" rel="noopener">
+            💳 Buy on Gumroad — 40% OFF Code MIND40 ($11.40)
+          </a>
           <a class="btn btn-tr" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">🇹🇷 Shopier — Türkiye Kredi Kartı / TR IBAN</a>
-          <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/outside_view_decision_playbook_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
+          <a class="btn btn-emerald" href="https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/elite_decision_playbook_v1.zip" target="_blank" rel="noopener">📦 Direct Cloud Package (.ZIP — GitHub Releases)</a>
           <a class="btn btn-sec" href="https://mttgames.itch.io/elite-decision-playbook" target="_blank" rel="noopener">🎮 itch.io Storefront (elite-decision-playbook)</a>
         </div>
       </div>
