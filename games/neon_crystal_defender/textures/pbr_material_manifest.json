@@ -1,0 +1,11 @@
+{
+  "workflow": "AAA_PBR_Metallic_Roughness_ACES",
+  "cc0_catalog_source": "polyhaven_cc0_verified (blue_metal_plate, container_side, corrugated_iron)",
+  "maps": [
+    "pbr_albedo.png",
+    "pbr_normal.png",
+    "pbr_roughness.png",
+    "pbr_metallic.png",
+    "pbr_emission.png"
+  ]
+}
