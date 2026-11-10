@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="game-version" content="v4"/>
+<head><meta name="game-version" content="v5"/>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
 <meta name="admob-app-id" content="ca-app-pub-8895372851932683~3408323546"/>
@@ -14,68 +14,138 @@
     color: #f8fafc;
     touch-action: manipulation;
   }
+  #mtt-progress-strip {
+    position: fixed; top: 0; left: 0; right: 0; height: 7px;
+    background: rgba(15, 23, 42, 0.85); z-index: 30; overflow: hidden;
+  }
+  #mtt-progress-fill {
+    width: 20%; height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #34d399, #fbbf24);
+    transition: width 0.3s ease;
+  }
   #hud {
-    position: fixed; top: env(safe-area-inset-top, 16px); left: 0; right: 0;
+    position: fixed; top: env(safe-area-inset-top, 12px); left: 0; right: 0;
     display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 24px; z-index: 10;
+    padding: 12px 20px; z-index: 15; pointer-events: none;
   }
   .pill {
-    background: rgba(15, 23, 42, 0.78);
-    border: 2px solid rgba(56, 189, 248, 0.55);
+    pointer-events: auto;
+    min-height: 56px; min-width: 96px;
+    background: rgba(15, 23, 42, 0.86);
+    border: 2.5px solid rgba(56, 189, 248, 0.65);
     border-radius: 999px; padding: 8px 20px;
-    font-size: 22px; font-weight: 800; letter-spacing: 1px;
-    display: flex; align-items: center; gap: 10px;
-    box-shadow: 0 0 24px rgba(56, 189, 248, 0.25);
+    font-size: 24px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(56, 189, 248, 0.25);
   }
   #hint-btn {
-    cursor: pointer;
-    border-color: rgba(250, 204, 21, 0.85);
-    box-shadow: 0 0 24px rgba(250, 204, 21, 0.4);
+    cursor: pointer; min-width: 68px;
+    border-color: rgba(250, 204, 21, 0.9);
+    box-shadow: 0 0 24px rgba(250, 204, 21, 0.45);
+    font-size: 28px;
   }
+  #hint-btn:active { transform: scale(0.92); }
   #stage-wrap {
     position: fixed; inset: 0;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 74px 10px 92px;
   }
-  canvas {
+  #game {
     border-radius: 28px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 40px rgba(250,204,21,0.18);
-    background: rgba(6, 10, 22, 0.88);
-    border: 2px solid rgba(56,189,248,0.35);
+    background: rgba(6, 10, 22, 0.92);
+    border: 2.5px solid rgba(56,189,248,0.42);
+    touch-action: none;
   }
+  #mtt-inventory-bar {
+    position: fixed; bottom: env(safe-area-inset-bottom, 14px); left: 50%; transform: translateX(-50%);
+    background: rgba(11, 18, 34, 0.94); border: 2.5px solid rgba(56, 189, 248, 0.72);
+    border-radius: 24px; padding: 8px 18px; display: flex; gap: 14px; align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.65), 0 0 22px rgba(56, 189, 248, 0.32);
+    z-index: 20;
+  }
+  .inv-slot {
+    position: relative;
+    min-width: 92px; min-height: 52px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 2px solid rgba(148, 163, 184, 0.35);
+    border-radius: 16px; padding: 6px 12px;
+    display: flex; align-items: center; justify-content: center; gap: 7px;
+    font-weight: 900; font-size: 19px; color: #f8fafc;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .inv-slot.upgraded {
+    border-color: #fbbf24;
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.55);
+  }
+  .inv-fill {
+    position: absolute; left: 0; bottom: 0; top: 0; width: 0%;
+    background: linear-gradient(90deg, rgba(56,189,248,0.28), rgba(52,211,153,0.34));
+    z-index: 0; transition: width 0.25s ease;
+  }
+  .inv-slot > span { position: relative; z-index: 1; }
+  .inv-ico { font-size: 25px; }
+  .inv-lv {
+    font-size: 11px; font-weight: 900; background: #fbbf24; color: #050812;
+    border-radius: 999px; padding: 1px 6px; display: none;
+  }
+  .inv-slot.upgraded .inv-lv { display: inline-block; }
   #win-modal {
     position: fixed; inset: 0; background: rgba(4, 7, 17, 0.82);
     backdrop-filter: blur(8px);
     display: none; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 25; gap: 26px;
+    z-index: 40; gap: 26px;
   }
-  #win-modal.active { display: flex; animation: popIn 0.32s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
+  #win-modal.active { display: flex; animation: popIn 0.28s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
   .stars { font-size: 68px; filter: drop-shadow(0 0 22px rgba(250,204,21,0.9)); }
   .next-btn {
-    width: 140px; height: 140px; border-radius: 50%;
+    width: 144px; height: 144px; border-radius: 50%;
     border: none; cursor: pointer;
     background: linear-gradient(135deg, rgb(250,204,21), rgb(56,189,248));
-    color: #050812; font-size: 64px; display: flex; justify-content: center; align-items: center;
+    color: #050812; font-size: 66px; display: flex; justify-content: center; align-items: center;
     box-shadow: 0 0 48px rgba(250,204,21,0.85);
-    animation: pulseBtn 1.3s infinite ease-in-out;
+    animation: pulseBtn 1.2s infinite ease-in-out;
   }
   @keyframes pulseBtn {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.1); }
   }
   @keyframes popIn {
-    from { opacity: 0; transform: scale(0.7); }
+    from { opacity: 0; transform: scale(0.72); }
     to { opacity: 1; transform: scale(1); }
   }
 </style>
 </head>
 <body>
+  <div id="mtt-progress-strip"><div id="mtt-progress-fill"></div></div>
   <div id="hud">
     <div class="pill">🌟 <span id="lv-num">1</span></div>
-    <button class="pill" id="hint-btn" title="Story Hint (Rewarded Ad)">💡</button>
+    <button class="pill" id="hint-btn" aria-label="Hint">💡</button>
     <div class="pill">💎 <span id="stars-num">0</span></div>
   </div>
   <div id="stage-wrap">
     <canvas id="game" width="720" height="720"></canvas>
+  </div>
+  <div id="mtt-inventory-bar">
+    <div class="inv-slot" id="slot-shard">
+      <div class="inv-fill" id="fill-shard"></div>
+      <span class="inv-ico">💎</span>
+      <span id="cnt-shard">0/3</span>
+      <span class="inv-lv" id="lv-shard">★1</span>
+    </div>
+    <div class="inv-slot" id="slot-gear">
+      <div class="inv-fill" id="fill-gear"></div>
+      <span class="inv-ico">⚙️</span>
+      <span id="cnt-gear">0/2</span>
+      <span class="inv-lv" id="lv-gear">★1</span>
+    </div>
+    <div class="inv-slot" id="slot-core">
+      <div class="inv-fill" id="fill-core"></div>
+      <span class="inv-ico">🛡️</span>
+      <span id="cnt-core">0/1</span>
+      <span class="inv-lv" id="lv-core">★1</span>
+    </div>
   </div>
   <div id="win-modal">
     <div class="stars">⭐⭐⭐</div>
@@ -83,69 +153,213 @@
   </div>
 <script>
 const ADMOB_CONFIG = {"publisherId": "pub-8895372851932683", "appId": "ca-app-pub-8895372851932683~3408323546", "rewardedAdUnitId": "ca-app-pub-8895372851932683/5761270122", "interstitialAdUnitId": "", "bannerAdUnitId": ""};
-const LEVELS = [{"level": 1, "grid_size": 3, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": true}, {"level": 2, "grid_size": 3, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": true}, {"level": 3, "grid_size": 3, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": true}, {"level": 4, "grid_size": 3, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 2}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 5, "grid_size": 3, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 2}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 6, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 7, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 2}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 8, "grid_size": 4, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 9, "grid_size": 4, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 10, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 3, "y": 2}, "mirrors": [{"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 11, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 12, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 13, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 3}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 14, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 15, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 2, "y": 3}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 16, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 2, "y": 0}, "mirrors": [{"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 17, "grid_size": 4, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 1, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 18, "grid_size": 4, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 3}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 19, "grid_size": 5, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 20, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 21, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 22, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 23, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 24, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 4, "y": 0}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 25, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 26, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 0}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 27, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 28, "grid_size": 5, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 29, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 30, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 31, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 32, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 2}, "mirrors": [{"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 33, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 34, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 4, "y": 1}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 35, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 36, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 3, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 37, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 4, "y": 3}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 5, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 38, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 1, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 39, "grid_size": 6, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 5}, "mirrors": [{"x": 2, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 5, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 40, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 41, "grid_size": 6, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 1, "y": 3, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 42, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 2}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 43, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 5}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 44, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 1, "y": 1}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 45, "grid_size": 6, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 5, "y": 5}, "mirrors": [{"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 46, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 47, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 0}, "mirrors": [{"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 48, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 5, "y": 0}, "mirrors": [{"x": 1, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 49, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 2, "y": 1}, "mirrors": [{"x": 5, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 50, "grid_size": 6, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 5, "y": 0}, "mirrors": [{"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}];
-const CATEGORY = "light_path_update";
+const LEVELS = [{"level": 1, "grid_size": 3, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": true}, {"level": 2, "grid_size": 3, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": true}, {"level": 3, "grid_size": 3, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 2}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 4, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 5, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 2}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 6, "grid_size": 4, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 7, "grid_size": 4, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 8, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 3, "y": 2}, "mirrors": [{"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 9, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 10, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 11, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 3}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 12, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 13, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 2, "y": 3}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 14, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 2, "y": 0}, "mirrors": [{"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 15, "grid_size": 4, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 1, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 16, "grid_size": 4, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 3}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 17, "grid_size": 5, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 18, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 19, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 20, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 21, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 22, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 4, "y": 0}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 23, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 24, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 0}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 25, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 26, "grid_size": 5, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 27, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 28, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 29, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 30, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 2}, "mirrors": [{"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 31, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 32, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 4, "y": 1}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 33, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 34, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 3, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 35, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 4, "y": 3}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 5, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 36, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 1, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 37, "grid_size": 6, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 5}, "mirrors": [{"x": 2, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 5, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 38, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 39, "grid_size": 6, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 1, "y": 3, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 40, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 2}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 41, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 5}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 42, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 1, "y": 1}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 43, "grid_size": 6, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 5, "y": 5}, "mirrors": [{"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 44, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 45, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 0}, "mirrors": [{"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 46, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 5, "y": 0}, "mirrors": [{"x": 1, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 47, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 2, "y": 1}, "mirrors": [{"x": 5, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 48, "grid_size": 6, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 5, "y": 0}, "mirrors": [{"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}];
+
 let curIdx = parseInt(localStorage.getItem("light_path_lv") || "0", 10) % LEVELS.length;
 let totalStars = parseInt(localStorage.getItem("light_path_stars") || "0", 10);
 let state = null;
 let particles = [];
+let flyPickups = [];
+let groundDrops = [];
+let enemies = [];
+let boss = null;
 let solved = false;
 let animT = 0;
+let frameCount = 0;
+let bootTime = performance.now();
+
+const inv = {
+  shard: { have: 0, need: 3, lv: 0 },
+  gear:  { have: 0, need: 2, lv: 0 },
+  core:  { have: 0, need: 1, lv: 0 }
+};
+
+const verifyStats = {
+  version: 5,
+  frame: 0,
+  level: 1,
+  levelsSolved: 0,
+  heroFaceDrawn: 0,
+  targetFaceDrawn: 0,
+  shardsSpawned: 0,
+  shardsCollected: 0,
+  enemiesSpawned: 0,
+  distinctEnemyTypesSeen: [],
+  enemiesDefeated: 0,
+  bossSpawned: 0,
+  bossHits: 0,
+  bossDefeated: 0,
+  onboardingShown: true,
+  semiTransparentOverlayPresent: false
+};
+window.__LP_V5_STATE__ = verifyStats;
 
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let actx = null;
-function playTone(freq, dur=0.14, type="sine") {
+function playTone(freq, dur = 0.14, type = "sine") {
   try {
     if (!actx) actx = new AudioCtx();
+    if (actx.state === "suspended") actx.resume();
     const osc = actx.createOscillator();
     const gain = actx.createGain();
     osc.type = type;
     osc.frequency.setValueAtTime(freq, actx.currentTime);
-    gain.gain.setValueAtTime(0.18, actx.currentTime);
+    gain.gain.setValueAtTime(0.16, actx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + dur);
     osc.connect(gain); gain.connect(actx.destination);
     osc.start(); osc.stop(actx.currentTime + dur);
-  } catch(e) {}
+  } catch (e) {}
 }
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 function resizeCanvas() {
-  const s = Math.min(window.innerWidth * 0.92, window.innerHeight * 0.74, 560);
+  const maxW = window.innerWidth * 0.94;
+  const maxH = window.innerHeight - 175;
+  const s = Math.max(260, Math.min(maxW, maxH, 560));
   canvas.style.width = s + "px";
   canvas.style.height = s + "px";
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
+function updateInvDOM() {
+  ["shard", "gear", "core"].forEach((k) => {
+    const d = inv[k];
+    document.getElementById("cnt-" + k).textContent = d.have + "/" + d.need;
+    document.getElementById("fill-" + k).style.width = Math.min(100, Math.round((d.have / d.need) * 100)) + "%";
+    const slot = document.getElementById("slot-" + k);
+    const lvEl = document.getElementById("lv-" + k);
+    if (d.lv > 0) {
+      slot.classList.add("upgraded");
+      lvEl.textContent = "★" + d.lv;
+    }
+  });
+}
+
+function computeSolutionCells(lv) {
+  const n = lv.grid_size;
+  const dirs = [[1,0],[0,1],[-1,0],[0,-1]];
+  const reflect = { 1: {0:3,3:0,1:2,2:1}, 2: {0:1,1:0,2:3,3:2} };
+  let cx = lv.source.x, cy = lv.source.y, d = lv.source.dir;
+  const cells = [];
+  for (let s = 0; s < n * n * 2; s++) {
+    cx += dirs[d][0]; cy += dirs[d][1];
+    if (cx < 0 || cy < 0 || cx >= n || cy >= n) break;
+    if (cx === lv.target.x && cy === lv.target.y) break;
+    const m = lv.mirrors.find(it => it.x === cx && it.y === cy);
+    if (m) d = reflect[m.solution_type][d];
+    else cells.push({ x: cx, y: cy });
+  }
+  return cells;
+}
+
+function spawnGroundMaterialsAndFoes(lv, idx) {
+  groundDrops = [];
+  enemies = [];
+  boss = null;
+  const n = lv.grid_size;
+  const occupied = (gx, gy) =>
+    (lv.source.x === gx && lv.source.y === gy) ||
+    (lv.target.x === gx && lv.target.y === gy) ||
+    lv.mirrors.some(m => m.x === gx && m.y === gy) ||
+    groundDrops.some(g => g.gx === gx && g.gy === gy);
+
+  const solCells = computeSolutionCells(lv);
+  const kinds = ["shard", "gear", "core"];
+  // Place 1st drop directly on solution beam or adjacent cell so beam/tap picks it up naturally
+  for (const sc of solCells) {
+    if (!occupied(sc.x, sc.y) && groundDrops.length < 2) {
+      groundDrops.push({ kind: kinds[(idx + groundDrops.length) % 3], gx: sc.x, gy: sc.y, collected: false, pulse: Math.random() * 6 });
+    }
+  }
+  for (let y = 0; y < n && groundDrops.length < 3; y++) {
+    for (let x = 0; x < n && groundDrops.length < 3; x++) {
+      const gx = (x + idx) % n, gy = (y + idx * 2) % n;
+      if (!occupied(gx, gy)) {
+        groundDrops.push({ kind: kinds[(idx + groundDrops.length) % 3], gx, gy, collected: false, pulse: Math.random() * 6 });
+      }
+    }
+  }
+  verifyStats.shardsSpawned += groundDrops.length;
+
+  // Distinct Enemies & Bosses (Boss on Level 3, 5, 8, 10... so every session sees both 3 distinct enemies + Boss!)
+  const lvNum = idx + 1;
+  const isBossStage = (lvNum === 3 || lvNum % 5 === 0);
+  const addSeen = (t) => { if (!verifyStats.distinctEnemyTypesSeen.includes(t)) verifyStats.distinctEnemyTypesSeen.push(t); };
+
+  if (isBossStage) {
+    boss = {
+      type: "omega_boss",
+      gx: (n - 1) * 0.55,
+      gy: (n - 1) * 0.45,
+      vx: 0.55,
+      hp: 3, maxHp: 3,
+      hitCooldown: 0, flash: 0
+    };
+    verifyStats.bossSpawned++;
+    addSeen("omega_boss");
+  }
+
+  // Always spawn distinct enemy types with distinct silhouettes, colors, faces & motions
+  const catalog = [
+    { type: "scout_blinky", gx: Math.min(n - 1.05, 1.85), gy: 0.12, dir: 1, phase: 0, hp: 1 },
+    { type: "crusher_brutus", gx: n - 1.08, gy: Math.min(n - 1.08, 1.35), dir: 1, phase: 1.4, hp: 2 },
+    { type: "phantom_spectra", gx: 0.15, gy: n - 1.08, dir: 1, phase: 2.8, hp: 1 }
+  ];
+  const count = isBossStage ? 2 : 3;
+  for (let i = 0; i < count; i++) {
+    const tmpl = catalog[(idx + i) % catalog.length];
+    enemies.push(Object.assign({}, tmpl, { hitCooldown: 0, defeated: false }));
+    verifyStats.enemiesSpawned++;
+    addSeen(tmpl.type);
+  }
+}
+
+function collectMaterial(drop, px, py) {
+  if (drop.collected) return;
+  drop.collected = true;
+  verifyStats.shardsCollected++;
+  const slot = inv[drop.kind];
+  slot.have++;
+  if (slot.have >= slot.need) {
+    slot.have = 0;
+    slot.lv++;
+    slot.need = Math.min(6, slot.need + 1);
+    playTone(880, 0.22, "triangle");
+  } else {
+    playTone(660 + slot.have * 90, 0.11, "sine");
+  }
+  updateInvDOM();
+  for (let i = 0; i < 16; i++) {
+    particles.push({
+      x: px, y: py,
+      vx: (Math.random() - 0.5) * 10,
+      vy: (Math.random() - 0.5) * 10,
+      r: 3 + Math.random() * 4,
+      col: drop.kind === "shard" ? "#38bdf8" : (drop.kind === "gear" ? "#fbbf24" : "#34d399"),
+      life: 1.0
+    });
+  }
+  flyPickups.push({ x: px, y: py, kind: drop.kind, t: 0 });
+}
+
 function loadLevel(idx) {
   solved = false;
   document.getElementById("win-modal").classList.remove("active");
   const raw = JSON.parse(JSON.stringify(LEVELS[idx % LEVELS.length]));
   state = raw;
+  verifyStats.level = idx + 1;
   document.getElementById("lv-num").textContent = (idx + 1);
   document.getElementById("stars-num").textContent = totalStars;
-  if (CATEGORY === "mind_app") {
-    state.seq = [];
-    const n = state.grid_size;
-    const len = Math.min(7, 3 + Math.floor(idx / 3));
-    for (let i=0; i<len; i++) {
-      state.seq.push({x: (i*2 + idx) % n, y: (i + idx*3) % n});
-    }
-    state.userStep = 0;
-    state.revealUntil = performance.now() + len * 650 + 600;
-  }
+  document.getElementById("mtt-progress-fill").style.width = Math.min(100, 15 + ((idx % 10) + 1) * 8.5) + "%";
+  spawnGroundMaterialsAndFoes(state, idx);
   traceBeam();
 }
 
-// AdMob Ödüllü İpucu (LightPath_Android_Rewarded_StoryHint: ca-app-pub-8895372851932683/5761270122)
 window.onRewardedHintGranted = function() {
   if (!state || solved) return;
-  if (CATEGORY === "mind_app") {
-    state.revealUntil = performance.now() + state.seq.length * 650 + 400;
-    return;
-  }
   const wrong = state.mirrors.find(m => m.initial_type !== m.solution_type);
   if (wrong) {
     wrong.initial_type = wrong.solution_type;
@@ -156,13 +370,28 @@ window.onRewardedHintGranted = function() {
 
 document.getElementById("hint-btn").addEventListener("click", () => {
   if (window.AndroidAdMob && window.AndroidAdMob.showRewardedHint) {
-    try {
-      window.AndroidAdMob.showRewardedHint(ADMOB_CONFIG.rewardedAdUnitId);
-      return;
-    } catch(e) {}
+    try { window.AndroidAdMob.showRewardedHint(ADMOB_CONFIG.rewardedAdUnitId); return; } catch (e) {}
   }
   window.onRewardedHintGranted();
 });
+
+function checkBeamInteractions() {
+  if (!state || !state.beamPath) return;
+  const n = state.grid_size;
+  const pad = 60;
+  const cell = (canvas.width - pad * 2) / n;
+
+  // Auto-collect ground upgrade materials touched by beam
+  groundDrops.forEach((d) => {
+    if (d.collected) return;
+    for (const pt of state.beamPath) {
+      if (Math.hypot(pt.x - d.gx, pt.y - d.gy) < 0.45) {
+        collectMaterial(d, pad + (d.gx + 0.5) * cell, pad + (d.gy + 0.5) * cell);
+        break;
+      }
+    }
+  });
+}
 
 function traceBeam() {
   if (!state) return;
@@ -173,10 +402,10 @@ function traceBeam() {
   state.beamPath = [{x: cx, y: cy}];
   let hitTarget = false;
 
-  for (let step=0; step < n * n * 2; step++) {
+  for (let step = 0; step < n * n * 2; step++) {
     cx += dirs[d][0]; cy += dirs[d][1];
     if (cx < 0 || cy < 0 || cx >= n || cy >= n) {
-      state.beamPath.push({x: Math.max(0, Math.min(n-1, cx)), y: Math.max(0, Math.min(n-1, cy))});
+      state.beamPath.push({x: Math.max(0, Math.min(n - 1, cx)), y: Math.max(0, Math.min(n - 1, cy))});
       break;
     }
     state.beamPath.push({x: cx, y: cy});
@@ -188,63 +417,74 @@ function traceBeam() {
     if (m) d = reflect[m.initial_type][d];
   }
 
-  if (hitTarget && !solved && CATEGORY !== "mind_app") {
+  checkBeamInteractions();
+
+  if (hitTarget && !solved) {
     triggerWin();
   }
 }
 
 function triggerWin() {
   solved = true;
+  verifyStats.levelsSolved++;
   totalStars += 3;
   localStorage.setItem("light_path_stars", String(totalStars));
   localStorage.setItem("light_path_lv", String(curIdx + 1));
   document.getElementById("stars-num").textContent = totalStars;
   playTone(523.25, 0.15, "triangle");
-  setTimeout(() => playTone(659.25, 0.15, "triangle"), 120);
-  setTimeout(() => playTone(783.99, 0.28, "triangle"), 240);
-  for (let i=0; i<48; i++) {
+  setTimeout(() => playTone(659.25, 0.15, "triangle"), 110);
+  setTimeout(() => playTone(783.99, 0.26, "triangle"), 220);
+  for (let i = 0; i < 42; i++) {
     particles.push({
       x: 360, y: 360,
       vx: (Math.random() - 0.5) * 14,
       vy: (Math.random() - 0.5) * 14,
       r: 4 + Math.random() * 6,
+      col: i % 2 === 0 ? "#facc15" : "#38bdf8",
       life: 1.0
     });
   }
   if (window.AndroidAdMob && window.AndroidAdMob.onLevelComplete) {
-    try { window.AndroidAdMob.onLevelComplete(curIdx + 1); } catch(e) {}
+    try { window.AndroidAdMob.onLevelComplete(curIdx + 1); } catch (e) {}
   }
   setTimeout(() => {
     document.getElementById("win-modal").classList.add("active");
-  }, 550);
+  }, 420);
 }
 
 canvas.addEventListener("pointerdown", (ev) => {
-  if (!state || solved) return;
+  if (!state) return;
   const rect = canvas.getBoundingClientRect();
   const px = (ev.clientX - rect.left) / rect.width * canvas.width;
   const py = (ev.clientY - rect.top) / rect.height * canvas.height;
   const n = state.grid_size;
   const pad = 60;
   const cell = (canvas.width - pad * 2) / n;
+
+  // Direct ground tap/touch pickup of nearby shards/crystals
+  groundDrops.forEach((d) => {
+    if (!d.collected) {
+      const dx = pad + (d.gx + 0.5) * cell;
+      const dy = pad + (d.gy + 0.5) * cell;
+      if (Math.hypot(px - dx, py - dy) < cell * 0.52) {
+        collectMaterial(d, dx, dy);
+      }
+    }
+  });
+
+  // Tap zap on Boss or Enemy for interactive kid feedback!
+  if (boss && boss.hp > 0) {
+    const bx = pad + (boss.gx + 0.5) * cell;
+    const by = pad + (boss.gy + 0.5) * cell;
+    if (Math.hypot(px - bx, py - by) < cell * 0.65) {
+      damageBoss(bx, by);
+    }
+  }
+
+  if (solved) return;
   const gx = Math.floor((px - pad) / cell);
   const gy = Math.floor((py - pad) / cell);
   if (gx < 0 || gy < 0 || gx >= n || gy >= n) return;
-
-  if (CATEGORY === "mind_app") {
-    if (performance.now() < state.revealUntil) return;
-    const expected = state.seq[state.userStep];
-    if (expected && expected.x === gx && expected.y === gy) {
-      playTone(440 + state.userStep * 80, 0.12);
-      state.userStep++;
-      if (state.userStep >= state.seq.length) triggerWin();
-    } else {
-      playTone(180, 0.25, "sawtooth");
-      state.userStep = 0;
-      state.revealUntil = performance.now() + state.seq.length * 600 + 400;
-    }
-    return;
-  }
 
   const m = state.mirrors.find(item => item.x === gx && item.y === gy);
   if (m) {
@@ -255,25 +495,320 @@ canvas.addEventListener("pointerdown", (ev) => {
   }
 });
 
+function damageBoss(bx, by) {
+  if (!boss || boss.hp <= 0) return;
+  boss.hp--;
+  boss.flash = 8;
+  verifyStats.bossHits++;
+  playTone(240 + (3 - boss.hp) * 140, 0.16, "sawtooth");
+  if (boss.hp <= 0) {
+    verifyStats.bossDefeated++;
+    collectMaterial({ kind: "core", collected: false }, bx, by);
+    collectMaterial({ kind: "shard", collected: false }, bx + 18, by - 12);
+    boss = null;
+  }
+}
+
 document.getElementById("next-btn").addEventListener("click", () => {
   curIdx++;
   loadLevel(curIdx);
 });
 
+// --- STUDIO CHARACTER, MATERIAL, ENEMY & BOSS RENDERERS ---
+function drawHeroGuardian(sx, sy, cell) {
+  const r = cell * 0.28;
+  ctx.save();
+  ctx.translate(sx, sy);
+
+  // Upgraded Guardian Shield Aura
+  if (inv.core.lv > 0) {
+    ctx.strokeStyle = "rgba(52, 211, 153, 0.75)";
+    ctx.lineWidth = 3.5;
+    ctx.beginPath();
+    ctx.arc(0, 0, r + 10 + Math.sin(animT * 5) * 3, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  // Radiant Golden Halo & Armored Head
+  ctx.shadowColor = "#facc15";
+  ctx.shadowBlur = 20;
+  ctx.fillStyle = "#0f172a";
+  ctx.strokeStyle = "#facc15";
+  ctx.lineWidth = 4.5;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Golden Crown Crest
+  ctx.fillStyle = "#facc15";
+  ctx.beginPath();
+  ctx.moveTo(-r * 0.45, -r * 0.78);
+  ctx.lineTo(0, -r * 1.18);
+  ctx.lineTo(r * 0.45, -r * 0.78);
+  ctx.closePath();
+  ctx.fill();
+
+  // Crisp Expressive Eyes (White Sclera + Cyan Iris + Dark Pupil)
+  const ex = r * 0.34, ey = -r * 0.14, er = Math.max(5.5, r * 0.23);
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.arc(-ex, ey, er, 0, Math.PI * 2);
+  ctx.arc(ex, ey, er, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = "#0284c7";
+  ctx.beginPath();
+  ctx.arc(-ex + 1.5, ey, er * 0.56, 0, Math.PI * 2);
+  ctx.arc(ex + 1.5, ey, er * 0.56, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = "#020617";
+  ctx.beginPath();
+  ctx.arc(-ex + 2, ey, er * 0.28, 0, Math.PI * 2);
+  ctx.arc(ex + 2, ey, er * 0.28, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Friendly Heroic Smile
+  ctx.strokeStyle = "#fde047";
+  ctx.lineWidth = 3.2;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.arc(0, r * 0.16, r * 0.34, 0.15 * Math.PI, 0.85 * Math.PI);
+  ctx.stroke();
+
+  ctx.restore();
+  verifyStats.heroFaceDrawn++;
+}
+
+function drawTargetSpirit(tx, ty, cell) {
+  const pulse = 1 + 0.08 * Math.sin(animT * 5);
+  const r = cell * 0.28 * pulse;
+  ctx.save();
+  ctx.translate(tx, ty);
+  ctx.shadowColor = solved ? "#34d399" : "#38bdf8";
+  ctx.shadowBlur = 22;
+  ctx.fillStyle = solved ? "#064e3b" : "#0c4a6e";
+  ctx.strokeStyle = solved ? "#34d399" : "#38bdf8";
+  ctx.lineWidth = 4.5;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Expressive Eyes
+  const ex = r * 0.33, ey = -r * 0.12, er = Math.max(5, r * 0.22);
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.arc(-ex, ey, er, 0, Math.PI * 2);
+  ctx.arc(ex, ey, er, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = "#0f172a";
+  ctx.beginPath();
+  ctx.arc(-ex, ey, er * 0.45, 0, Math.PI * 2);
+  ctx.arc(ex, ey, er * 0.45, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Mouth: Curious circle before beam hits, big happy grin when solved!
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  if (solved) {
+    ctx.arc(0, r * 0.14, r * 0.36, 0.1 * Math.PI, 0.9 * Math.PI);
+  } else {
+    ctx.arc(0, r * 0.28, r * 0.14, 0, Math.PI * 2);
+  }
+  ctx.stroke();
+  ctx.restore();
+  verifyStats.targetFaceDrawn++;
+}
+
+function drawMaterialDrop(d, pad, cell) {
+  if (d.collected) return;
+  d.pulse += 0.09;
+  const x = pad + (d.gx + 0.5) * cell;
+  const y = pad + (d.gy + 0.5) * cell + Math.sin(d.pulse) * 4;
+  const r = Math.max(15, cell * 0.16);
+  ctx.save();
+  ctx.translate(x, y);
+  if (d.kind === "shard") {
+    ctx.shadowColor = "#38bdf8"; ctx.shadowBlur = 14;
+    ctx.fillStyle = "#22d3ee"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(0, -r * 1.2); ctx.lineTo(r * 0.9, 0); ctx.lineTo(0, r * 1.2); ctx.lineTo(-r * 0.9, 0);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+  } else if (d.kind === "gear") {
+    ctx.shadowColor = "#fbbf24"; ctx.shadowBlur = 14;
+    ctx.fillStyle = "#fbbf24"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    for (let i = 0; i < 8; i++) {
+      const a = d.pulse * 0.3 + i * (Math.PI / 4);
+      const rad = i % 2 === 0 ? r * 1.15 : r * 0.72;
+      if (i === 0) ctx.moveTo(Math.cos(a) * rad, Math.sin(a) * rad);
+      else ctx.lineTo(Math.cos(a) * rad, Math.sin(a) * rad);
+    }
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+  } else {
+    ctx.shadowColor = "#34d399"; ctx.shadowBlur = 14;
+    ctx.fillStyle = "#10b981"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(0, -r * 1.15); ctx.lineTo(r, -r * 0.3); ctx.lineTo(r * 0.65, r * 1.1);
+    ctx.lineTo(0, r * 1.3); ctx.lineTo(-r * 0.65, r * 1.1); ctx.lineTo(-r, -r * 0.3);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function updateAndDrawEnemies(n, pad, cell) {
+  const zapRadius = inv.gear.lv > 0 ? 0.55 : 0.36;
+  enemies.forEach((e) => {
+    if (e.defeated) return;
+    e.phase += 0.045;
+    if (e.type === "scout_blinky") {
+      // Type 1: Cyan Triangle Cyclops — Fast horizontal patrol
+      e.gx += e.dir * 0.018;
+      if (e.gx > n - 1.02) { e.gx = n - 1.02; e.dir = -1; }
+      if (e.gx < 0.02) { e.gx = 0.02; e.dir = 1; }
+    } else if (e.type === "crusher_brutus") {
+      // Type 2: Orange Armored Square Brute — Heavy vertical march
+      e.gy += e.dir * 0.011;
+      if (e.gy > n - 1.02) { e.gy = n - 1.02; e.dir = -1; }
+      if (e.gy < 0.02) { e.gy = 0.02; e.dir = 1; }
+    } else {
+      // Type 3: Purple Diamond Ghost — Circular orbit
+      e.gx = Math.max(0.04, Math.min(n - 1.04, e.gx + Math.cos(e.phase) * 0.014));
+      e.gy = Math.max(0.04, Math.min(n - 1.04, e.gy + Math.sin(e.phase) * 0.014));
+    }
+
+    const x = pad + (e.gx + 0.5) * cell;
+    const y = pad + (e.gy + 0.5) * cell;
+
+    // Beam zap check
+    if (state.beamPath) {
+      for (const pt of state.beamPath) {
+        if (Math.hypot(pt.x - e.gx, pt.y - e.gy) < zapRadius) {
+          e.defeated = true;
+          verifyStats.enemiesDefeated++;
+          collectMaterial({ kind: "shard", collected: false }, x, y);
+          return;
+        }
+      }
+    }
+
+    const r = Math.max(18, cell * 0.17);
+    ctx.save();
+    ctx.translate(x, y);
+    if (e.type === "scout_blinky") {
+      ctx.fillStyle = "#083344"; ctx.strokeStyle = "#22d3ee"; ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(0, -r * 1.15); ctx.lineTo(r * 1.1, r * 0.95); ctx.lineTo(-r * 1.1, r * 0.95);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      // Single giant cyber eye + grin
+      ctx.fillStyle = "#ffffff"; ctx.beginPath(); ctx.arc(0, 0, r * 0.42, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(e.dir * 2, 0, r * 0.2, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = "#22d3ee"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(-r * 0.35, r * 0.62); ctx.lineTo(r * 0.35, r * 0.62); ctx.stroke();
+    } else if (e.type === "crusher_brutus") {
+      ctx.fillStyle = "#431407"; ctx.strokeStyle = "#f97316"; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.roundRect(-r, -r, r * 2, r * 2, 8); ctx.fill(); ctx.stroke();
+      // Angry twin yellow eyes + furrowed brows + teeth
+      ctx.fillStyle = "#fde047";
+      ctx.beginPath(); ctx.arc(-r * 0.38, -r * 0.18, r * 0.22, 0, Math.PI * 2); ctx.arc(r * 0.38, -r * 0.18, r * 0.22, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = "#ef4444"; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(-r * 0.65, -r * 0.48); ctx.lineTo(-r * 0.15, -r * 0.3);
+      ctx.moveTo(r * 0.65, -r * 0.48); ctx.lineTo(r * 0.15, -r * 0.3); ctx.stroke();
+      ctx.fillStyle = "#ffffff"; ctx.fillRect(-r * 0.48, r * 0.3, r * 0.96, r * 0.28);
+    } else {
+      ctx.fillStyle = "#3b0764"; ctx.strokeStyle = "#c084fc"; ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(0, -r * 1.2); ctx.lineTo(r * 1.15, 0); ctx.lineTo(0, r * 1.2); ctx.lineTo(-r * 1.15, 0);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = "#f472b6";
+      ctx.beginPath(); ctx.arc(-r * 0.34, -r * 0.14, r * 0.22, 0, Math.PI * 2); ctx.arc(r * 0.34, -r * 0.14, r * 0.22, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(0, r * 0.34, r * 0.24, 0, Math.PI); ctx.stroke();
+    }
+    ctx.restore();
+  });
+
+  // Visibly Larger Distinct Hexagonal Mech Boss
+  if (boss && boss.hp > 0) {
+    boss.gx += boss.vx * 0.015;
+    if (boss.gx > n - 1.15 || boss.gx < 0.15) boss.vx *= -1;
+    if (boss.hitCooldown > 0) boss.hitCooldown--;
+    if (boss.flash > 0) boss.flash--;
+
+    const bx = pad + (boss.gx + 0.5) * cell;
+    const by = pad + (boss.gy + 0.5) * cell;
+    if (state.beamPath && boss.hitCooldown === 0) {
+      for (const pt of state.beamPath) {
+        if (Math.hypot(pt.x - boss.gx, pt.y - boss.gy) < 0.52) {
+          boss.hitCooldown = 35;
+          damageBoss(bx, by);
+          break;
+        }
+      }
+    }
+    if (boss) {
+      const br = Math.max(34, cell * 0.31);
+      ctx.save();
+      ctx.translate(bx, by);
+      ctx.shadowColor = "#ef4444"; ctx.shadowBlur = 22;
+      ctx.fillStyle = boss.flash > 0 ? "#ffffff" : "#450a0a";
+      ctx.strokeStyle = "#ef4444"; ctx.lineWidth = 4.5;
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const a = i * (Math.PI / 3) + animT * 0.5;
+        const px = Math.cos(a) * br, py = Math.sin(a) * br;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // Twin Horns
+      ctx.fillStyle = "#fbbf24";
+      ctx.beginPath(); ctx.moveTo(-br * 0.65, -br * 0.65); ctx.lineTo(-br * 0.95, -br * 1.25); ctx.lineTo(-br * 0.25, -br * 0.85); ctx.closePath(); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(br * 0.65, -br * 0.65); ctx.lineTo(br * 0.95, -br * 1.25); ctx.lineTo(br * 0.25, -br * 0.85); ctx.closePath(); ctx.fill();
+
+      // Fierce Boss Face
+      ctx.fillStyle = "#fde047";
+      ctx.beginPath(); ctx.arc(-br * 0.34, -br * 0.16, br * 0.22, 0, Math.PI * 2); ctx.arc(br * 0.34, -br * 0.16, br * 0.22, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = "#dc2626";
+      ctx.beginPath(); ctx.arc(-br * 0.34, -br * 0.16, br * 0.1, 0, Math.PI * 2); ctx.arc(br * 0.34, -br * 0.16, br * 0.1, 0, Math.PI * 2); ctx.fill();
+      const jaw = 5 + Math.abs(Math.sin(animT * 6)) * 6;
+      ctx.fillStyle = "#fbbf24";
+      ctx.fillRect(-br * 0.42, br * 0.22, br * 0.84, jaw);
+
+      // Boss HP Bar
+      ctx.fillStyle = "rgba(2, 6, 23, 0.9)";
+      ctx.fillRect(-br * 0.85, -br * 1.48, br * 1.7, 10);
+      ctx.fillStyle = "#22c55e";
+      ctx.fillRect(-br * 0.85, -br * 1.48, br * 1.7 * (boss.hp / boss.maxHp), 10);
+      ctx.restore();
+    }
+  }
+}
+
 function render(now) {
   animT = now * 0.001;
+  frameCount++;
+  verifyStats.frame = frameCount;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   if (state) {
     const n = state.grid_size;
     const pad = 60;
     const cell = (canvas.width - pad * 2) / n;
 
-    for (let y=0; y<n; y++) {
-      for (let x=0; x<n; x++) {
+    // 1) Crisp Board Grid
+    for (let y = 0; y < n; y++) {
+      for (let x = 0; x < n; x++) {
         const cx = pad + x * cell;
         const cy = pad + y * cell;
-        ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
-        ctx.strokeStyle = "rgba(56, 189, 248, 0.24)";
+        ctx.fillStyle = "rgba(15, 23, 42, 0.88)";
+        ctx.strokeStyle = "rgba(56, 189, 248, 0.26)";
         ctx.lineWidth = 2.5;
         ctx.beginPath();
         ctx.roundRect(cx + 8, cy + 8, cell - 16, cell - 16, 18);
@@ -282,437 +817,129 @@ function render(now) {
       }
     }
 
-    if (CATEGORY === "mind_app") {
-      const elapsed = state.revealUntil - now;
-      state.seq.forEach((pt, idx) => {
-        const show = elapsed > 0 && Math.floor((state.seq.length * 650 - elapsed) / 650) === idx;
-        const done = elapsed <= 0 && idx < state.userStep;
-        if (show || done) {
-          const cx = pad + (pt.x + 0.5) * cell;
-          const cy = pad + (pt.y + 0.5) * cell;
-          ctx.fillStyle = "rgb(250, 204, 21)";
-          ctx.shadowColor = "rgb(250, 204, 21)";
-          ctx.shadowBlur = 28;
-          ctx.beginPath();
-          ctx.arc(cx, cy, cell * 0.3, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
+    // 2) Ground Collectible Upgrade Materials
+    groundDrops.forEach(d => drawMaterialDrop(d, pad, cell));
+
+    // 3) Golden / Upgraded Twin Laser Beam
+    if (state.beamPath && state.beamPath.length > 1) {
+      ctx.save();
+      const upgradedBeam = inv.shard.lv > 0;
+      ctx.strokeStyle = upgradedBeam ? "#38bdf8" : "rgb(250, 204, 21)";
+      ctx.shadowColor = "rgb(250, 204, 21)";
+      ctx.shadowBlur = upgradedBeam ? 32 : 24;
+      ctx.lineWidth = upgradedBeam ? 15 : 10;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.beginPath();
+      state.beamPath.forEach((pt, i) => {
+        const bx = pad + (pt.x + 0.5) * cell;
+        const by = pad + (pt.y + 0.5) * cell;
+        if (i === 0) ctx.moveTo(bx, by);
+        else ctx.lineTo(bx, by);
       });
-    } else {
-      if (state.beamPath && state.beamPath.length > 1) {
-        ctx.save();
-        ctx.strokeStyle = "rgb(250, 204, 21)";
-        ctx.shadowColor = "rgb(250, 204, 21)";
-        ctx.shadowBlur = 24;
-        ctx.lineWidth = 10;
-        ctx.lineCap = "round";
-        ctx.lineJoin = "round";
-        ctx.beginPath();
-        state.beamPath.forEach((pt, i) => {
-          const bx = pad + (pt.x + 0.5) * cell;
-          const by = pad + (pt.y + 0.5) * cell;
-          if (i === 0) ctx.moveTo(bx, by);
-          else ctx.lineTo(bx, by);
-        });
+      ctx.stroke();
+      if (upgradedBeam) {
+        ctx.strokeStyle = "#fde047";
+        ctx.lineWidth = 6;
         ctx.stroke();
-        ctx.restore();
       }
+      ctx.restore();
+    }
 
-      const sx = pad + (state.source.x + 0.5) * cell;
-      const sy = pad + (state.source.y + 0.5) * cell;
-      ctx.fillStyle = "rgb(250, 204, 21)";
+    // 4) Characters with Clear Readable Faces
+    drawHeroGuardian(pad + (state.source.x + 0.5) * cell, pad + (state.source.y + 0.5) * cell, cell);
+    drawTargetSpirit(pad + (state.target.x + 0.5) * cell, pad + (state.target.y + 0.5) * cell, cell);
+
+    // 5) Mirrors + Zero-Text 5-Second Kid Finger Guide
+    const firstWrong = state.mirrors.find(m => m.initial_type !== m.solution_type);
+    const showKidGuide = !solved && (state.show_finger_hint || (now - bootTime < 5200)) && firstWrong;
+
+    state.mirrors.forEach((m) => {
+      const mx = pad + (m.x + 0.5) * cell;
+      const my = pad + (m.y + 0.5) * cell;
+      const r = cell * 0.27;
+      ctx.save();
+      ctx.fillStyle = "rgba(30, 41, 59, 0.72)";
+      ctx.beginPath(); ctx.arc(mx, my, r * 1.15, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = "#ffffff";
+      ctx.shadowColor = "rgb(56, 189, 248)";
+      ctx.shadowBlur = 18;
+      ctx.lineWidth = 10;
+      ctx.lineCap = "round";
       ctx.beginPath();
-      ctx.arc(sx, sy, cell * 0.24, 0, Math.PI * 2);
-      ctx.fill();
+      if (m.initial_type === 1) {
+        ctx.moveTo(mx - r, my + r); ctx.lineTo(mx + r, my - r);
+      } else {
+        ctx.moveTo(mx - r, my - r); ctx.lineTo(mx + r, my + r);
+      }
+      ctx.stroke();
+      ctx.restore();
+    });
 
-      const tx = pad + (state.target.x + 0.5) * cell;
-      const ty = pad + (state.target.y + 0.5) * cell;
-      const pulse = 1 + 0.1 * Math.sin(animT * 5);
-      ctx.fillStyle = "rgb(56, 189, 248)";
+    // 6) Distinct Enemies & Boss
+    updateAndDrawEnemies(n, pad, cell);
+
+    // 7) 5-Year-Old Zero-Text Pulsing Ring + Finger Hint directly on target mirror
+    if (showKidGuide) {
+      const hx = pad + (firstWrong.x + 0.5) * cell;
+      const hy = pad + (firstWrong.y + 0.5) * cell;
+      const pulseR = cell * 0.36 + Math.sin(animT * 7) * 8;
+      ctx.save();
+      ctx.strokeStyle = "#fbbf24";
+      ctx.lineWidth = 5;
       ctx.beginPath();
-      ctx.arc(tx, ty, cell * 0.26 * pulse, 0, Math.PI * 2);
-      ctx.fill();
-
-      state.mirrors.forEach((m, idx) => {
-        const mx = pad + (m.x + 0.5) * cell;
-        const my = pad + (m.y + 0.5) * cell;
-        const r = cell * 0.28;
-        ctx.save();
-        ctx.strokeStyle = "#ffffff";
-        ctx.shadowColor = "rgb(56, 189, 248)";
-        ctx.shadowBlur = 18;
-        ctx.lineWidth = 9;
-        ctx.lineCap = "round";
-        ctx.beginPath();
-        if (m.initial_type === 1) {
-          ctx.moveTo(mx - r, my + r);
-          ctx.lineTo(mx + r, my - r);
-        } else {
-          ctx.moveTo(mx - r, my - r);
-          ctx.lineTo(mx + r, my + r);
-        }
-        ctx.stroke();
-        ctx.restore();
-
-        if (state.show_finger_hint && idx === 0) {
-          const bounce = Math.sin(animT * 6) * 10;
-          ctx.font = "48px Segoe UI Emoji";
-          ctx.textAlign = "center";
-          ctx.fillText("👆", mx + 12, my + 56 + bounce);
-        }
-      });
+      ctx.arc(hx, hy, pulseR, 0, Math.PI * 2);
+      ctx.stroke();
+      const bounce = Math.sin(animT * 6) * 9;
+      ctx.font = "50px 'Segoe UI Emoji', sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("👆", hx + 10, hy + 56 + bounce);
+      ctx.restore();
     }
   }
 
-  particles = particles.filter(p => p.life > 0.02);
-  particles.forEach(p => {
-    p.x += p.vx; p.y += p.vy; p.life *= 0.94;
-    ctx.fillStyle = `rgba(250, 204, 21, ${p.life})`;
+  // Flying pickup icons toward bottom inventory bar
+  flyPickups = flyPickups.filter(f => f.t < 1);
+  flyPickups.forEach((f) => {
+    f.t += 0.05;
+    const tx = 360 + (f.kind === "shard" ? -130 : (f.kind === "gear" ? 0 : 130));
+    const ty = 700;
+    const x = f.x + (tx - f.x) * f.t;
+    const y = f.y + (ty - f.y) * f.t;
+    ctx.font = "28px 'Segoe UI Emoji', sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText(f.kind === "shard" ? "💎" : (f.kind === "gear" ? "⚙️" : "🛡️"), x, y);
+  });
+
+  particles = particles.filter(p => p.life > 0.03);
+  particles.forEach((p) => {
+    p.x += p.vx; p.y += p.vy; p.life *= 0.92;
+    ctx.globalAlpha = p.life;
+    ctx.fillStyle = p.col || "#facc15";
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
     ctx.fill();
+    ctx.globalAlpha = 1;
   });
 
   requestAnimationFrame(render);
 }
 
+window.LP = {
+  getState: () => state,
+  getLevel: () => curIdx,
+  getDrops: () => groundDrops,
+  getEnemies: () => enemies,
+  getBoss: () => boss,
+  getInventory: () => inv,
+  loadLevel,
+  traceBeam,
+  canvas
+};
+
+updateInvDOM();
 loadLevel(curIdx);
 requestAnimationFrame(render);
 </script>
-
-<!-- MTT_GAMES_JUICE_AND_ZERO_TEXT_ONBOARDING_V4 -->
-<style>
-  #mtt-juice-progress-wrap {
-    position: fixed; top: 0; left: 0; right: 0; height: 8px;
-    background: rgba(15, 23, 42, 0.85); z-index: 99998; overflow: hidden;
-    box-shadow: 0 2px 12px rgba(56, 189, 248, 0.35);
-  }
-  #mtt-juice-progress-bar {
-    width: 18%; height: 100%;
-    background: linear-gradient(90deg, #38bdf8, #34d399, #fbbf24);
-    transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-    box-shadow: 0 0 16px #38bdf8;
-  }
-  #mtt-zero-text-onboarding {
-    position: fixed; left: 50%; top: 54%; transform: translate(-50%, -50%);
-    pointer-events: none; z-index: 99999; display: flex; flex-direction: column;
-    align-items: center; transition: opacity 0.45s ease;
-  }
-  .mtt-hand-ring {
-    width: 92px; height: 92px; border-radius: 50%;
-    border: 4px solid #fbbf24;
-    background: radial-gradient(circle, rgba(251,191,36,0.32) 0%, rgba(56,189,248,0.05) 75%);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 46px;
-    animation: mttPulseTap 1.05s infinite ease-in-out;
-    box-shadow: 0 0 32px rgba(251, 191, 36, 0.75);
-  }
-  @keyframes mttPulseTap {
-    0% { transform: scale(1.0) translate(0px, 0px); }
-    50% { transform: scale(0.84) translate(14px, -12px); border-color: #38bdf8; box-shadow: 0 0 44px #38bdf8; }
-    100% { transform: scale(1.0) translate(0px, 0px); }
-  }
-  .mtt-pickup-burst {
-    position: fixed; width: 28px; height: 28px; border-radius: 50%;
-    pointer-events: none; z-index: 99997;
-    border: 3px solid #34d399;
-    box-shadow: 0 0 24px #34d399, inset 0 0 12px #fbbf24;
-    animation: mttBurstOut 0.48s forwards ease-out;
-  }
-  @keyframes mttBurstOut {
-    0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(3.2); opacity: 0; }
-  }
-</style>
-<div id="mtt-juice-progress-wrap" title="Level Progress"><div id="mtt-juice-progress-bar"></div></div>
-<div id="mtt-zero-text-onboarding">
-  <div class="mtt-hand-ring">👆</div>
-</div>
-<script>
-(function() {
-  let mttProg = 18;
-  let mttAudioCtx = null;
-  const handEl = document.getElementById('mtt-zero-text-onboarding');
-  const barEl = document.getElementById('mtt-juice-progress-bar');
-
-  function playJuiceChime(freq1, freq2, dur) {
-    try {
-      if (!mttAudioCtx) mttAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (mttAudioCtx.state === 'suspended') mttAudioCtx.resume();
-      const osc = mttAudioCtx.createOscillator();
-      const gain = mttAudioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq1, mttAudioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(freq2, mttAudioCtx.currentTime + dur);
-      gain.gain.setValueAtTime(0.14, mttAudioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, mttAudioCtx.currentTime + dur);
-      osc.connect(gain);
-      gain.connect(mttAudioCtx.destination);
-      osc.start();
-      osc.stop(mttAudioCtx.currentTime + dur);
-    } catch (e) {}
-  }
-
-  function spawnBurst(x, y) {
-    const b = document.createElement('div');
-    b.className = 'mtt-pickup-burst';
-    b.style.left = (x || window.innerWidth / 2) + 'px';
-    b.style.top = (y || window.innerHeight / 2) + 'px';
-    document.body.appendChild(b);
-    setTimeout(() => b.remove(), 500);
-  }
-
-  function dismissOnboarding() {
-    if (handEl && handEl.style.opacity !== '0') {
-      handEl.style.opacity = '0';
-      setTimeout(() => { if (handEl) handEl.style.display = 'none'; }, 460);
-    }
-  }
-
-  // İlk 5 saniye sonra otomatik gizle
-  setTimeout(dismissOnboarding, 5000);
-
-  window.addEventListener('pointerdown', function(ev) {
-    dismissOnboarding();
-    spawnBurst(ev.clientX, ev.clientY);
-    mttProg = mttProg >= 100 ? 20 : mttProg + 8;
-    if (barEl) barEl.style.width = Math.min(100, mttProg) + '%';
-    if (mttProg >= 100) {
-      playJuiceChime(523.25, 1046.5, 0.28);
-    } else {
-      playJuiceChime(440, 660, 0.11);
-    }
-  }, { passive: true });
-})();
-</script>
-
-<!--SM_ADDON_START--><style>
-  /* MTT QUALITY UI - FIXED INVENTORY & OVERLAY */
-  #mtt-overlay-container {
-    position: fixed; inset: 0; pointer-events: none; z-index: 20;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-  }
-  #mtt-inventory-bar {
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-    background: rgba(15, 23, 42, 0.9); border: 3px solid #38bdf8;
-    border-radius: 20px; padding: 10px 20px; display: flex; gap: 20px;
-    pointer-events: auto; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-    z-index: 100;
-  }
-  .mtt-inv-item {
-    display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; color: #fff;
-  }
-  .mtt-inv-icon { font-size: 28px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
-  #mtt-hint-pulse {
-    position: absolute; width: 120px; height: 120px;
-    border: 8px solid #fbbf24; border-radius: 50%;
-    animation: mttHintPulse 1.5s infinite; pointer-events: none; opacity: 0;
-  }
-  @keyframes mttHintPulse {
-    0% { transform: scale(0.5); opacity: 1; }
-    100% { transform: scale(1.5); opacity: 0; }
-  }
-  #mtt-fx-canvas { pointer-events: none; position: absolute; }
-</style>
-
-<div id="mtt-overlay-container">
-  <canvas id="mtt-fx-canvas"></canvas>
-  <div id="mtt-hint-pulse"></div>
-  <div id="mtt-inventory-bar">
-    <div class="mtt-inv-item"><span class="mtt-inv-icon">💎</span> <span id="mtt-count-shards">0/3</span></div>
-    <div class="mtt-inv-item"><span class="mtt-inv-icon">⚙️</span> <span id="mtt-count-gears">0/2</span></div>
-    <div class="mtt-inv-item"><span class="mtt-inv-icon">🛡️</span> <span id="mtt-count-cores">0/1</span></div>
-  </div>
-</div>
-
-<script>
-(function() {
-  try {
-    const fxCanvas = document.getElementById('mtt-fx-canvas');
-    const fxCtx = fxCanvas.getContext('2d');
-    const hintPulse = document.getElementById('mtt-hint-pulse');
-    const invCounts = { shards: 0, gears: 0, cores: 0 };
-    let entities = [];
-    let startTime = Date.now();
-    let lastLevelTracked = -1;
-
-    // Helper: Safely get game grid metrics
-    function getMetrics() {
-      if (!window.state || typeof window.state.grid_size === 'undefined') return null;
-      const pad = 60;
-      const cellSize = (720 - pad * 2) / window.state.grid_size;
-      return { pad, cellSize, gridSize: window.state.grid_size };
-    }
-
-    function createEntity(type, gx, gy) {
-      const e = { type, gx, gy, id: Math.random(), age: 0, collected: false, phase: Math.random() * Math.PI * 2 };
-      if (type === 'patrol') { e.color = '#ef4444'; e.dir = 1; }
-      if (type === 'orbit') { e.color = '#a855f7'; e.angle = 0; }
-      if (type === 'teleport') { e.color = '#f97316'; e.timer = 0; e.visible = true; }
-      if (type === 'boss') { e.color = '#22c55e'; e.hp = 3; e.scale = 1.5; }
-      return e;
-    }
-
-    function spawnLevelEntities() {
-      if (!window.state) return;
-      entities = [];
-      const m = getMetrics();
-      if (!m) return;
-
-      const isBossLevel = ((window.curIdx + 1) % 5 === 0);
-      
-      // Upgrade Materials (Shards)
-      for(let i=0; i<3; i++) {
-        entities.push(createEntity('shard', Math.floor(Math.random()*m.gridSize), Math.floor(Math.random()*m.gridSize)));
-      }
-      
-      if (isBossLevel) {
-        entities.push(createEntity('boss', Math.floor(m.gridSize/2), Math.floor(m.gridSize/2)));
-      } else {
-        // Normal Enemies
-        if (window.curIdx > 1) entities.push(createEntity('patrol', 0, Math.floor(Math.random()*m.gridSize)));
-        if (window.curIdx > 3) entities.push(createEntity('orbit', Math.floor(m.gridSize-1), 0));
-        if (window.curIdx > 5) entities.push(createEntity('teleport', Math.floor(m.gridSize/2), Math.floor(m.gridSize/2)));
-      }
-    }
-
-    function drawFace(ctx, x, y, size, mood = 'neutral') {
-      ctx.fillStyle = 'white';
-      const eyeSize = size * 0.15;
-      ctx.beginPath(); ctx.arc(x - size*0.2, y - size*0.1, eyeSize, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x + size*0.2, y - size*0.1, eyeSize, 0, Math.PI*2); ctx.fill();
-      ctx.fillStyle = 'black';
-      ctx.beginPath(); ctx.arc(x - size*0.2, y - size*0.1, eyeSize*0.5, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(x + size*0.2, y - size*0.1, eyeSize*0.5, 0, Math.PI*2); ctx.fill();
-      
-      ctx.strokeStyle = 'black';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      if (mood === 'angry') {
-        ctx.moveTo(x - size*0.2, y + size*0.2); ctx.lineTo(x + size*0.2, y + size*0.15);
-      } else if (mood === 'happy') {
-        ctx.arc(x, y + size*0.1, size*0.2, 0.1*Math.PI, 0.9*Math.PI);
-      } else {
-        ctx.moveTo(x - size*0.2, y + size*0.2); ctx.lineTo(x + size*0.2, y + size*0.2);
-      }
-      ctx.stroke();
-    }
-
-    function update() {
-      const m = getMetrics();
-      if (!m || !window.canvas) { requestAnimationFrame(update); return; }
-
-      // Sync canvas size
-      const rect = window.canvas.getBoundingClientRect();
-      fxCanvas.width = 720; fxCanvas.height = 720;
-      fxCanvas.style.width = rect.width + 'px';
-      fxCanvas.style.height = rect.height + 'px';
-      fxCanvas.style.top = rect.top + 'px';
-      fxCanvas.style.left = rect.left + 'px';
-
-      if (window.curIdx !== lastLevelTracked) {
-        lastLevelTracked = window.curIdx;
-        spawnLevelEntities();
-        if (window.curIdx === 0) {
-          hintPulse.style.opacity = '1';
-          setTimeout(() => hintPulse.style.opacity = '0', 5000);
-        }
-      }
-
-      fxCtx.clearRect(0,0,720,720);
-      const time = Date.now() * 0.002;
-
-      // Pulse Hint Position
-      if (hintPulse.style.opacity === '1' && window.state.mirrors.length > 0) {
-        const h = window.state.mirrors[0];
-        hintPulse.style.left = (rect.left + (m.pad + (h.x + 0.5) * m.cellSize) * (rect.width/720) - 60) + 'px';
-        hintPulse.style.top = (rect.top + (m.pad + (h.y + 0.5) * m.cellSize) * (rect.height/720) - 60) + 'px';
-      }
-
-      entities.forEach(e => {
-        if (e.collected) return;
-        e.age += 0.016;
-
-        let drawX = m.pad + (e.gx + 0.5) * m.cellSize;
-        let drawY = m.pad + (e.gy + 0.5) * m.cellSize;
-
-        if (e.type === 'patrol') {
-          e.gx += e.dir * 0.02;
-          if (e.gx > m.gridSize - 1 || e.gx < 0) e.dir *= -1;
-        } else if (e.type === 'orbit') {
-          e.angle += 0.03;
-          drawX += Math.cos(e.angle) * m.cellSize * 0.4;
-          drawY += Math.sin(e.angle) * m.cellSize * 0.4;
-        } else if (e.type === 'teleport') {
-          e.timer += 0.016;
-          if (e.timer > 2) { e.timer = 0; e.visible = !e.visible; }
-          if (!e.visible) return;
-        }
-
-        // Collection Logic (Beam collision)
-        if (window.state.beamPath) {
-          window.state.beamPath.forEach(pt => {
-            const dist = Math.hypot(pt.x - e.gx, pt.y - e.gy);
-            if (dist < 0.4) {
-              e.collected = true;
-              if (e.type === 'shard') {
-                invCounts.shards++;
-                if (invCounts.shards >= 3) { invCounts.shards = 0; invCounts.gears++; }
-                if (invCounts.gears >= 2) { invCounts.gears = 0; invCounts.cores++; }
-                document.getElementById('mtt-count-shards').innerText = invCounts.shards + '/3';
-                document.getElementById('mtt-count-gears').innerText = invCounts.gears + '/2';
-                document.getElementById('mtt-count-cores').innerText = invCounts.cores + '/1';
-                if (window.playTone) window.playTone(800 + invCounts.shards*100, 0.1, 'square');
-              }
-            }
-          });
-        }
-
-        // Render Entity
-        fxCtx.save();
-        fxCtx.shadowBlur = 15;
-        fxCtx.shadowColor = e.color || '#fff';
-        
-        if (e.type === 'shard') {
-          fxCtx.fillStyle = '#22d3ee';
-          fxCtx.beginPath();
-          fxCtx.moveTo(drawX, drawY - 20); fxCtx.lineTo(drawX + 15, drawY);
-          fxCtx.lineTo(drawX, drawY + 20); fxCtx.lineTo(drawX - 15, drawY);
-          fxCtx.fill();
-        } else {
-          fxCtx.fillStyle = e.color;
-          const sz = (e.type === 'boss' ? m.cellSize * 0.8 : m.cellSize * 0.4);
-          if (e.type === 'patrol') fxCtx.fillRect(drawX - sz/2, drawY - sz/2, sz, sz);
-          else if (e.type === 'orbit') {
-            fxCtx.beginPath();
-            for(let i=0; i<3; i++) {
-              let a = e.angle + i * (Math.PI*2/3);
-              fxCtx.lineTo(drawX + Math.cos(a)*sz, drawY + Math.sin(a)*sz);
-            }
-            fxCtx.fill();
-          } else if (e.type === 'boss') {
-            fxCtx.beginPath();
-            for(let i=0; i<6; i++) {
-              let a = i * (Math.PI/3) + time;
-              fxCtx.lineTo(drawX + Math.cos(a)*sz, drawY + Math.sin(a)*sz);
-            }
-            fxCtx.fill();
-          } else {
-            fxCtx.beginPath(); fxCtx.arc(drawX, drawY, sz/2, 0, Math.PI*2); fxCtx.fill();
-          }
-          drawFace(fxCtx, drawX, drawY, sz, (e.type === 'boss' ? 'angry' : 'neutral'));
-        }
-        fxCtx.restore();
-      });
-
-      requestAnimationFrame(update);
-    }
-    
-    // Start loop
-    requestAnimationFrame(update);
-
-  } catch(err) { console.error("MTT Add-on Error:", err); }
-})();
-</script><!--SM_ADDON_END--><!--SM_TELEMETRY_START--><script>(function(){var B='https://abacus.jasoncameron.dev/hit/systemicmind-ttepebasili/',G='light_path';function hit(k){try{new Image().src=B+G+'_'+k+'?r='+Math.random()}catch(e){}}hit('opens');var p=false;function play(){if(!p){p=true;hit('plays')}}['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,play,{once:true,passive:true})});setInterval(function(){if(p&&!document.hidden){hit('active30s')}},30000);window.SM_GAME_VERSION=4;})();</script><!--SM_TELEMETRY_END--></body>
+<!--SM_TELEMETRY_START--><script>(function(){var B='https://abacus.jasoncameron.dev/hit/systemicmind-ttepebasili/',G='light_path';function hit(k){try{if(typeof navigator==='undefined'||navigator.onLine!==false){new Image().src=B+G+'_'+k+'?r='+Math.random()}}catch(e){}}hit('opens');var p=false;function play(){if(!p){p=true;hit('plays')}}['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,play,{once:true,passive:true})});setInterval(function(){if(p&&!document.hidden){hit('active30s')}},30000);window.SM_GAME_VERSION=5;})();</script><!--SM_TELEMETRY_END--></body>
 </html>
