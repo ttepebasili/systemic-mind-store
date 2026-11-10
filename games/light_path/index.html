@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="game-version" content="v3"/>
+<head><meta name="game-version" content="v4"/>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
 <meta name="admob-app-id" content="ca-app-pub-8895372851932683~3408323546"/>
@@ -487,5 +487,232 @@ requestAnimationFrame(render);
 })();
 </script>
 
-<!--SM_TELEMETRY_START--><script>(function(){var B='https://abacus.jasoncameron.dev/hit/systemicmind-ttepebasili/',G='light_path';function hit(k){try{new Image().src=B+G+'_'+k+'?r='+Math.random()}catch(e){}}hit('opens');var p=false;function play(){if(!p){p=true;hit('plays')}}['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,play,{once:true,passive:true})});setInterval(function(){if(p&&!document.hidden){hit('active30s')}},30000);window.SM_GAME_VERSION=3;})();</script><!--SM_TELEMETRY_END--></body>
+<!--SM_ADDON_START--><style>
+  /* MTT QUALITY UI - FIXED INVENTORY & OVERLAY */
+  #mtt-overlay-container {
+    position: fixed; inset: 0; pointer-events: none; z-index: 20;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  #mtt-inventory-bar {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.9); border: 3px solid #38bdf8;
+    border-radius: 20px; padding: 10px 20px; display: flex; gap: 20px;
+    pointer-events: auto; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    z-index: 100;
+  }
+  .mtt-inv-item {
+    display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 20px; color: #fff;
+  }
+  .mtt-inv-icon { font-size: 28px; filter: drop-shadow(0 0 5px rgba(255,255,255,0.5)); }
+  #mtt-hint-pulse {
+    position: absolute; width: 120px; height: 120px;
+    border: 8px solid #fbbf24; border-radius: 50%;
+    animation: mttHintPulse 1.5s infinite; pointer-events: none; opacity: 0;
+  }
+  @keyframes mttHintPulse {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  #mtt-fx-canvas { pointer-events: none; position: absolute; }
+</style>
+
+<div id="mtt-overlay-container">
+  <canvas id="mtt-fx-canvas"></canvas>
+  <div id="mtt-hint-pulse"></div>
+  <div id="mtt-inventory-bar">
+    <div class="mtt-inv-item"><span class="mtt-inv-icon">💎</span> <span id="mtt-count-shards">0/3</span></div>
+    <div class="mtt-inv-item"><span class="mtt-inv-icon">⚙️</span> <span id="mtt-count-gears">0/2</span></div>
+    <div class="mtt-inv-item"><span class="mtt-inv-icon">🛡️</span> <span id="mtt-count-cores">0/1</span></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  try {
+    const fxCanvas = document.getElementById('mtt-fx-canvas');
+    const fxCtx = fxCanvas.getContext('2d');
+    const hintPulse = document.getElementById('mtt-hint-pulse');
+    const invCounts = { shards: 0, gears: 0, cores: 0 };
+    let entities = [];
+    let startTime = Date.now();
+    let lastLevelTracked = -1;
+
+    // Helper: Safely get game grid metrics
+    function getMetrics() {
+      if (!window.state || typeof window.state.grid_size === 'undefined') return null;
+      const pad = 60;
+      const cellSize = (720 - pad * 2) / window.state.grid_size;
+      return { pad, cellSize, gridSize: window.state.grid_size };
+    }
+
+    function createEntity(type, gx, gy) {
+      const e = { type, gx, gy, id: Math.random(), age: 0, collected: false, phase: Math.random() * Math.PI * 2 };
+      if (type === 'patrol') { e.color = '#ef4444'; e.dir = 1; }
+      if (type === 'orbit') { e.color = '#a855f7'; e.angle = 0; }
+      if (type === 'teleport') { e.color = '#f97316'; e.timer = 0; e.visible = true; }
+      if (type === 'boss') { e.color = '#22c55e'; e.hp = 3; e.scale = 1.5; }
+      return e;
+    }
+
+    function spawnLevelEntities() {
+      if (!window.state) return;
+      entities = [];
+      const m = getMetrics();
+      if (!m) return;
+
+      const isBossLevel = ((window.curIdx + 1) % 5 === 0);
+      
+      // Upgrade Materials (Shards)
+      for(let i=0; i<3; i++) {
+        entities.push(createEntity('shard', Math.floor(Math.random()*m.gridSize), Math.floor(Math.random()*m.gridSize)));
+      }
+      
+      if (isBossLevel) {
+        entities.push(createEntity('boss', Math.floor(m.gridSize/2), Math.floor(m.gridSize/2)));
+      } else {
+        // Normal Enemies
+        if (window.curIdx > 1) entities.push(createEntity('patrol', 0, Math.floor(Math.random()*m.gridSize)));
+        if (window.curIdx > 3) entities.push(createEntity('orbit', Math.floor(m.gridSize-1), 0));
+        if (window.curIdx > 5) entities.push(createEntity('teleport', Math.floor(m.gridSize/2), Math.floor(m.gridSize/2)));
+      }
+    }
+
+    function drawFace(ctx, x, y, size, mood = 'neutral') {
+      ctx.fillStyle = 'white';
+      const eyeSize = size * 0.15;
+      ctx.beginPath(); ctx.arc(x - size*0.2, y - size*0.1, eyeSize, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x + size*0.2, y - size*0.1, eyeSize, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = 'black';
+      ctx.beginPath(); ctx.arc(x - size*0.2, y - size*0.1, eyeSize*0.5, 0, Math.PI*2); ctx.fill();
+      ctx.beginPath(); ctx.arc(x + size*0.2, y - size*0.1, eyeSize*0.5, 0, Math.PI*2); ctx.fill();
+      
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      if (mood === 'angry') {
+        ctx.moveTo(x - size*0.2, y + size*0.2); ctx.lineTo(x + size*0.2, y + size*0.15);
+      } else if (mood === 'happy') {
+        ctx.arc(x, y + size*0.1, size*0.2, 0.1*Math.PI, 0.9*Math.PI);
+      } else {
+        ctx.moveTo(x - size*0.2, y + size*0.2); ctx.lineTo(x + size*0.2, y + size*0.2);
+      }
+      ctx.stroke();
+    }
+
+    function update() {
+      const m = getMetrics();
+      if (!m || !window.canvas) { requestAnimationFrame(update); return; }
+
+      // Sync canvas size
+      const rect = window.canvas.getBoundingClientRect();
+      fxCanvas.width = 720; fxCanvas.height = 720;
+      fxCanvas.style.width = rect.width + 'px';
+      fxCanvas.style.height = rect.height + 'px';
+      fxCanvas.style.top = rect.top + 'px';
+      fxCanvas.style.left = rect.left + 'px';
+
+      if (window.curIdx !== lastLevelTracked) {
+        lastLevelTracked = window.curIdx;
+        spawnLevelEntities();
+        if (window.curIdx === 0) {
+          hintPulse.style.opacity = '1';
+          setTimeout(() => hintPulse.style.opacity = '0', 5000);
+        }
+      }
+
+      fxCtx.clearRect(0,0,720,720);
+      const time = Date.now() * 0.002;
+
+      // Pulse Hint Position
+      if (hintPulse.style.opacity === '1' && window.state.mirrors.length > 0) {
+        const h = window.state.mirrors[0];
+        hintPulse.style.left = (rect.left + (m.pad + (h.x + 0.5) * m.cellSize) * (rect.width/720) - 60) + 'px';
+        hintPulse.style.top = (rect.top + (m.pad + (h.y + 0.5) * m.cellSize) * (rect.height/720) - 60) + 'px';
+      }
+
+      entities.forEach(e => {
+        if (e.collected) return;
+        e.age += 0.016;
+
+        let drawX = m.pad + (e.gx + 0.5) * m.cellSize;
+        let drawY = m.pad + (e.gy + 0.5) * m.cellSize;
+
+        if (e.type === 'patrol') {
+          e.gx += e.dir * 0.02;
+          if (e.gx > m.gridSize - 1 || e.gx < 0) e.dir *= -1;
+        } else if (e.type === 'orbit') {
+          e.angle += 0.03;
+          drawX += Math.cos(e.angle) * m.cellSize * 0.4;
+          drawY += Math.sin(e.angle) * m.cellSize * 0.4;
+        } else if (e.type === 'teleport') {
+          e.timer += 0.016;
+          if (e.timer > 2) { e.timer = 0; e.visible = !e.visible; }
+          if (!e.visible) return;
+        }
+
+        // Collection Logic (Beam collision)
+        if (window.state.beamPath) {
+          window.state.beamPath.forEach(pt => {
+            const dist = Math.hypot(pt.x - e.gx, pt.y - e.gy);
+            if (dist < 0.4) {
+              e.collected = true;
+              if (e.type === 'shard') {
+                invCounts.shards++;
+                if (invCounts.shards >= 3) { invCounts.shards = 0; invCounts.gears++; }
+                if (invCounts.gears >= 2) { invCounts.gears = 0; invCounts.cores++; }
+                document.getElementById('mtt-count-shards').innerText = invCounts.shards + '/3';
+                document.getElementById('mtt-count-gears').innerText = invCounts.gears + '/2';
+                document.getElementById('mtt-count-cores').innerText = invCounts.cores + '/1';
+                if (window.playTone) window.playTone(800 + invCounts.shards*100, 0.1, 'square');
+              }
+            }
+          });
+        }
+
+        // Render Entity
+        fxCtx.save();
+        fxCtx.shadowBlur = 15;
+        fxCtx.shadowColor = e.color || '#fff';
+        
+        if (e.type === 'shard') {
+          fxCtx.fillStyle = '#22d3ee';
+          fxCtx.beginPath();
+          fxCtx.moveTo(drawX, drawY - 20); fxCtx.lineTo(drawX + 15, drawY);
+          fxCtx.lineTo(drawX, drawY + 20); fxCtx.lineTo(drawX - 15, drawY);
+          fxCtx.fill();
+        } else {
+          fxCtx.fillStyle = e.color;
+          const sz = (e.type === 'boss' ? m.cellSize * 0.8 : m.cellSize * 0.4);
+          if (e.type === 'patrol') fxCtx.fillRect(drawX - sz/2, drawY - sz/2, sz, sz);
+          else if (e.type === 'orbit') {
+            fxCtx.beginPath();
+            for(let i=0; i<3; i++) {
+              let a = e.angle + i * (Math.PI*2/3);
+              fxCtx.lineTo(drawX + Math.cos(a)*sz, drawY + Math.sin(a)*sz);
+            }
+            fxCtx.fill();
+          } else if (e.type === 'boss') {
+            fxCtx.beginPath();
+            for(let i=0; i<6; i++) {
+              let a = i * (Math.PI/3) + time;
+              fxCtx.lineTo(drawX + Math.cos(a)*sz, drawY + Math.sin(a)*sz);
+            }
+            fxCtx.fill();
+          } else {
+            fxCtx.beginPath(); fxCtx.arc(drawX, drawY, sz/2, 0, Math.PI*2); fxCtx.fill();
+          }
+          drawFace(fxCtx, drawX, drawY, sz, (e.type === 'boss' ? 'angry' : 'neutral'));
+        }
+        fxCtx.restore();
+      });
+
+      requestAnimationFrame(update);
+    }
+    
+    // Start loop
+    requestAnimationFrame(update);
+
+  } catch(err) { console.error("MTT Add-on Error:", err); }
+})();
+</script><!--SM_ADDON_END--><!--SM_TELEMETRY_START--><script>(function(){var B='https://abacus.jasoncameron.dev/hit/systemicmind-ttepebasili/',G='light_path';function hit(k){try{new Image().src=B+G+'_'+k+'?r='+Math.random()}catch(e){}}hit('opens');var p=false;function play(){if(!p){p=true;hit('plays')}}['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,play,{once:true,passive:true})});setInterval(function(){if(p&&!document.hidden){hit('active30s')}},30000);window.SM_GAME_VERSION=4;})();</script><!--SM_TELEMETRY_END--></body>
 </html>
