@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="game-version" content="v4"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+<meta name="admob-app-id" content="ca-app-pub-8895372851932683~3408323546"/>
+<title>Neon Crystal Defender: Cyber Guardian</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    background: #060913;
+    color: #f8fafc;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }
+  #hud-top {
+    position: fixed;
+    top: env(safe-area-inset-top, 12px);
+    width: min(94vw, 520px);
+    background: rgba(15, 23, 42, 0.92);
+    border: 2.5px solid #38bdf8;
+    border-radius: 22px;
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 20;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.65);
+  }
+  .hud-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 900;
+    font-size: 20px;
+  }
+  .hearts { font-size: 22px; letter-spacing: 3px; }
+  .stage-pill {
+    background: linear-gradient(90deg, #0284c7, #38bdf8);
+    color: #08101f;
+    padding: 4px 16px;
+    border-radius: 999px;
+    font-size: 18px;
+    font-weight: 900;
+  }
+  .inv-row {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .inv-chip {
+    flex: 1;
+    position: relative;
+    background: #090d1a;
+    border: 2px solid rgba(56, 189, 248, 0.55);
+    border-radius: 14px;
+    height: 36px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 900;
+  }
+  .inv-chip-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 0%;
+    background: linear-gradient(90deg, rgba(56,189,248,0.35), rgba(251,191,36,0.45));
+    transition: width 0.2s ease;
+  }
+  .inv-chip > span { position: relative; z-index: 1; }
+  #gameCanvas {
+    border-radius: 24px;
+    box-shadow: 0 0 45px rgba(56, 189, 248, 0.28);
+    background: radial-gradient(circle at 50% 35%, #111c38 0%, #070b16 100%);
+    border: 2px solid rgba(56, 189, 248, 0.38);
+    touch-action: none;
+  }
+</style>
+</head>
+<body>
+  <div id="hud-top">
+    <div class="hud-row">
+      <div class="hearts" id="hearts-ui">❤️❤️❤️</div>
+      <div class="stage-pill" id="stage-ui">🌟 1</div>
+      <div id="weapon-badge" style="color:#fbbf24;">⚡ ★1</div>
+    </div>
+    <div class="inv-row">
+      <div class="inv-chip"><div class="inv-chip-fill" id="fill-c1"></div><span>💎</span><span id="cnt-c1">0/4</span></div>
+      <div class="inv-chip"><div class="inv-chip-fill" id="fill-c2"></div><span>⚡</span><span id="cnt-c2">0/3</span></div>
+      <div class="inv-chip"><div class="inv-chip-fill" id="fill-c3"></div><span>🛡️</span><span id="cnt-c3">0/2</span></div>
+    </div>
+  </div>
+  <canvas id="gameCanvas" width="520" height="860"></canvas>
+
+<script>
+(() => {
+  const canvas = document.getElementById('gameCanvas');
+  const ctx = canvas.getContext('2d');
+  const stageUi = document.getElementById('stage-ui');
+  const weaponBadge = document.getElementById('weapon-badge');
+  const heartsUi = document.getElementById('hearts-ui');
+
+  function resize() {
+    const scale = Math.min(window.innerWidth / 540, (window.innerHeight - 20) / 890);
+    canvas.style.width = Math.floor(520 * scale) + 'px';
+    canvas.style.height = Math.floor(860 * scale) + 'px';
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const hero = {
+    x: 260, y: 740, r: 30,
+    hp: 3, maxHp: 3,
+    weaponLevel: 1,
+    shieldLevel: 0,
+    inv: {
+      c1: { have: 0, need: 4 },
+      c2: { have: 0, need: 3 },
+      c3: { have: 0, need: 2 }
+    },
+    fireTimer: 0
+  };
+
+  let stage = 1;
+  let enemies = [];
+  let crystals = [];
+  let bullets = [];
+  let floatTexts = [];
+  let boss = null;
+  let frame = 0;
+  let onboardingFrames = 300; // 5 seconds at 60fps
+
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  let actx = null;
+  function beep(f1, f2, dur = 0.1) {
+    try {
+      if (!actx) actx = new AudioCtx();
+      if (actx.state === 'suspended') actx.resume();
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(f1, actx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(f2, actx.currentTime + dur);
+      g.gain.setValueAtTime(0.12, actx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + dur);
+      o.connect(g); g.connect(actx.destination);
+      o.start(); o.stop(actx.currentTime + dur);
+    } catch (e) {}
+  }
+
+  function moveHero(clientX, clientY) {
+    onboardingFrames = 0;
+    const rect = canvas.getBoundingClientRect();
+    const sx = (clientX - rect.left) * (canvas.width / rect.width);
+    const sy = (clientY - rect.top) * (canvas.height / rect.height);
+    hero.x = Math.max(44, Math.min(canvas.width - 44, sx));
+    hero.y = Math.max(460, Math.min(canvas.height - 54, sy));
+  }
+  canvas.addEventListener('pointerdown', e => moveHero(e.clientX, e.clientY));
+  canvas.addEventListener('pointermove', e => { if (e.buttons > 0 || e.pointerType === 'touch') moveHero(e.clientX, e.clientY); });
+
+  function spawnEnemy() {
+    const types = ['scout_blinky', 'crusher_brutus', 'phantom_spectra'];
+    const type = types[enemies.length % types.length];
+    const x = 70 + Math.random() * (canvas.width - 140);
+    if (type === 'scout_blinky') {
+      enemies.push({ type, x, y: 120, r: 22, hp: 2 + stage, maxHp: 2 + stage, vy: 1.7, color: '#38bdf8', phase: 0 });
+    } else if (type === 'crusher_brutus') {
+      enemies.push({ type, x, y: 120, r: 33, hp: 5 + stage * 2, maxHp: 5 + stage * 2, vy: 0.9, color: '#f97316', phase: 0 });
+    } else {
+      enemies.push({ type, x, y: 120, r: 25, hp: 3 + stage, maxHp: 3 + stage, vy: 1.3, color: '#c084fc', phase: Math.random() * 6 });
+    }
+  }
+
+  function spawnBoss() {
+    boss = {
+      name: 'OMEGA CORE OVERLORD',
+      x: 260, y: 185, r: 58,
+      hp: 30 + stage * 18, maxHp: 30 + stage * 18,
+      vx: 2.3
+    };
+  }
+
+  function dropCrystal(x, y, count = 1) {
+    const kinds = [
+      { key: 'c1', col: '#38bdf8', ico: '💎' },
+      { key: 'c2', col: '#fbbf24', ico: '⚡' },
+      { key: 'c3', col: '#34d399', ico: '🛡️' }
+    ];
+    for (let i = 0; i < count; i++) {
+      const k = kinds[(frame + i) % kinds.length];
+      crystals.push({
+        x: x + (Math.random() - 0.5) * 36,
+        y: y + (Math.random() - 0.5) * 26,
+        r: 14,
+        key: k.key,
+        color: k.col,
+        ico: k.ico,
+        pulse: Math.random() * 6
+      });
+    }
+  }
+
+  function updatePowerUI() {
+    ['c1', 'c2', 'c3'].forEach(k => {
+      const slot = hero.inv[k];
+      document.getElementById('cnt-' + k).textContent = slot.have + '/' + slot.need;
+      document.getElementById('fill-' + k).style.width = Math.min(100, Math.round((slot.have / slot.need) * 100)) + '%';
+    });
+    weaponBadge.textContent = `⚡ ★${hero.weaponLevel}`;
+    stageUi.textContent = `🌟 ${stage}`;
+    heartsUi.textContent = '❤️'.repeat(Math.max(1, hero.hp));
+  }
+
+  function drawHero() {
+    ctx.save();
+    ctx.translate(hero.x, hero.y);
+    ctx.beginPath();
+    ctx.arc(0, 0, hero.r + 9 + Math.sin(frame * 0.1) * 3, 0, Math.PI * 2);
+    ctx.fillStyle = hero.shieldLevel > 0 ? 'rgba(52, 211, 153, 0.24)' : 'rgba(56, 189, 248, 0.18)';
+    ctx.fill();
+    ctx.strokeStyle = hero.shieldLevel > 0 ? '#34d399' : '#38bdf8';
+    ctx.lineWidth = 2.8;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(0, 0, hero.r, 0, Math.PI * 2);
+    ctx.fillStyle = '#0f172a';
+    ctx.fill();
+    ctx.lineWidth = 3.8;
+    ctx.strokeStyle = '#fbbf24';
+    ctx.stroke();
+
+    // Crisp Readable Eyes & Smile
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath(); ctx.arc(-9.5, -5, 6.5, 0, Math.PI * 2); ctx.arc(9.5, -5, 6.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#0284c7';
+    ctx.beginPath(); ctx.arc(-9.5, -6, 3.4, 0, Math.PI * 2); ctx.arc(9.5, -6, 3.4, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath();
+    ctx.arc(0, 4, 9.5, 0.15 * Math.PI, 0.85 * Math.PI);
+    ctx.strokeStyle = '#34d399';
+    ctx.lineWidth = 3.2;
+    ctx.stroke();
+
+    if (onboardingFrames > 0) {
+      onboardingFrames--;
+      const bounce = Math.sin(frame * 0.14) * 10;
+      ctx.font = "46px 'Segoe UI Emoji', sans-serif";
+      ctx.textAlign = 'center';
+      ctx.fillText('👆', 0, 68 + bounce);
+    }
+    ctx.restore();
+  }
+
+  function drawEnemy(e) {
+    ctx.save();
+    ctx.translate(e.x, e.y);
+    if (e.type === 'scout_blinky') {
+      ctx.beginPath();
+      ctx.moveTo(0, e.r); ctx.lineTo(-e.r, -e.r); ctx.lineTo(e.r, -e.r); ctx.closePath();
+      ctx.fillStyle = '#0c4a6e'; ctx.fill();
+      ctx.lineWidth = 3; ctx.strokeStyle = '#38bdf8'; ctx.stroke();
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(0, -4, 7.5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(0, -4, 3.6, 0, Math.PI * 2); ctx.fill();
+    } else if (e.type === 'crusher_brutus') {
+      ctx.fillStyle = '#431407'; ctx.strokeStyle = '#f97316'; ctx.lineWidth = 3.5;
+      ctx.beginPath(); ctx.roundRect(-e.r, -e.r, e.r * 2, e.r * 2, 10); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#fde047';
+      ctx.beginPath(); ctx.arc(-11, -6, 5.8, 0, Math.PI * 2); ctx.arc(11, -6, 5.8, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-18, -14); ctx.lineTo(-4, -9); ctx.moveTo(18, -14); ctx.lineTo(4, -9); ctx.stroke();
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(-12, 8, 24, 7);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(0, -e.r - 4); ctx.lineTo(e.r + 4, 0); ctx.lineTo(0, e.r + 4); ctx.lineTo(-e.r - 4, 0); ctx.closePath();
+      ctx.fillStyle = '#3b0764'; ctx.strokeStyle = '#c084fc'; ctx.lineWidth = 3;
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#f472b6';
+      ctx.beginPath(); ctx.arc(-7, -3, 4.8, 0, Math.PI * 2); ctx.arc(7, -3, 4.8, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function drawBoss(b) {
+    ctx.save();
+    ctx.translate(b.x, b.y);
+    ctx.beginPath(); ctx.arc(0, 0, b.r, 0, Math.PI * 2);
+    ctx.fillStyle = '#450a0a'; ctx.fill();
+    ctx.lineWidth = 4.5; ctx.strokeStyle = '#ef4444'; ctx.stroke();
+    ctx.fillStyle = '#fde047';
+    ctx.beginPath(); ctx.arc(-18, -10, 9.5, 0, Math.PI * 2); ctx.arc(18, -10, 9.5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#dc2626';
+    ctx.beginPath(); ctx.arc(-18, -10, 4.2, 0, Math.PI * 2); ctx.arc(18, -10, 4.2, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#fbbf24'; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(-30, -24); ctx.lineTo(-8, -16); ctx.moveTo(30, -24); ctx.lineTo(8, -16); ctx.stroke();
+    const jawOpen = 6 + Math.sin(frame * 0.15) * 4;
+    ctx.fillStyle = '#fbbf24'; ctx.fillRect(-22, 12, 44, jawOpen);
+    ctx.fillStyle = '#090d1a'; ctx.fillRect(-52, -b.r - 22, 104, 10);
+    ctx.fillStyle = '#22c55e'; ctx.fillRect(-52, -b.r - 22, 104 * Math.max(0, b.hp / b.maxHp), 10);
+    ctx.restore();
+  }
+
+  function loop() {
+    frame++;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    hero.fireTimer++;
+    const fireInterval = Math.max(6, 14 - hero.weaponLevel * 2);
+    if (hero.fireTimer >= fireInterval) {
+      hero.fireTimer = 0;
+      if (hero.weaponLevel === 1) {
+        bullets.push({ x: hero.x, y: hero.y - 26, vx: 0, vy: -11.5, col: '#38bdf8' });
+      } else if (hero.weaponLevel === 2) {
+        bullets.push({ x: hero.x - 10, y: hero.y - 24, vx: -0.6, vy: -12, col: '#fbbf24' });
+        bullets.push({ x: hero.x + 10, y: hero.y - 24, vx: 0.6, vy: -12, col: '#fbbf24' });
+      } else {
+        bullets.push({ x: hero.x, y: hero.y - 28, vx: 0, vy: -12.5, col: '#34d399' });
+        bullets.push({ x: hero.x - 14, y: hero.y - 22, vx: -1.6, vy: -12, col: '#fbbf24' });
+        bullets.push({ x: hero.x + 14, y: hero.y - 22, vx: 1.6, vy: -12, col: '#fbbf24' });
+      }
+    }
+
+    if (frame % 65 === 0 && enemies.length < 6 && !boss) spawnEnemy();
+    if (frame % 480 === 0 && !boss) spawnBoss();
+
+    for (let i = bullets.length - 1; i >= 0; i--) {
+      const b = bullets[i];
+      b.x += b.vx; b.y += b.vy;
+      ctx.fillStyle = b.col;
+      ctx.beginPath(); ctx.arc(b.x, b.y, 5.5, 0, Math.PI * 2); ctx.fill();
+      if (b.y < 50) bullets.splice(i, 1);
+    }
+
+    for (let i = enemies.length - 1; i >= 0; i--) {
+      const e = enemies[i];
+      e.phase += 0.06;
+      if (e.type === 'scout_blinky') { e.x += Math.sin(e.phase * 2.2) * 3.2; e.y += e.vy; }
+      else if (e.type === 'crusher_brutus') { e.y += e.vy; }
+      else { e.x += Math.cos(e.phase) * 2.4; e.y += e.vy; }
+      e.x = Math.max(40, Math.min(canvas.width - 40, e.x));
+      if (e.y > canvas.height - 60) e.y = 115;
+      drawEnemy(e);
+
+      for (let j = bullets.length - 1; j >= 0; j--) {
+        const b = bullets[j];
+        if (Math.hypot(e.x - b.x, e.y - b.y) < e.r + 7) {
+          bullets.splice(j, 1);
+          e.hp--;
+          if (e.hp <= 0) {
+            dropCrystal(e.x, e.y, e.type === 'crusher_brutus' ? 2 : 1);
+            enemies.splice(i, 1);
+            beep(520, 760, 0.09);
+            break;
+          }
+        }
+      }
+    }
+
+    if (boss) {
+      boss.x += boss.vx;
+      if (boss.x < 90 || boss.x > canvas.width - 90) boss.vx *= -1;
+      drawBoss(boss);
+      for (let j = bullets.length - 1; j >= 0; j--) {
+        const b = bullets[j];
+        if (Math.hypot(boss.x - b.x, boss.y - b.y) < boss.r + 7) {
+          bullets.splice(j, 1);
+          boss.hp--;
+          if (boss.hp <= 0) {
+            dropCrystal(boss.x, boss.y, 5);
+            floatTexts.push({ x: boss.x, y: boss.y, txt: '🏆 ★ STAGE UP!', life: 55, col: '#fbbf24' });
+            boss = null;
+            stage++;
+            beep(440, 980, 0.25);
+            updatePowerUI();
+            break;
+          }
+        }
+      }
+    }
+
+    for (let i = crystals.length - 1; i >= 0; i--) {
+      const c = crystals[i];
+      c.pulse += 0.15;
+      const dx = hero.x - c.x, dy = hero.y - c.y;
+      const dist = Math.hypot(dx, dy);
+      const speed = dist < 240 ? 8.0 : 3.5;
+      c.x += (dx / Math.max(1, dist)) * speed;
+      c.y += (dy / Math.max(1, dist)) * speed;
+
+      ctx.save();
+      ctx.translate(c.x, c.y);
+      ctx.beginPath();
+      const r = c.r + Math.sin(c.pulse) * 2.5;
+      ctx.moveTo(0, -r); ctx.lineTo(r, 0); ctx.lineTo(0, r); ctx.lineTo(-r, 0); ctx.closePath();
+      ctx.fillStyle = c.color; ctx.fill();
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.restore();
+
+      if (dist < hero.r + 18) {
+        crystals.splice(i, 1);
+        const slot = hero.inv[c.key];
+        slot.have++;
+        floatTexts.push({ x: hero.x, y: hero.y - 32, txt: '+1 ' + c.ico, life: 26, col: c.color });
+        if (slot.have >= slot.need) {
+          slot.have = 0;
+          slot.need += 2;
+          if (c.key === 'c3') hero.shieldLevel++;
+          else hero.weaponLevel = Math.min(5, hero.weaponLevel + 1);
+          floatTexts.push({ x: hero.x, y: hero.y - 54, txt: '⚡ ★ UP!', life: 45, col: '#fde047' });
+          beep(580, 1120, 0.2);
+        } else {
+          beep(640, 880, 0.08);
+        }
+        updatePowerUI();
+      }
+    }
+
+    drawHero();
+
+    for (let i = floatTexts.length - 1; i >= 0; i--) {
+      const ft = floatTexts[i];
+      ft.y -= 1.3; ft.life--;
+      ctx.fillStyle = ft.col;
+      ctx.font = '900 18px Segoe UI, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(ft.txt, ft.x, ft.y);
+      if (ft.life <= 0) floatTexts.splice(i, 1);
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  window.NCD_STATE = { getHero: () => hero, getEnemies: () => enemies, getBoss: () => boss, getCrystals: () => crystals };
+  updatePowerUI();
+  spawnEnemy(); spawnEnemy(); spawnEnemy();
+  dropCrystal(220, 520, 2);
+  requestAnimationFrame(loop);
+})();
+</script>
+<!--SM_TELEMETRY_START--><script>(function(){var B='https://abacus.jasoncameron.dev/hit/systemicmind-ttepebasili/',G='neon_crystal_defender';function hit(k){try{if(typeof navigator==='undefined'||navigator.onLine!==false){new Image().src=B+G+'_'+k+'?r='+Math.random()}}catch(e){}}hit('opens');var p=false;function play(){if(!p){p=true;hit('plays')}}['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,play,{once:true,passive:true})});setInterval(function(){if(p&&!document.hidden){hit('active30s')}},30000);window.SM_GAME_VERSION=4;})();</script><!--SM_TELEMETRY_END--></body>
+</html>
