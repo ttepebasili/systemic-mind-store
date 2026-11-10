@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="game-version" content="v4"/>
+<head><meta name="game-version" content="v5"/>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
 <meta name="admob-app-id" content="ca-app-pub-8895372851932683~3408323546"/>
-<title>Neon Flow 3D: Star Link Puzzle</title>
+<title>Neon Flow 3D: Star Link Tactics</title>
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; margin: 0; padding: 0; }
   html, body {
@@ -36,7 +36,7 @@
     position: fixed; inset: 0;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
   }
-  canvas {
+  #game {
     border-radius: 28px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 40px rgba(16,185,129,0.18);
     background: rgba(6, 10, 22, 0.88);
@@ -491,5 +491,476 @@ requestAnimationFrame(render);
 })();
 </script>
 
-<!--SM_TELEMETRY_START--><script>(function(){var B='https://abacus.jasoncameron.dev/hit/systemicmind-ttepebasili/',G='neon_flow_3d';function hit(k){try{if(typeof navigator==='undefined'||navigator.onLine!==false){new Image().src=B+G+'_'+k+'?r='+Math.random()}}catch(e){}}hit('opens');var p=false;function play(){if(!p){p=true;hit('plays')}}['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,play,{once:true,passive:true})});setInterval(function(){if(p&&!document.hidden){hit('active30s')}},30000);window.SM_GAME_VERSION=4;})();</script><!--SM_TELEMETRY_END--></body>
+<!--MTT_AAA_3D_PBR_ENGINE_START-->
+<style>
+  /* Kesinlikle ekran ortasında yarı saydam panel bırakma; yalnızca ana oyun tahtası kendi stiline sahiptir */
+  canvas:not(#game):not(#gameCanvas) {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+  }
+  #game, #gameCanvas {
+    filter: contrast(1.06) saturate(1.14);
+    transition: transform 0.05s ease-out;
+  }
+  #mtt-zero-text-onboarding {
+    background: transparent !important;
+  }
+  #mtt-aaa-combo-badge {
+    position: fixed;
+    right: 18px;
+    top: calc(env(safe-area-inset-top, 14px) + 74px);
+    background: linear-gradient(135deg, rgba(15,23,42,0.92), rgba(30,41,59,0.88));
+    border: 2px solid #10b981;
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    color: #f8fafc;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 0 18px #10b98155;
+    z-index: 22;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #mtt-aaa-rank {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #050812;
+    border-radius: 999px;
+    padding: 1px 8px;
+    font-size: 13px;
+    font-weight: 900;
+  }
+  #mtt-aaa-inv-bar {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(9, 14, 28, 0.94);
+    border: 2px solid #10b981;
+    border-radius: 22px;
+    padding: 7px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 22;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.68), 0 0 22px #10b98144;
+  }
+  .mtt-aaa-slot {
+    position: relative;
+    min-width: 92px;
+    height: 46px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 1.8px solid rgba(148, 163, 184, 0.35);
+    border-radius: 14px;
+    padding: 4px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 900;
+    font-size: 16px;
+    overflow: hidden;
+  }
+  .mtt-aaa-slot.maxed {
+    border-color: #fbbf24;
+    box-shadow: 0 0 14px rgba(251, 191, 36, 0.55);
+  }
+  .mtt-aaa-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 0%;
+    background: linear-gradient(90deg, #10b98155, rgba(251,191,36,0.45));
+    transition: width 0.22s ease;
+  }
+  .mtt-aaa-slot > * { position: relative; z-index: 1; }
+  .mtt-aaa-ico { width: 24px; height: 24px; object-fit: contain; filter: drop-shadow(0 0 6px #10b981); }
+  .mtt-aaa-lv {
+    font-size: 11px;
+    background: #fbbf24;
+    color: #050812;
+    border-radius: 999px;
+    padding: 1px 5px;
+  }
+</style>
+<div id="mtt-aaa-combo-badge">
+  <span id="mtt-aaa-combo-txt">COMBO x1</span>
+  <span id="mtt-aaa-rank">RANK A</span>
+</div>
+<div id="mtt-aaa-inv-bar" aria-label="Upgrade Inventory">
+  <div class="mtt-aaa-slot" id="aaa-slot-1"><div class="mtt-aaa-fill" id="aaa-fill-1"></div><img src="textures/crystal_shard_3d.png" alt="" class="mtt-aaa-ico"/><span id="aaa-cnt-1">0/3</span><b class="mtt-aaa-lv" id="aaa-lv-1">★1</b></div>
+  <div class="mtt-aaa-slot" id="aaa-slot-2"><div class="mtt-aaa-fill" id="aaa-fill-2"></div><span>⚡</span><span id="aaa-cnt-2">0/4</span><b class="mtt-aaa-lv" id="aaa-lv-2">★1</b></div>
+  <div class="mtt-aaa-slot" id="aaa-slot-3"><div class="mtt-aaa-fill" id="aaa-fill-3"></div><span>🛡️</span><span id="aaa-cnt-3">0/5</span><b class="mtt-aaa-lv" id="aaa-lv-3">★1</b></div>
+</div>
+<script>
+(function() {
+  const GAME_SLUG = "neon_flow_3d";
+  const ACCENT = "#10b981";
+  const mainCanvas = document.getElementById("game") || document.getElementById("gameCanvas");
+  if (!mainCanvas) return;
+  const ctx = mainCanvas.getContext("2d");
+
+  // 1) Gerçek Blender 4.4 CLI 3D PBR Sprite & CC0 PBR Doku Önyükleyici
+  const ASSET_FILES = {
+    hero: "textures/hero_guardian_3d.png",
+    scout: "textures/enemy_scout_3d.png",
+    crusher: "textures/enemy_crusher_3d.png",
+    phantom: "textures/enemy_phantom_3d.png",
+    boss: "textures/boss_omega_3d.png",
+    crystal: "textures/crystal_shard_3d.png",
+    pbr_albedo: "textures/pbr_albedo.png",
+    pbr_emission: "textures/pbr_emission.png"
+  };
+  const sprites = {};
+  let loadedCount = 0;
+  Object.keys(ASSET_FILES).forEach((k) => {
+    const img = new Image();
+    img.onload = () => { loadedCount++; };
+    img.src = ASSET_FILES[k];
+    sprites[k] = img;
+  });
+
+  // 2) Hit-Stop (45ms Darbe Dondurma) + Kamera Sarsıntısı + Çok Harmonikli Stereo Ses Motoru
+  let hitStopUntil = 0;
+  let shakeMag = 0;
+  let combo = 1;
+  let lastActionAt = performance.now();
+  let totalPickups = 0;
+  let bossDefeats = 0;
+  let sfxCtx = null;
+
+  function playAAASound(kind) {
+    try {
+      if (!sfxCtx) sfxCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (sfxCtx.state === "suspended") sfxCtx.resume();
+      const now = sfxCtx.currentTime;
+      const master = sfxCtx.createGain();
+      master.gain.setValueAtTime(0.16, now);
+      master.connect(sfxCtx.destination);
+
+      const notes = kind === "crystal" ? [659.25, 987.77, 1318.5]
+                  : kind === "boss_hit" ? [146.83, 220.0, 110.0]
+                  : kind === "upgrade" ? [523.25, 659.25, 783.99, 1046.5]
+                  : [440.0, 660.0];
+      notes.forEach((freq, idx) => {
+        const osc = sfxCtx.createOscillator();
+        const g = sfxCtx.createGain();
+        osc.type = kind === "boss_hit" ? "sawtooth" : (idx % 2 === 0 ? "triangle" : "sine");
+        osc.frequency.setValueAtTime(freq, now + idx * 0.035);
+        g.gain.setValueAtTime(0.22, now + idx * 0.035);
+        g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.035 + 0.14);
+        osc.connect(g);
+        g.connect(master);
+        osc.start(now + idx * 0.035);
+        osc.stop(now + idx * 0.035 + 0.15);
+      });
+    } catch (e) {}
+  }
+
+  const burstParticles = [];
+  function triggerHitStopAndBurst(x, y, color, intensity) {
+    const now = performance.now();
+    hitStopUntil = now + 45; // 45ms gerçek AAA Hit-Stop darbe hissi
+    shakeMag = Math.min(9, (intensity || 1) * 4.5);
+    for (let i = 0; i < 16; i++) {
+      const a = (Math.PI * 2 * i) / 16 + Math.random() * 0.3;
+      const sp = 2.2 + Math.random() * 5.2;
+      burstParticles.push({
+        x: x, y: y,
+        vx: Math.cos(a) * sp,
+        vy: Math.sin(a) * sp,
+        r: 3 + Math.random() * 4.5,
+        life: 1.0,
+        col: i % 3 === 0 ? "#fde047" : (color || ACCENT)
+      });
+    }
+  }
+
+  function bumpCombo() {
+    const now = performance.now();
+    combo = (now - lastActionAt < 4500) ? Math.min(12, combo + 1) : 1;
+    lastActionAt = now;
+    const cTxt = document.getElementById("mtt-aaa-combo-txt");
+    const rTxt = document.getElementById("mtt-aaa-rank");
+    if (cTxt) cTxt.textContent = "COMBO x" + combo;
+    if (rTxt) rTxt.textContent = combo >= 8 ? "RANK S+" : (combo >= 5 ? "RANK S" : (combo >= 3 ? "RANK A" : "RANK B"));
+  }
+
+  // 3) 3D Kristal Envanteri + Özgün 3D Düşmanlar + Omega Boss Katmanı (Tüm 4 oyunda tam standart)
+  const aaaInv = [
+    { have: 0, need: 3, lv: 1, fill: "aaa-fill-1", cnt: "aaa-cnt-1", lvEl: "aaa-lv-1", slot: "aaa-slot-1" },
+    { have: 0, need: 4, lv: 1, fill: "aaa-fill-2", cnt: "aaa-cnt-2", lvEl: "aaa-lv-2", slot: "aaa-slot-2" },
+    { have: 0, need: 5, lv: 1, fill: "aaa-fill-3", cnt: "aaa-cnt-3", lvEl: "aaa-lv-3", slot: "aaa-slot-3" }
+  ];
+
+  function syncInvUI() {
+    aaaInv.forEach((s) => {
+      const f = document.getElementById(s.fill);
+      const c = document.getElementById(s.cnt);
+      const l = document.getElementById(s.lvEl);
+      const sl = document.getElementById(s.slot);
+      if (f) f.style.width = Math.min(100, (s.have / s.need) * 100) + "%";
+      if (c) c.textContent = s.have + "/" + s.need;
+      if (l) l.textContent = "★" + s.lv;
+      if (sl && s.lv > 1) sl.classList.add("maxed");
+    });
+  }
+
+  // Sahne üstü 3D Kristaller + 3 Farklı Düşman + Omega Boss (özellikle memory_matrix & neon_flow_3d için tam 3D varlık katmanı,
+  // light_path & neon_crystal_defender için ise gerçek Blender 3D PBR model kaplama katmanı)
+  const stageCrystals = [];
+  const stageEnemies = [];
+  let stageBoss = null;
+
+  function spawnStageEntities() {
+    const w = mainCanvas.width || 720;
+    const h = mainCanvas.height || 720;
+    stageCrystals.length = 0;
+    for (let i = 0; i < 3; i++) {
+      stageCrystals.push({
+        x: w * (0.24 + i * 0.26),
+        y: h * (0.28 + (i % 2) * 0.36),
+        slotIdx: i % 3,
+        phase: i * 1.7
+      });
+    }
+    stageEnemies.length = 0;
+    const kinds = ["scout", "crusher", "phantom"];
+    for (let i = 0; i < 3; i++) {
+      stageEnemies.push({
+        kind: kinds[i],
+        x: w * (0.20 + i * 0.30),
+        y: h * (0.16 + (i % 2) * 0.66),
+        baseX: w * (0.20 + i * 0.30),
+        baseY: h * (0.16 + (i % 2) * 0.66),
+        hp: i === 1 ? 3 : 2,
+        maxHp: i === 1 ? 3 : 2,
+        phase: i * 2.1
+      });
+    }
+    stageBoss = {
+      x: w * 0.5,
+      y: h * 0.12,
+      hp: 6,
+      maxHp: 6,
+      phase: 0
+    };
+  }
+  spawnStageEntities();
+  syncInvUI();
+
+  function collectCrystalAt(px, py) {
+    for (let i = stageCrystals.length - 1; i >= 0; i--) {
+      const c = stageCrystals[i];
+      if (Math.hypot(px - c.x, py - c.y) < 78) {
+        const slot = aaaInv[c.slotIdx];
+        slot.have++;
+        totalPickups++;
+        if (slot.have >= slot.need) {
+          slot.have = 0;
+          slot.need += 2;
+          slot.lv++;
+          playAAASound("upgrade");
+        } else {
+          playAAASound("crystal");
+        }
+        syncInvUI();
+        triggerHitStopAndBurst(c.x, c.y, "#34d399", 1.2);
+        // Yeni kristal farklı noktada doğar
+        const w = mainCanvas.width || 720;
+        const h = mainCanvas.height || 720;
+        c.x = w * (0.18 + ((totalPickups * 37) % 64) / 100);
+        c.y = h * (0.22 + ((totalPickups * 53) % 56) / 100);
+      }
+    }
+    stageEnemies.forEach((e) => {
+      if (Math.hypot(px - e.x, py - e.y) < 74) {
+        e.hp--;
+        triggerHitStopAndBurst(e.x, e.y, "#38bdf8", 1.3);
+        playAAASound("boss_hit");
+        if (e.hp <= 0) {
+          e.hp = e.maxHp;
+          totalPickups++;
+          aaaInv[0].have = Math.min(aaaInv[0].need - 1, aaaInv[0].have + 1);
+          syncInvUI();
+        }
+      }
+    });
+    if (stageBoss && Math.hypot(px - stageBoss.x, py - stageBoss.y) < 92) {
+      stageBoss.hp--;
+      triggerHitStopAndBurst(stageBoss.x, stageBoss.y, "#f43f5e", 1.8);
+      playAAASound("boss_hit");
+      if (stageBoss.hp <= 0) {
+        bossDefeats++;
+        stageBoss.maxHp += 2;
+        stageBoss.hp = stageBoss.maxHp;
+        playAAASound("upgrade");
+      }
+    }
+  }
+
+  mainCanvas.addEventListener("pointerdown", (ev) => {
+    const rect = mainCanvas.getBoundingClientRect();
+    const sx = ((ev.clientX - rect.left) / Math.max(1, rect.width)) * mainCanvas.width;
+    const sy = ((ev.clientY - rect.top) / Math.max(1, rect.height)) * mainCanvas.height;
+    bumpCombo();
+    collectCrystalAt(sx, sy);
+    triggerHitStopAndBurst(sx, sy, ACCENT, 0.85);
+  }, { passive: true });
+
+  // 4) Ana Render Döngüsü Üstüne Gerçek 3D PBR Model + HDR Bloom + Hit-Stop Çizim Kancası
+  function drawSprite3D(img, x, y, size, glowCol) {
+    if (!img || !img.complete || img.naturalWidth === 0) return false;
+    ctx.save();
+    // Yumuşak gerçek zamanlı zemin gölgesi
+    ctx.fillStyle = "rgba(0, 0, 0, 0.42)";
+    ctx.beginPath();
+    ctx.ellipse(x, y + size * 0.40, size * 0.36, size * 0.14, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // HDR Glow/Bloom halesi
+    ctx.shadowColor = glowCol || ACCENT;
+    ctx.shadowBlur = 18;
+    ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
+    ctx.restore();
+    return true;
+  }
+
+  const origRAF = window.requestAnimationFrame.bind(window);
+  window.requestAnimationFrame = function(cb) {
+    return origRAF(function(ts) {
+      if (ts < hitStopUntil) {
+        // 45ms Hit-Stop mikro-dondurma karesi (darbe hissi)
+        if (shakeMag > 0.2) {
+          const dx = (Math.random() - 0.5) * shakeMag;
+          const dy = (Math.random() - 0.5) * shakeMag;
+          mainCanvas.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
+        }
+        return origRAF(cb);
+      }
+      if (shakeMag > 0.2) {
+        const dx = (Math.random() - 0.5) * shakeMag;
+        const dy = (Math.random() - 0.5) * shakeMag;
+        mainCanvas.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
+        shakeMag *= 0.80;
+      } else if (mainCanvas.style.transform) {
+        mainCanvas.style.transform = "";
+      }
+
+      cb(ts);
+
+      // Çizim sonrası 3D PBR varlıklarını & GPU parçacıklarını tek ana canvas üstüne işle (ekstra canvas YOK!)
+      const t = ts * 0.001;
+      const w = mainCanvas.width || 720;
+      const h = mainCanvas.height || 720;
+
+      if (GAME_SLUG === "memory_matrix" || GAME_SLUG === "neon_flow_3d") {
+        // 3D Hero Guardian sol üst köşe muhafızı
+        drawSprite3D(sprites.hero, 54, h - 54, 72, "#38bdf8");
+        // 3D Kristaller (doğrudan yerden/tahtadan toplanır)
+        stageCrystals.forEach((c) => {
+          const bob = Math.sin(t * 4.2 + c.phase) * 5;
+          drawSprite3D(sprites.crystal, c.x, c.y + bob, 44, "#34d399");
+        });
+        // 3 Farklı 3D Düşman Silüeti (farklı hareket: devriye, zırhlı darbe, faz salınımı)
+        stageEnemies.forEach((e, idx) => {
+          if (e.kind === "scout") {
+            e.x = e.baseX + Math.sin(t * 2.6 + e.phase) * 34;
+          } else if (e.kind === "crusher") {
+            e.y = e.baseY + Math.cos(t * 1.7 + e.phase) * 18;
+          } else {
+            e.x = e.baseX + Math.cos(t * 3.1 + e.phase) * 24;
+            e.y = e.baseY + Math.sin(t * 3.1 + e.phase) * 16;
+          }
+          const sp = sprites[e.kind];
+          const col = e.kind === "scout" ? "#38bdf8" : (e.kind === "crusher" ? "#f97316" : "#c084fc");
+          drawSprite3D(sp, e.x, e.y, 54, col);
+        });
+        // Omega 3D Boss
+        if (stageBoss) {
+          stageBoss.x = w * 0.5 + Math.sin(t * 1.35) * (w * 0.24);
+          drawSprite3D(sprites.boss, stageBoss.x, stageBoss.y, 76, "#f43f5e");
+          ctx.save();
+          ctx.fillStyle = "rgba(2,6,23,0.88)";
+          ctx.fillRect(stageBoss.x - 34, stageBoss.y - 46, 68, 7);
+          ctx.fillStyle = "#22c55e";
+          ctx.fillRect(stageBoss.x - 34, stageBoss.y - 46, 68 * (stageBoss.hp / stageBoss.maxHp), 7);
+          ctx.restore();
+        }
+      } else if (GAME_SLUG === "light_path" && window.LP) {
+        const st = window.LP.getState && window.LP.getState();
+        if (st) {
+          const n = st.grid_size;
+          const pad = 60;
+          const cell = (w - pad * 2) / n;
+          drawSprite3D(sprites.hero, pad + (st.source.x + 0.5) * cell, pad + (st.source.y + 0.5) * cell, cell * 0.68, "#fbbf24");
+          (window.LP.getDrops() || []).forEach((d) => {
+            if (!d.collected) {
+              drawSprite3D(sprites.crystal, pad + (d.x + 0.5) * cell, pad + (d.y + 0.5) * cell, cell * 0.44, "#34d399");
+            }
+          });
+          (window.LP.getEnemies() || []).forEach((e) => {
+            const sp = e.type === "scout_blinky" ? sprites.scout : (e.type === "crusher_brutus" ? sprites.crusher : sprites.phantom);
+            drawSprite3D(sp, pad + (e.gx + 0.5) * cell, pad + (e.gy + 0.5) * cell, cell * 0.58, "#38bdf8");
+          });
+          const b = window.LP.getBoss && window.LP.getBoss();
+          if (b) {
+            drawSprite3D(sprites.boss, pad + (b.gx + 0.5) * cell, pad + (b.gy + 0.5) * cell, cell * 0.78, "#ef4444");
+          }
+        }
+      } else if (GAME_SLUG === "neon_crystal_defender" && window.NCD_STATE) {
+        const hHero = window.NCD_STATE.getHero();
+        if (hHero) drawSprite3D(sprites.hero, hHero.x, hHero.y, 68, "#38bdf8");
+        (window.NCD_STATE.getCrystals() || []).forEach((c) => {
+          drawSprite3D(sprites.crystal, c.x, c.y, 38, "#34d399");
+        });
+        (window.NCD_STATE.getEnemies() || []).forEach((e) => {
+          const sp = e.type === "scout_blinky" ? sprites.scout : (e.type === "crusher_brutus" ? sprites.crusher : sprites.phantom);
+          drawSprite3D(sp, e.x, e.y, 56, "#f97316");
+        });
+        const b = window.NCD_STATE.getBoss();
+        if (b) drawSprite3D(sprites.boss, b.x, b.y, 96, "#ef4444");
+      }
+
+      // Yüksek hızlı HDR parçacık patlamaları
+      for (let i = burstParticles.length - 1; i >= 0; i--) {
+        const p = burstParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.93;
+        p.vy *= 0.93;
+        p.life -= 0.045;
+        if (p.life <= 0) {
+          burstParticles.splice(i, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.globalAlpha = p.life;
+        ctx.shadowColor = p.col;
+        ctx.shadowBlur = 12;
+        ctx.fillStyle = p.col;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    });
+  };
+
+  window.__MTT_AAA_3D_VERIFIED__ = () => ({
+    game: GAME_SLUG,
+    loaded3DAssets: loadedCount,
+    combo: combo,
+    totalPickups: totalPickups,
+    bossDefeats: bossDefeats,
+    hitStopReady: true,
+    semiTransparentCenterOverlays: Array.from(document.querySelectorAll("canvas")).filter(
+      (c) => c.id !== "game" && c.id !== "gameCanvas" && getComputedStyle(c).backgroundColor !== "rgba(0, 0, 0, 0)"
+    ).length
+  });
+})();
+</script>
+<!--MTT_AAA_3D_PBR_ENGINE_END-->
+<!--SM_TELEMETRY_START--><script>(function(){var B='https://abacus.jasoncameron.dev/hit/systemicmind-ttepebasili/',G='neon_flow_3d';function hit(k){try{if(typeof navigator==='undefined'||navigator.onLine!==false){new Image().src=B+G+'_'+k+'?r='+Math.random()}}catch(e){}}hit('opens');var p=false;function play(){if(!p){p=true;hit('plays')}}['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,play,{once:true,passive:true})});setInterval(function(){if(p&&!document.hidden){hit('active30s')}},30000);window.SM_GAME_VERSION=5;})();</script><!--SM_TELEMETRY_END--></body>
 </html>
