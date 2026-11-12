@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T20:43:22.538311+00:00",
+  "updated_at": "2026-11-12T20:45:26.534537+00:00",
   "usd_try_rate": 50.28,
   "active_coupon_codes": [
     "MIND40",
@@ -18,7 +18,7 @@
     {
       "key": "gumroad",
       "name": "Gumroad Global (MIND40 %40 Kupon + Discover SEO)",
-      "status": "API Aktif (8 Ürün Canlı + MIND40 Kupon)",
+      "status": "API Aktif (9 Ürün Canlı + MIND40 Kupon)",
       "payout_tr": "Doğrudan Türkiye Banka Hesabı / IBAN ($10 Eşiği)",
       "url": "https://tepebasili.gumroad.com/l/all-access-mega-bundle?offer_code=MIND40"
     },
@@ -32,7 +32,7 @@
     {
       "key": "github_releases",
       "name": "GitHub Releases (Doğrudan Paket & APK Sunucusu)",
-      "status": "Canlı Yayın Aktif (8 ZIP + 3 İmzalı APK)",
+      "status": "Canlı Yayın Aktif (9 ZIP + 3 İmzalı APK)",
       "payout_tr": "Küresel Doğrudan İndirme & Yedek Sunucu",
       "url": "https://github.com/ttepebasili/systemic-mind-store/releases/tag/v1.0.0-digital-store"
     },
@@ -45,6 +45,24 @@
     }
   ],
   "digital_products": [
+    {
+      "product_key": "sm_vip_bundle_001",
+      "product_type": "executive_playbook",
+      "title_en": "The Zero-Cost Autonomous AI Content & Revenue Pipeline (Full Blueprint + Python Starter Kit)",
+      "title_tr": "Sıfır Maliyetli Otonom Yapay Zeka İçerik & Gelir Hattı (10s Kurumsal Mimari PDF + Python Başlangıç Kiti)",
+      "itch_slug": "sm-vip-bundle-001",
+      "price_usd": 39.0,
+      "version_name": "1.0.0",
+      "source_video_id": "vip_dropzone_bridge",
+      "mental_models_json": "[\"Module 1: Zero-Cost Infrastructure & Dual-Identity Vault Architecture\", \"Module 2: Mathematical Cloud Quota Guard (`starter_kit/quota_guard.py`)\", \"Module 3: Closed-Loop 0-3s Hook & Revenue Scoring (`starter_kit/trend_scoring_engine.py`)\", \"Module 4: Anti-Shadowban Omni-Social & 3-Store `MIND40` Monetization (`starter_kit/orchestrator.py`)\"]",
+      "public_url": "https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40",
+      "release_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/sm_vip_bundle_001_v1.zip",
+      "qa_passed": 1,
+      "qa_summary": "VIP Bridge | PDF: 10p | ZIP: 1873.0 KB | MIND40 Active | QA: PASS",
+      "status": "published_multi_store",
+      "updated_at": "2026-11-12 20:45:26",
+      "created_at": "2026-11-12 20:45:26"
+    },
     {
       "product_key": "cognitive_game_architect_pro_bundle",
       "product_type": "executive_playbook",
