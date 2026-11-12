@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T17:05:45.051937+00:00",
+  "generated_at": "2026-11-12T19:50:18.117623+00:00",
   "developer": "MTT Games",
   "identity_email": "ttepebasili@gmail.com",
   "locales_count": 15,
@@ -12,8 +12,9 @@
         "en-US": {
           "language_name": "English (US)",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "Offline 3D puzzle & boss action! Collect crystals, upgrade gear & train focus.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nExperience studio-grade 3D PBR visuals, 60 FPS responsiveness, and 100% offline play by MTT Games.\n\n• Instant 5-second intuitive touch controls\n• Unique Scout, Crusher & Phantom enemies + Omega Bosses\n• Direct on-field crystal collection & clear upgrade bar\n• 100% Offline APK/AAB & WebGL play — zero paywalls\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "3D laser puzzle & boss action + 3 optional Bonus Neon Arcade modes offline!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nExperience studio-grade 3D PBR visuals, 60 FPS responsiveness, and 100% offline play by MTT Games.\n\n• Instant 5-second intuitive touch controls\n• Unique Scout, Crusher & Phantom enemies + Omega Bosses\n• Direct on-field crystal collection & clear upgrade bar\n• 100% Offline APK/AAB & WebGL play — zero paywalls\n\n🕹️ NEW — OPTIONAL BONUS NEON ARCADE MODES (Lazy-Loaded):\nThe classic Light Path core laser & guardian puzzle opens instantly as always, plus you can tap the optional 'Arcade Modes' tab anytime to play 3 bonus neon games offline:\n• Memory Matrix 3D — Spatial IQ & Guardian Boss\n• Neon Flow 3D — Star Link Cyber Circuit\n• Neon Crystal Defender — 3D Omega Boss Tower Siege\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Core Light Path 3D laser & mirror puzzle experience preserved with instant launch.\n• Added optional 'Bonus Arcade / Neon Modes' tab with 3 lazy-loaded offline modes: Memory Matrix 3D, Neon Flow 3D, and Neon Crystal Defender.\n• Unified 3D PBR & audio asset pool keeps download size compact at 60 FPS.",
           "keywords": [
             "3d puzzle",
             "offline game",
@@ -27,8 +28,9 @@
         "tr-TR": {
           "language_name": "Türkçe",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "Çevrimdışı 3D bulmaca ve boss aksiyonu! Kristal topla, güçlen ve odaklan.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games imzalı 3D PBR grafikler, 60 FPS akıcılık ve %100 internetsiz oynanış.\n\n• 5 saniyede kavranan sezgisel dokunmatik kontroller\n• Özgün düşman sınıfları ve dev Omega Boss savaşları\n• Yerden doğrudan kristal toplama ve net yükseltme çubuğu\n• %100 Çevrimdışı (internetsiz) çalışma desteği\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "Çevrimdışı 3D lazer bulmacası + isteğe bağlı 3 yeni Bonus Neon Arcade modu!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games imzalı 3D PBR grafikler, 60 FPS akıcılık ve %100 internetsiz oynanış.\n\n• 5 saniyede kavranan sezgisel dokunmatik kontroller\n• Özgün düşman sınıfları ve dev Omega Boss savaşları\n• Yerden doğrudan kristal toplama ve net yükseltme çubuğu\n• %100 Çevrimdışı (internetsiz) çalışma desteği\n\n🕹️ YENİ — İSTEĞE BAĞLI 3 BONUS NEON ARCADE MODU:\nLight Path ana lazer ve ayna bulmacası her zamanki hızıyla doğrudan açılır; dilerseniz üst menüdeki isteğe bağlı 'Arcade Modes' sekmesinden 3 ek neon oyunu çevrimdışı oynayabilirsiniz:\n• Memory Matrix 3D — Uzamsal Zeka & Guardian Boss\n• Neon Flow 3D — Siber Devre & Yıldız Akışı\n• Neon Crystal Defender — 3D Omega Boss Kule Savunması\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Light Path ana deneyimi ve anında açılış hızı aynen korundu.\n• Ana menüye isteğe bağlı 3 yeni Bonus Neon Arcade modu eklendi (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender — yalnızca tıklandığında belleğe yüklenir).\n• Ortak 3D doku ve ses havuzuyla paket boyutu optimize edildi.",
           "keywords": [
             "3d bulmaca",
             "internetsiz oyun",
@@ -42,8 +44,9 @@
         "de-DE": {
           "language_name": "Deutsch",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "Offline 3D-Puzzle & Boss-Action! Kristalle sammeln, upgraden & Fokus stärken.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nStudio-3D-PBR-Grafik mit 60 FPS und 100 % Offline-Gameplay von MTT Games.\n\n• Sofort verständliche 5-Sekunden-Touch-Steuerung\n• Einzigartige Gegnerklassen & epische Omega-Bosse\n• Kristalle direkt auf dem Spielfeld sammeln & upgraden\n• 100 % Offline spielbar ohne Internetzwang\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "Offline 3D-Laser-Puzzle + 3 optionale Bonus-Neon-Arcade-Modi in einer App!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nStudio-3D-PBR-Grafik mit 60 FPS und 100 % Offline-Gameplay von MTT Games.\n\n• Sofort verständliche 5-Sekunden-Touch-Steuerung\n• Einzigartige Gegnerklassen & epische Omega-Bosse\n• Kristalle direkt auf dem Spielfeld sammeln & upgraden\n• 100 % Offline spielbar ohne Internetzwang\n\n🕹️ NEU — 3 OPTIONALE BONUS-NEON-ARCADE-MODI:\nDas klassische Light-Path-Hauptspiel startet sofort wie gewohnt. Über den optionalen Tab 'Arcade Modes' können 3 weitere Offline-Neon-Modi (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender) geladen werden.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Das Light-Path-Hauptspiel und der schnelle Start bleiben vollständig erhalten.\n• Neuer optionaler Tab mit 3 Bonus-Neon-Arcade-Modi hinzugefügt (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender).",
           "keywords": [
             "3d rätsel",
             "offline spiel",
@@ -57,8 +60,9 @@
         "fr-FR": {
           "language_name": "Français",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "Puzzle 3D & Boss hors-ligne ! Collectez des cristaux et améliorez vos pouvoirs.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nGraphismes 3D PBR à 60 FPS et jeu 100 % hors-ligne signé MTT Games.\n\n• Commandes tactiles intuitives en 5 secondes\n• Ennemis variés et combats de Boss Omega uniques\n• Collecte directe de cristaux et barre d'amélioration claire\n• Jouable 100 % hors connexion partout\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "Puzzle laser 3D hors-ligne + 3 modes Bonus Neon Arcade optionnels inclus !",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nGraphismes 3D PBR à 60 FPS et jeu 100 % hors-ligne signé MTT Games.\n\n• Commandes tactiles intuitives en 5 secondes\n• Ennemis variés et combats de Boss Omega uniques\n• Collecte directe de cristaux et barre d'amélioration claire\n• Jouable 100 % hors connexion partout\n\n🕹️ NOUVEAU — 3 MODES BONUS NEON ARCADE OPTIONNELS :\nL'expérience principale Light Path démarre instantanément, avec un onglet optionnel 'Arcade Modes' donnant accès à Memory Matrix 3D, Neon Flow 3D et Neon Crystal Defender hors-ligne.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Expérience principale Light Path préservée avec lancement instantané.\n• Ajout de 3 nouveaux modes Bonus Neon Arcade optionnels (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender).",
           "keywords": [
             "puzzle 3d",
             "jeu hors ligne",
@@ -72,8 +76,9 @@
         "es-ES": {
           "language_name": "Español",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "¡Puzzle 3D y jefes sin internet! Recoge cristales, mejora y entrena tu mente.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nGráficos 3D PBR a 60 FPS y jugabilidad 100 % offline creada por MTT Games.\n\n• Controles táctiles intuitivos desde los primeros 5 segundos\n• Enemigos únicos y batallas épicas contra Jefes Omega\n• Recolección directa de cristales y mejoras visibles\n• Funciona 100 % sin conexión a internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "¡Puzzle láser 3D sin internet + 3 modos Bonus Neon Arcade opcionales!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nGráficos 3D PBR a 60 FPS y jugabilidad 100 % offline creada por MTT Games.\n\n• Controles táctiles intuitivos desde los primeros 5 segundos\n• Enemigos únicos y batallas épicas contra Jefes Omega\n• Recolección directa de cristales y mejoras visibles\n• Funciona 100 % sin conexión a internet\n\n🕹️ NUEVO — 3 MODOS BONUS NEON ARCADE OPCIONALES:\nLa experiencia principal de Light Path abre al instante como siempre, y ahora incluye la pestaña opcional 'Arcade Modes' con Memory Matrix 3D, Neon Flow 3D y Neon Crystal Defender 100 % offline.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Se conserva intacta la experiencia principal de Light Path y su inicio rápido.\n• Se añadieron 3 nuevos modos Bonus Neon Arcade opcionales (Memory Matrix 3D, Neon Flow 3D y Neon Crystal Defender).",
           "keywords": [
             "puzzle 3d",
             "juego sin internet",
@@ -87,8 +92,9 @@
         "pt-BR": {
           "language_name": "Português (Brasil)",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "Puzzle 3D e chefes offline! Colete cristais, evolua e treine seu raciocínio.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nVisual 3D PBR em 60 FPS e modo 100% offline desenvolvido pela MTT Games.\n\n• Controles rápidos e intuitivos em apenas 5 segundos\n• Inimigos exclusivos e chefes Omega desafiadores\n• Coleta direta de cristais no mapa e barra de evolução clara\n• Jogue 100% offline em qualquer lugar\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "Puzzle laser 3D offline + 3 novos modos Bônus Neon Arcade opcionais!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nVisual 3D PBR em 60 FPS e modo 100% offline desenvolvido pela MTT Games.\n\n• Controles rápidos e intuitivos em apenas 5 segundos\n• Inimigos exclusivos e chefes Omega desafiadores\n• Coleta direta de cristais no mapa e barra de evolução clara\n• Jogue 100% offline em qualquer lugar\n\n🕹️ NOVO — 3 MODOS BÔNUS NEON ARCADE OPCIONAIS:\nA experiência principal de Light Path abre direto como sempre, agora com a aba opcional 'Arcade Modes' trazendo Memory Matrix 3D, Neon Flow 3D e Neon Crystal Defender offline.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Experiência principal do Light Path preservada com abertura imediata.\n• Adicionados 3 novos modos Bônus Neon Arcade opcionais (Memory Matrix 3D, Neon Flow 3D e Neon Crystal Defender).",
           "keywords": [
             "puzzle 3d",
             "jogo offline",
@@ -102,8 +108,9 @@
         "ja-JP": {
           "language_name": "日本語",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "オフライン対応3Dパズル＆ボス戦！クリスタルを集めて強化し脳を鍛えよう。",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games贈る60FPSの美しい3D PBRグラフィック＆完全オフライン対応ゲーム。\n\n• 誰でも5秒で直感的に遊べるシンプル操作\n• 個性豊かな敵タイプと巨大オメガボス戦\n• フィールドで直接クリスタル回収＆分かりやすい強化ゲージ\n• 通信不要の100%オフラインプレイ対応\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "オフライン3Dレーザーパズル＋選べる3つのボーナスネオンアーケードモード搭載！",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games贈る60FPSの美しい3D PBRグラフィック＆完全オフライン対応ゲーム。\n\n• 誰でも5秒で直感的に遊べるシンプル操作\n• 個性豊かな敵タイプと巨大オメガボス戦\n• フィールドで直接クリスタル回収＆分かりやすい強化ゲージ\n• 通信不要の100%オフラインプレイ対応\n\n🕹️ 新機能 — 任意で遊べる3つのボーナス・ネオンアーケードモード：\nLight Path本編の即時起動はそのままに、上部メニューからMemory Matrix 3D・Neon Flow 3D・Neon Crystal Defenderの3モードを必要な時だけ読み込んでオフラインで遊べます。\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Light Path本編のゲーム体験と高速起動をそのまま維持しました。\n• 任意で遊べる3つの新ボーナス・ネオンアーケードモード（Memory Matrix 3D / Neon Flow 3D / Neon Crystal Defender）を追加しました。",
           "keywords": [
             "3Dパズル",
             "オフラインゲーム",
@@ -117,8 +124,9 @@
         "ko-KR": {
           "language_name": "한국어",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "오프라인 3D 퍼즐 & 보스 액션! 크리스탈을 모아 업그레이드하고 두뇌를 훈련하세요.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games의 60FPS 3D PBR 그래픽과 100% 오프라인 플레이 지원.\n\n• 5초 만에 익히는 직관적인 원터치 조작\n• 개성 넘치는 적 패턴과 거대 오메가 보스전\n• 필드 위 즉시 크리스탈 수집 및 명확한 업그레이드 바\n• 데이터 걱정 없는 100% 오프라인 실행\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "오프라인 3D 레이저 퍼즐 + 선택형 보너스 네온 아케이드 3종 모드 탑재!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games의 60FPS 3D PBR 그래픽과 100% 오프라인 플레이 지원.\n\n• 5초 만에 익히는 직관적인 원터치 조작\n• 개성 넘치는 적 패턴과 거대 오메가 보스전\n• 필드 위 즉시 크리스탈 수집 및 명확한 업그레이드 바\n• 데이터 걱정 없는 100% 오프라인 실행\n\n🕹️ 신규 — 선택형 보너스 네온 아케이드 3종 모드:\n기존 Light Path 메인 게임이 즉시 실행되며, 원할 때만 'Arcade Modes' 탭에서 Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender를 오프라인으로 즐길 수 있습니다.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Light Path 핵심 게임 경험과 빠른 실행 속도를 그대로 유지했습니다.\n• 선택형 보너스 네온 아케이드 3종 모드(Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender)가 추가되었습니다.",
           "keywords": [
             "3D 퍼즐",
             "오프라인 게임",
@@ -132,8 +140,9 @@
         "zh-CN": {
           "language_name": "简体中文",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "离线3D解谜与首领激战！收集能量水晶，升级装备，随时锻炼空间思维。",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games出品：60帧次世代3D PBR画质，支持100%无网络离线畅玩。\n\n• 5秒即可上手的极简触控体验\n• 独特敌军造型与巨型欧米茄首领战\n• 场上直接拾取水晶，升级进度一目了然\n• 100%离线运行，随时随地畅玩\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "离线3D光学解谜 + 全新可选3大霓虹街机奖励模式，极速启动畅玩！",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games出品：60帧次世代3D PBR画质，支持100%无网络离线畅玩。\n\n• 5秒即可上手的极简触控体验\n• 独特敌军造型与巨型欧米茄首领战\n• 场上直接拾取水晶，升级进度一目了然\n• 100%离线运行，随时随地畅玩\n\n🕹️ 全新升级 — 3大可选霓虹街机奖励模式（按需加载）：\n完整保留 Light Path 主游戏极速启动体验，并新增可选“Arcade Modes”标签页，随时离线畅玩 Memory Matrix 3D、Neon Flow 3D 与 Neon Crystal Defender。\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• 完整保留 Light Path 核心光学解谜体验与秒开速度。\n• 新增可选“Bonus Neon Arcade”标签页，内含3款按需加载新模式（Memory Matrix 3D、Neon Flow 3D、Neon Crystal Defender）。",
           "keywords": [
             "3D解谜",
             "单机游戏",
@@ -147,8 +156,9 @@
         "ru-RU": {
           "language_name": "Русский",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "3D-головоломки и битвы с боссами без интернета! Собирай кристаллы и качайся.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\n3D PBR-графика 60 FPS и 100% офлайн-геймплей от студии MTT Games.\n\n• Понятное управление с первых 5 секунд игры\n• Уникальные враги и эпические Омега-боссы\n• Прямой сбор кристаллов на поле и наглядная шкала улучшений\n• Работает полностью без интернета\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "3D лазерная головоломка офлайн + 3 бонусных режима Neon Arcade по выбору!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\n3D PBR-графика 60 FPS и 100% офлайн-геймплей от студии MTT Games.\n\n• Понятное управление с первых 5 секунд игры\n• Уникальные враги и эпические Омега-боссы\n• Прямой сбор кристаллов на поле и наглядная шкала улучшений\n• Работает полностью без интернета\n\n🕹️ НОВОЕ — 3 ДОПОЛНИТЕЛЬНЫХ РЕЖИМА BONUS NEON ARCADE:\nОсновная игра Light Path запускается мгновенно, а во вкладке 'Arcade Modes' доступны 3 бонусных офлайн-режима: Memory Matrix 3D, Neon Flow 3D и Neon Crystal Defender.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Полностью сохранен основной игровой процесс Light Path и мгновенный запуск.\n• Добавлены 3 необязательных бонусных режима Neon Arcade (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender).",
           "keywords": [
             "3d головоломка",
             "игры без интернета",
@@ -161,8 +171,9 @@
         "ar": {
           "language_name": "العربية",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "ألغاز ثلاثية الأبعاد ومعارك زعماء بدون إنترنت! اجمع الكريستال وطوّر قدراتك.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nرسوميات 3D PBR بسرعة 60 إطاراً في الثانية ولعب بدون اتصال من MTT Games.\n\n• تحكم لمسي بديهي وسهل خلال 5 ثوانٍ فقط\n• أعداء متنوعون ومعارك زعماء أوميغا ملحمية\n• جمع الكريستال مباشرة من الساحة وشريط تطوير واضح\n• يعمل 100% بدون الحاجة للاتصال بالإنترنت\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "ألغاز ليزر ثلاثية الأبعاد بدون نت + 3 أطوار نيون أركيد إضافية اختيارية!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nرسوميات 3D PBR بسرعة 60 إطاراً في الثانية ولعب بدون اتصال من MTT Games.\n\n• تحكم لمسي بديهي وسهل خلال 5 ثوانٍ فقط\n• أعداء متنوعون ومعارك زعماء أوميغا ملحمية\n• جمع الكريستال مباشرة من الساحة وشريط تطوير واضح\n• يعمل 100% بدون الحاجة للاتصال بالإنترنت\n\n🕹️ جديد — 3 أطوار نيون أركيد إضافية اختيارية:\nتعمل تجربة Light Path الأساسية فوراً كما هي، مع تبويب اختياري يضم 3 ألعاب إضافية بدون إنترنت: Memory Matrix 3D وNeon Flow 3D وNeon Crystal Defender.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• الحفاظ الكامل على تجربة Light Path الأساسية وسرعة التشغيل الفوري.\n• إضافة 3 أطوار Bonus Neon Arcade اختيارية جديدة (Memory Matrix 3D وNeon Flow 3D وNeon Crystal Defender).",
           "keywords": [
             "ألغاز 3D",
             "ألعاب بدون نت",
@@ -176,8 +187,9 @@
         "hi-IN": {
           "language_name": "हिन्दी",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "ऑफ़लाइन 3D पज़ल और बॉस एक्शन! क्रिस्टल चुनें, अपग्रेड करें और दिमाग तेज़ करें।",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games द्वारा 60 FPS 3D PBR ग्राफ़िक्स और 100% ऑफ़लाइन गेमप्ले।\n\n• सिर्फ़ 5 सेकंड में समझ आने वाले आसान टच कंट्रोल\n• अनोखे दुश्मन और विशाल ओमेगा बॉस मुकाबले\n• मैदान से सीधे क्रिस्टल इकट्ठा करें और तुरंत अपग्रेड करें\n• बिना इंटरनेट 100% ऑफ़लाइन खेलें\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "ऑफ़लाइन 3D लेज़र पज़ल + 3 नए वैकल्पिक बोनस नियॉन आर्केड मोड्स!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nMTT Games द्वारा 60 FPS 3D PBR ग्राफ़िक्स और 100% ऑफ़लाइन गेमप्ले।\n\n• सिर्फ़ 5 सेकंड में समझ आने वाले आसान टच कंट्रोल\n• अनोखे दुश्मन और विशाल ओमेगा बॉस मुकाबले\n• मैदान से सीधे क्रिस्टल इकट्ठा करें और तुरंत अपग्रेड करें\n• बिना इंटरनेट 100% ऑफ़लाइन खेलें\n\n🕹️ नया — 3 वैकल्पिक बोनस नियॉन आर्केड मोड्स:\nLight Path का मुख्य अनुभव तुरंत खुलता है, और अब वैकल्पिक 'Arcade Modes' टैब में Memory Matrix 3D, Neon Flow 3D व Neon Crystal Defender भी ऑफ़लाइन उपलब्ध हैं।\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Light Path का मुख्य गेम अनुभव और तेज़ स्टार्टअप पूरी तरह सुरक्षित रखा गया है।\n• 3 नए वैकल्पिक Bonus Neon Arcade मोड्स (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender) जोड़े गए।",
           "keywords": [
             "3d पहेली",
             "ऑफ़लाइन गेम",
@@ -191,8 +203,9 @@
         "id": {
           "language_name": "Bahasa Indonesia",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "Puzzle 3D & aksi bos offline! Kumpulkan kristal, upgrade & latih fokusmu.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nGrafis 3D PBR 60 FPS berkualitas studio & 100% mode offline dari MTT Games.\n\n• Kontrol sentuh intuitif dipahami dalam 5 detik\n• Musuh unik & pertarungan Bos Omega seru\n• Ambil kristal langsung di arena & bar upgrade jelas\n• 100% bisa dimainkan offline tanpa kuota\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "Puzzle laser 3D offline + 3 mode Bonus Neon Arcade opsional dalam 1 aplikasi!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nGrafis 3D PBR 60 FPS berkualitas studio & 100% mode offline dari MTT Games.\n\n• Kontrol sentuh intuitif dipahami dalam 5 detik\n• Musuh unik & pertarungan Bos Omega seru\n• Ambil kristal langsung di arena & bar upgrade jelas\n• 100% bisa dimainkan offline tanpa kuota\n\n🕹️ BARU — 3 MODE BONUS NEON ARCADE OPSIONAL:\nPermainan utama Light Path tetap terbuka instan, ditambah tab opsional 'Arcade Modes' berisi Memory Matrix 3D, Neon Flow 3D, dan Neon Crystal Defender yang dimuat sesuai pilihanmu.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Pengalaman utama Light Path tetap terjaga dengan pembukaan instan.\n• Ditambahkan 3 mode Bonus Neon Arcade opsional baru (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender).",
           "keywords": [
             "puzzle 3d",
             "game offline",
@@ -206,8 +219,9 @@
         "it-IT": {
           "language_name": "Italiano",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "Puzzle 3D e boss offline! Raccogli cristalli, potenzia e allena la mente.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nGrafica 3D PBR a 60 FPS e gameplay 100% offline firmato MTT Games.\n\n• Comandi touch intuitivi in soli 5 secondi\n• Nemici distinti ed epiche battaglie contro Boss Omega\n• Raccolta diretta dei cristalli e barra potenziamenti chiara\n• Giocabile al 100% senza connessione internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "Puzzle laser 3D offline + 3 nuove modalità Bonus Neon Arcade opzionali!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nGrafica 3D PBR a 60 FPS e gameplay 100% offline firmato MTT Games.\n\n• Comandi touch intuitivi in soli 5 secondi\n• Nemici distinti ed epiche battaglie contro Boss Omega\n• Raccolta diretta dei cristalli e barra potenziamenti chiara\n• Giocabile al 100% senza connessione internet\n\n🕹️ NOVITÀ — 3 MODALITÀ BONUS NEON ARCADE OPZIONALI:\nL'esperienza principale di Light Path si avvia all'istante come sempre, con in più la scheda opzionale 'Arcade Modes' con Memory Matrix 3D, Neon Flow 3D e Neon Crystal Defender offline.\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• Esperienza principale di Light Path preservata con avvio istantaneo.\n• Aggiunte 3 nuove modalità Bonus Neon Arcade opzionali (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender).",
           "keywords": [
             "puzzle 3d",
             "giochi offline",
@@ -221,8 +235,9 @@
         "nl-NL": {
           "language_name": "Nederlands",
           "title": "Light Path: 3D Laser Puzzle",
-          "shortDescription": "Offline 3D-puzzel & eindbaas-actie! Verzamel kristallen, upgrade & focus.",
-          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nStudio 3D PBR-graphics op 60 FPS en 100% offline speelbaar van MTT Games.\n\n• Intuïtieve touch-bediening binnen 5 seconden duidelijk\n• Unieke vijanden en epische Omega-eindbazen\n• Verzamel kristallen direct op het veld & upgrade eenvoudig\n• 100% offline te spelen zonder internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "shortDescription": "Offline 3D-laserpuzzel + 3 optionele Bonus Neon Arcade-modi in één app!",
+          "fullDescription": "Light Path: 3D Laser Puzzle — 3D Laser Optics & Guardian Boss Puzzle\n\nStudio 3D PBR-graphics op 60 FPS en 100% offline speelbaar van MTT Games.\n\n• Intuïtieve touch-bediening binnen 5 seconden duidelijk\n• Unieke vijanden en epische Omega-eindbazen\n• Verzamel kristallen direct op het veld & upgrade eenvoudig\n• 100% offline te spelen zonder internet\n\n🕹️ NIEUW — 3 OPTIONELE BONUS NEON ARCADE-MODI:\nDe vertrouwde Light Path-hoofdervaring start direct op, met nu een optioneel tabblad 'Arcade Modes' voor Memory Matrix 3D, Neon Flow 3D en Neon Crystal Defender (100% offline).\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/light_path/\n",
+          "releaseNotes": "• De kernervaring en directe opstartsnelheid van Light Path zijn volledig behouden.\n• 3 optionele Bonus Neon Arcade-modi toegevoegd (Memory Matrix 3D, Neon Flow 3D, Neon Crystal Defender).",
           "keywords": [
             "3d puzzel",
             "offline spel",
@@ -243,6 +258,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "Offline 3D puzzle & boss action! Collect crystals, upgrade gear & train focus.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nExperience studio-grade 3D PBR visuals, 60 FPS responsiveness, and 100% offline play by MTT Games.\n\n• Instant 5-second intuitive touch controls\n• Unique Scout, Crusher & Phantom enemies + Omega Bosses\n• Direct on-field crystal collection & clear upgrade bar\n• 100% Offline APK/AAB & WebGL play — zero paywalls\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "Offline 3D puzzle & boss action! Collect crystals, upgrade gear & train focus.",
           "keywords": [
             "3d puzzle",
             "offline game",
@@ -258,6 +274,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "Çevrimdışı 3D bulmaca ve boss aksiyonu! Kristal topla, güçlen ve odaklan.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nMTT Games imzalı 3D PBR grafikler, 60 FPS akıcılık ve %100 internetsiz oynanış.\n\n• 5 saniyede kavranan sezgisel dokunmatik kontroller\n• Özgün düşman sınıfları ve dev Omega Boss savaşları\n• Yerden doğrudan kristal toplama ve net yükseltme çubuğu\n• %100 Çevrimdışı (internetsiz) çalışma desteği\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "Çevrimdışı 3D bulmaca ve boss aksiyonu! Kristal topla, güçlen ve odaklan.",
           "keywords": [
             "3d bulmaca",
             "internetsiz oyun",
@@ -273,6 +290,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "Offline 3D-Puzzle & Boss-Action! Kristalle sammeln, upgraden & Fokus stärken.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nStudio-3D-PBR-Grafik mit 60 FPS und 100 % Offline-Gameplay von MTT Games.\n\n• Sofort verständliche 5-Sekunden-Touch-Steuerung\n• Einzigartige Gegnerklassen & epische Omega-Bosse\n• Kristalle direkt auf dem Spielfeld sammeln & upgraden\n• 100 % Offline spielbar ohne Internetzwang\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "Offline 3D-Puzzle & Boss-Action! Kristalle sammeln, upgraden & Fokus stärken.",
           "keywords": [
             "3d rätsel",
             "offline spiel",
@@ -288,6 +306,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "Puzzle 3D & Boss hors-ligne ! Collectez des cristaux et améliorez vos pouvoirs.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nGraphismes 3D PBR à 60 FPS et jeu 100 % hors-ligne signé MTT Games.\n\n• Commandes tactiles intuitives en 5 secondes\n• Ennemis variés et combats de Boss Omega uniques\n• Collecte directe de cristaux et barre d'amélioration claire\n• Jouable 100 % hors connexion partout\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "Puzzle 3D & Boss hors-ligne ! Collectez des cristaux et améliorez vos pouvoirs.",
           "keywords": [
             "puzzle 3d",
             "jeu hors ligne",
@@ -303,6 +322,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "¡Puzzle 3D y jefes sin internet! Recoge cristales, mejora y entrena tu mente.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nGráficos 3D PBR a 60 FPS y jugabilidad 100 % offline creada por MTT Games.\n\n• Controles táctiles intuitivos desde los primeros 5 segundos\n• Enemigos únicos y batallas épicas contra Jefes Omega\n• Recolección directa de cristales y mejoras visibles\n• Funciona 100 % sin conexión a internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "¡Puzzle 3D y jefes sin internet! Recoge cristales, mejora y entrena tu mente.",
           "keywords": [
             "puzzle 3d",
             "juego sin internet",
@@ -318,6 +338,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "Puzzle 3D e chefes offline! Colete cristais, evolua e treine seu raciocínio.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nVisual 3D PBR em 60 FPS e modo 100% offline desenvolvido pela MTT Games.\n\n• Controles rápidos e intuitivos em apenas 5 segundos\n• Inimigos exclusivos e chefes Omega desafiadores\n• Coleta direta de cristais no mapa e barra de evolução clara\n• Jogue 100% offline em qualquer lugar\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "Puzzle 3D e chefes offline! Colete cristais, evolua e treine seu raciocínio.",
           "keywords": [
             "puzzle 3d",
             "jogo offline",
@@ -333,6 +354,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "オフライン対応3Dパズル＆ボス戦！クリスタルを集めて強化し脳を鍛えよう。",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nMTT Games贈る60FPSの美しい3D PBRグラフィック＆完全オフライン対応ゲーム。\n\n• 誰でも5秒で直感的に遊べるシンプル操作\n• 個性豊かな敵タイプと巨大オメガボス戦\n• フィールドで直接クリスタル回収＆分かりやすい強化ゲージ\n• 通信不要の100%オフラインプレイ対応\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "オフライン対応3Dパズル＆ボス戦！クリスタルを集めて強化し脳を鍛えよう。",
           "keywords": [
             "3Dパズル",
             "オフラインゲーム",
@@ -348,6 +370,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "오프라인 3D 퍼즐 & 보스 액션! 크리스탈을 모아 업그레이드하고 두뇌를 훈련하세요.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nMTT Games의 60FPS 3D PBR 그래픽과 100% 오프라인 플레이 지원.\n\n• 5초 만에 익히는 직관적인 원터치 조작\n• 개성 넘치는 적 패턴과 거대 오메가 보스전\n• 필드 위 즉시 크리스탈 수집 및 명확한 업그레이드 바\n• 데이터 걱정 없는 100% 오프라인 실행\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "오프라인 3D 퍼즐 & 보스 액션! 크리스탈을 모아 업그레이드하고 두뇌를 훈련하세요.",
           "keywords": [
             "3D 퍼즐",
             "오프라인 게임",
@@ -363,6 +386,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "离线3D解谜与首领激战！收集能量水晶，升级装备，随时锻炼空间思维。",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nMTT Games出品：60帧次世代3D PBR画质，支持100%无网络离线畅玩。\n\n• 5秒即可上手的极简触控体验\n• 独特敌军造型与巨型欧米茄首领战\n• 场上直接拾取水晶，升级进度一目了然\n• 100%离线运行，随时随地畅玩\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "离线3D解谜与首领激战！收集能量水晶，升级装备，随时锻炼空间思维。",
           "keywords": [
             "3D解谜",
             "单机游戏",
@@ -378,6 +402,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "3D-головоломки и битвы с боссами без интернета! Собирай кристаллы и качайся.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\n3D PBR-графика 60 FPS и 100% офлайн-геймплей от студии MTT Games.\n\n• Понятное управление с первых 5 секунд игры\n• Уникальные враги и эпические Омега-боссы\n• Прямой сбор кристаллов на поле и наглядная шкала улучшений\n• Работает полностью без интернета\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "3D-головоломки и битвы с боссами без интернета! Собирай кристаллы и качайся.",
           "keywords": [
             "3d головоломка",
             "игры без интернета",
@@ -392,6 +417,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "ألغاز ثلاثية الأبعاد ومعارك زعماء بدون إنترنت! اجمع الكريستال وطوّر قدراتك.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nرسوميات 3D PBR بسرعة 60 إطاراً في الثانية ولعب بدون اتصال من MTT Games.\n\n• تحكم لمسي بديهي وسهل خلال 5 ثوانٍ فقط\n• أعداء متنوعون ومعارك زعماء أوميغا ملحمية\n• جمع الكريستال مباشرة من الساحة وشريط تطوير واضح\n• يعمل 100% بدون الحاجة للاتصال بالإنترنت\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "ألغاز ثلاثية الأبعاد ومعارك زعماء بدون إنترنت! اجمع الكريستال وطوّر قدراتك.",
           "keywords": [
             "ألغاز 3D",
             "ألعاب بدون نت",
@@ -407,6 +433,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "ऑफ़लाइन 3D पज़ल और बॉस एक्शन! क्रिस्टल चुनें, अपग्रेड करें और दिमाग तेज़ करें।",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nMTT Games द्वारा 60 FPS 3D PBR ग्राफ़िक्स और 100% ऑफ़लाइन गेमप्ले।\n\n• सिर्फ़ 5 सेकंड में समझ आने वाले आसान टच कंट्रोल\n• अनोखे दुश्मन और विशाल ओमेगा बॉस मुकाबले\n• मैदान से सीधे क्रिस्टल इकट्ठा करें और तुरंत अपग्रेड करें\n• बिना इंटरनेट 100% ऑफ़लाइन खेलें\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "ऑफ़लाइन 3D पज़ल और बॉस एक्शन! क्रिस्टल चुनें, अपग्रेड करें और दिमाग तेज़ करें।",
           "keywords": [
             "3d पहेली",
             "ऑफ़लाइन गेम",
@@ -422,6 +449,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "Puzzle 3D & aksi bos offline! Kumpulkan kristal, upgrade & latih fokusmu.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nGrafis 3D PBR 60 FPS berkualitas studio & 100% mode offline dari MTT Games.\n\n• Kontrol sentuh intuitif dipahami dalam 5 detik\n• Musuh unik & pertarungan Bos Omega seru\n• Ambil kristal langsung di arena & bar upgrade jelas\n• 100% bisa dimainkan offline tanpa kuota\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "Puzzle 3D & aksi bos offline! Kumpulkan kristal, upgrade & latih fokusmu.",
           "keywords": [
             "puzzle 3d",
             "game offline",
@@ -437,6 +465,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "Puzzle 3D e boss offline! Raccogli cristalli, potenzia e allena la mente.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nGrafica 3D PBR a 60 FPS e gameplay 100% offline firmato MTT Games.\n\n• Comandi touch intuitivi in soli 5 secondi\n• Nemici distinti ed epiche battaglie contro Boss Omega\n• Raccolta diretta dei cristalli e barra potenziamenti chiara\n• Giocabile al 100% senza connessione internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "Puzzle 3D e boss offline! Raccogli cristalli, potenzia e allena la mente.",
           "keywords": [
             "puzzle 3d",
             "giochi offline",
@@ -452,6 +481,7 @@
           "title": "Memory Matrix: Spatial IQ",
           "shortDescription": "Offline 3D-puzzel & eindbaas-actie! Verzamel kristallen, upgrade & focus.",
           "fullDescription": "Memory Matrix: Spatial IQ — 3D Spatial Memory & Cognitive Architecture\n\nStudio 3D PBR-graphics op 60 FPS en 100% offline speelbaar van MTT Games.\n\n• Intuïtieve touch-bediening binnen 5 seconden duidelijk\n• Unieke vijanden en epische Omega-eindbazen\n• Verzamel kristallen direct op het veld & upgrade eenvoudig\n• 100% offline te spelen zonder internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/memory_matrix/\n",
+          "releaseNotes": "Offline 3D-puzzel & eindbaas-actie! Verzamel kristallen, upgrade & focus.",
           "keywords": [
             "3d puzzel",
             "offline spel",
@@ -472,6 +502,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "Offline 3D puzzle & boss action! Collect crystals, upgrade gear & train focus.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nExperience studio-grade 3D PBR visuals, 60 FPS responsiveness, and 100% offline play by MTT Games.\n\n• Instant 5-second intuitive touch controls\n• Unique Scout, Crusher & Phantom enemies + Omega Bosses\n• Direct on-field crystal collection & clear upgrade bar\n• 100% Offline APK/AAB & WebGL play — zero paywalls\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "Offline 3D puzzle & boss action! Collect crystals, upgrade gear & train focus.",
           "keywords": [
             "3d puzzle",
             "offline game",
@@ -487,6 +518,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "Çevrimdışı 3D bulmaca ve boss aksiyonu! Kristal topla, güçlen ve odaklan.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nMTT Games imzalı 3D PBR grafikler, 60 FPS akıcılık ve %100 internetsiz oynanış.\n\n• 5 saniyede kavranan sezgisel dokunmatik kontroller\n• Özgün düşman sınıfları ve dev Omega Boss savaşları\n• Yerden doğrudan kristal toplama ve net yükseltme çubuğu\n• %100 Çevrimdışı (internetsiz) çalışma desteği\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "Çevrimdışı 3D bulmaca ve boss aksiyonu! Kristal topla, güçlen ve odaklan.",
           "keywords": [
             "3d bulmaca",
             "internetsiz oyun",
@@ -502,6 +534,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "Offline 3D-Puzzle & Boss-Action! Kristalle sammeln, upgraden & Fokus stärken.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nStudio-3D-PBR-Grafik mit 60 FPS und 100 % Offline-Gameplay von MTT Games.\n\n• Sofort verständliche 5-Sekunden-Touch-Steuerung\n• Einzigartige Gegnerklassen & epische Omega-Bosse\n• Kristalle direkt auf dem Spielfeld sammeln & upgraden\n• 100 % Offline spielbar ohne Internetzwang\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "Offline 3D-Puzzle & Boss-Action! Kristalle sammeln, upgraden & Fokus stärken.",
           "keywords": [
             "3d rätsel",
             "offline spiel",
@@ -517,6 +550,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "Puzzle 3D & Boss hors-ligne ! Collectez des cristaux et améliorez vos pouvoirs.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nGraphismes 3D PBR à 60 FPS et jeu 100 % hors-ligne signé MTT Games.\n\n• Commandes tactiles intuitives en 5 secondes\n• Ennemis variés et combats de Boss Omega uniques\n• Collecte directe de cristaux et barre d'amélioration claire\n• Jouable 100 % hors connexion partout\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "Puzzle 3D & Boss hors-ligne ! Collectez des cristaux et améliorez vos pouvoirs.",
           "keywords": [
             "puzzle 3d",
             "jeu hors ligne",
@@ -532,6 +566,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "¡Puzzle 3D y jefes sin internet! Recoge cristales, mejora y entrena tu mente.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nGráficos 3D PBR a 60 FPS y jugabilidad 100 % offline creada por MTT Games.\n\n• Controles táctiles intuitivos desde los primeros 5 segundos\n• Enemigos únicos y batallas épicas contra Jefes Omega\n• Recolección directa de cristales y mejoras visibles\n• Funciona 100 % sin conexión a internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "¡Puzzle 3D y jefes sin internet! Recoge cristales, mejora y entrena tu mente.",
           "keywords": [
             "puzzle 3d",
             "juego sin internet",
@@ -547,6 +582,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "Puzzle 3D e chefes offline! Colete cristais, evolua e treine seu raciocínio.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nVisual 3D PBR em 60 FPS e modo 100% offline desenvolvido pela MTT Games.\n\n• Controles rápidos e intuitivos em apenas 5 segundos\n• Inimigos exclusivos e chefes Omega desafiadores\n• Coleta direta de cristais no mapa e barra de evolução clara\n• Jogue 100% offline em qualquer lugar\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "Puzzle 3D e chefes offline! Colete cristais, evolua e treine seu raciocínio.",
           "keywords": [
             "puzzle 3d",
             "jogo offline",
@@ -562,6 +598,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "オフライン対応3Dパズル＆ボス戦！クリスタルを集めて強化し脳を鍛えよう。",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nMTT Games贈る60FPSの美しい3D PBRグラフィック＆完全オフライン対応ゲーム。\n\n• 誰でも5秒で直感的に遊べるシンプル操作\n• 個性豊かな敵タイプと巨大オメガボス戦\n• フィールドで直接クリスタル回収＆分かりやすい強化ゲージ\n• 通信不要の100%オフラインプレイ対応\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "オフライン対応3Dパズル＆ボス戦！クリスタルを集めて強化し脳を鍛えよう。",
           "keywords": [
             "3Dパズル",
             "オフラインゲーム",
@@ -577,6 +614,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "오프라인 3D 퍼즐 & 보스 액션! 크리스탈을 모아 업그레이드하고 두뇌를 훈련하세요.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nMTT Games의 60FPS 3D PBR 그래픽과 100% 오프라인 플레이 지원.\n\n• 5초 만에 익히는 직관적인 원터치 조작\n• 개성 넘치는 적 패턴과 거대 오메가 보스전\n• 필드 위 즉시 크리스탈 수집 및 명확한 업그레이드 바\n• 데이터 걱정 없는 100% 오프라인 실행\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "오프라인 3D 퍼즐 & 보스 액션! 크리스탈을 모아 업그레이드하고 두뇌를 훈련하세요.",
           "keywords": [
             "3D 퍼즐",
             "오프라인 게임",
@@ -592,6 +630,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "离线3D解谜与首领激战！收集能量水晶，升级装备，随时锻炼空间思维。",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nMTT Games出品：60帧次世代3D PBR画质，支持100%无网络离线畅玩。\n\n• 5秒即可上手的极简触控体验\n• 独特敌军造型与巨型欧米茄首领战\n• 场上直接拾取水晶，升级进度一目了然\n• 100%离线运行，随时随地畅玩\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "离线3D解谜与首领激战！收集能量水晶，升级装备，随时锻炼空间思维。",
           "keywords": [
             "3D解谜",
             "单机游戏",
@@ -607,6 +646,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "3D-головоломки и битвы с боссами без интернета! Собирай кристаллы и качайся.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\n3D PBR-графика 60 FPS и 100% офлайн-геймплей от студии MTT Games.\n\n• Понятное управление с первых 5 секунд игры\n• Уникальные враги и эпические Омега-боссы\n• Прямой сбор кристаллов на поле и наглядная шкала улучшений\n• Работает полностью без интернета\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "3D-головоломки и битвы с боссами без интернета! Собирай кристаллы и качайся.",
           "keywords": [
             "3d головоломка",
             "игры без интернета",
@@ -621,6 +661,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "ألغاز ثلاثية الأبعاد ومعارك زعماء بدون إنترنت! اجمع الكريستال وطوّر قدراتك.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nرسوميات 3D PBR بسرعة 60 إطاراً في الثانية ولعب بدون اتصال من MTT Games.\n\n• تحكم لمسي بديهي وسهل خلال 5 ثوانٍ فقط\n• أعداء متنوعون ومعارك زعماء أوميغا ملحمية\n• جمع الكريستال مباشرة من الساحة وشريط تطوير واضح\n• يعمل 100% بدون الحاجة للاتصال بالإنترنت\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "ألغاز ثلاثية الأبعاد ومعارك زعماء بدون إنترنت! اجمع الكريستال وطوّر قدراتك.",
           "keywords": [
             "ألغاز 3D",
             "ألعاب بدون نت",
@@ -636,6 +677,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "ऑफ़लाइन 3D पज़ल और बॉस एक्शन! क्रिस्टल चुनें, अपग्रेड करें और दिमाग तेज़ करें।",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nMTT Games द्वारा 60 FPS 3D PBR ग्राफ़िक्स और 100% ऑफ़लाइन गेमप्ले।\n\n• सिर्फ़ 5 सेकंड में समझ आने वाले आसान टच कंट्रोल\n• अनोखे दुश्मन और विशाल ओमेगा बॉस मुकाबले\n• मैदान से सीधे क्रिस्टल इकट्ठा करें और तुरंत अपग्रेड करें\n• बिना इंटरनेट 100% ऑफ़लाइन खेलें\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "ऑफ़लाइन 3D पज़ल और बॉस एक्शन! क्रिस्टल चुनें, अपग्रेड करें और दिमाग तेज़ करें।",
           "keywords": [
             "3d पहेली",
             "ऑफ़लाइन गेम",
@@ -651,6 +693,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "Puzzle 3D & aksi bos offline! Kumpulkan kristal, upgrade & latih fokusmu.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nGrafis 3D PBR 60 FPS berkualitas studio & 100% mode offline dari MTT Games.\n\n• Kontrol sentuh intuitif dipahami dalam 5 detik\n• Musuh unik & pertarungan Bos Omega seru\n• Ambil kristal langsung di arena & bar upgrade jelas\n• 100% bisa dimainkan offline tanpa kuota\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "Puzzle 3D & aksi bos offline! Kumpulkan kristal, upgrade & latih fokusmu.",
           "keywords": [
             "puzzle 3d",
             "game offline",
@@ -666,6 +709,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "Puzzle 3D e boss offline! Raccogli cristalli, potenzia e allena la mente.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nGrafica 3D PBR a 60 FPS e gameplay 100% offline firmato MTT Games.\n\n• Comandi touch intuitivi in soli 5 secondi\n• Nemici distinti ed epiche battaglie contro Boss Omega\n• Raccolta diretta dei cristalli e barra potenziamenti chiara\n• Giocabile al 100% senza connessione internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "Puzzle 3D e boss offline! Raccogli cristalli, potenzia e allena la mente.",
           "keywords": [
             "puzzle 3d",
             "giochi offline",
@@ -681,6 +725,7 @@
           "title": "Neon Flow 3D: Cyber Circuit",
           "shortDescription": "Offline 3D-puzzel & eindbaas-actie! Verzamel kristallen, upgrade & focus.",
           "fullDescription": "Neon Flow 3D: Cyber Circuit — 3D Cyber Circuit & Boss Flow Puzzle\n\nStudio 3D PBR-graphics op 60 FPS en 100% offline speelbaar van MTT Games.\n\n• Intuïtieve touch-bediening binnen 5 seconden duidelijk\n• Unieke vijanden en epische Omega-eindbazen\n• Verzamel kristallen direct op het veld & upgrade eenvoudig\n• 100% offline te spelen zonder internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_flow_3d/\n",
+          "releaseNotes": "Offline 3D-puzzel & eindbaas-actie! Verzamel kristallen, upgrade & focus.",
           "keywords": [
             "3d puzzel",
             "offline spel",
@@ -701,6 +746,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "Offline 3D puzzle & boss action! Collect crystals, upgrade gear & train focus.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nExperience studio-grade 3D PBR visuals, 60 FPS responsiveness, and 100% offline play by MTT Games.\n\n• Instant 5-second intuitive touch controls\n• Unique Scout, Crusher & Phantom enemies + Omega Bosses\n• Direct on-field crystal collection & clear upgrade bar\n• 100% Offline APK/AAB & WebGL play — zero paywalls\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "Offline 3D puzzle & boss action! Collect crystals, upgrade gear & train focus.",
           "keywords": [
             "3d puzzle",
             "offline game",
@@ -716,6 +762,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "Çevrimdışı 3D bulmaca ve boss aksiyonu! Kristal topla, güçlen ve odaklan.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nMTT Games imzalı 3D PBR grafikler, 60 FPS akıcılık ve %100 internetsiz oynanış.\n\n• 5 saniyede kavranan sezgisel dokunmatik kontroller\n• Özgün düşman sınıfları ve dev Omega Boss savaşları\n• Yerden doğrudan kristal toplama ve net yükseltme çubuğu\n• %100 Çevrimdışı (internetsiz) çalışma desteği\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "Çevrimdışı 3D bulmaca ve boss aksiyonu! Kristal topla, güçlen ve odaklan.",
           "keywords": [
             "3d bulmaca",
             "internetsiz oyun",
@@ -731,6 +778,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "Offline 3D-Puzzle & Boss-Action! Kristalle sammeln, upgraden & Fokus stärken.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nStudio-3D-PBR-Grafik mit 60 FPS und 100 % Offline-Gameplay von MTT Games.\n\n• Sofort verständliche 5-Sekunden-Touch-Steuerung\n• Einzigartige Gegnerklassen & epische Omega-Bosse\n• Kristalle direkt auf dem Spielfeld sammeln & upgraden\n• 100 % Offline spielbar ohne Internetzwang\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "Offline 3D-Puzzle & Boss-Action! Kristalle sammeln, upgraden & Fokus stärken.",
           "keywords": [
             "3d rätsel",
             "offline spiel",
@@ -746,6 +794,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "Puzzle 3D & Boss hors-ligne ! Collectez des cristaux et améliorez vos pouvoirs.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nGraphismes 3D PBR à 60 FPS et jeu 100 % hors-ligne signé MTT Games.\n\n• Commandes tactiles intuitives en 5 secondes\n• Ennemis variés et combats de Boss Omega uniques\n• Collecte directe de cristaux et barre d'amélioration claire\n• Jouable 100 % hors connexion partout\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "Puzzle 3D & Boss hors-ligne ! Collectez des cristaux et améliorez vos pouvoirs.",
           "keywords": [
             "puzzle 3d",
             "jeu hors ligne",
@@ -761,6 +810,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "¡Puzzle 3D y jefes sin internet! Recoge cristales, mejora y entrena tu mente.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nGráficos 3D PBR a 60 FPS y jugabilidad 100 % offline creada por MTT Games.\n\n• Controles táctiles intuitivos desde los primeros 5 segundos\n• Enemigos únicos y batallas épicas contra Jefes Omega\n• Recolección directa de cristales y mejoras visibles\n• Funciona 100 % sin conexión a internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "¡Puzzle 3D y jefes sin internet! Recoge cristales, mejora y entrena tu mente.",
           "keywords": [
             "puzzle 3d",
             "juego sin internet",
@@ -776,6 +826,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "Puzzle 3D e chefes offline! Colete cristais, evolua e treine seu raciocínio.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nVisual 3D PBR em 60 FPS e modo 100% offline desenvolvido pela MTT Games.\n\n• Controles rápidos e intuitivos em apenas 5 segundos\n• Inimigos exclusivos e chefes Omega desafiadores\n• Coleta direta de cristais no mapa e barra de evolução clara\n• Jogue 100% offline em qualquer lugar\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "Puzzle 3D e chefes offline! Colete cristais, evolua e treine seu raciocínio.",
           "keywords": [
             "puzzle 3d",
             "jogo offline",
@@ -791,6 +842,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "オフライン対応3Dパズル＆ボス戦！クリスタルを集めて強化し脳を鍛えよう。",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nMTT Games贈る60FPSの美しい3D PBRグラフィック＆完全オフライン対応ゲーム。\n\n• 誰でも5秒で直感的に遊べるシンプル操作\n• 個性豊かな敵タイプと巨大オメガボス戦\n• フィールドで直接クリスタル回収＆分かりやすい強化ゲージ\n• 通信不要の100%オフラインプレイ対応\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "オフライン対応3Dパズル＆ボス戦！クリスタルを集めて強化し脳を鍛えよう。",
           "keywords": [
             "3Dパズル",
             "オフラインゲーム",
@@ -806,6 +858,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "오프라인 3D 퍼즐 & 보스 액션! 크리스탈을 모아 업그레이드하고 두뇌를 훈련하세요.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nMTT Games의 60FPS 3D PBR 그래픽과 100% 오프라인 플레이 지원.\n\n• 5초 만에 익히는 직관적인 원터치 조작\n• 개성 넘치는 적 패턴과 거대 오메가 보스전\n• 필드 위 즉시 크리스탈 수집 및 명확한 업그레이드 바\n• 데이터 걱정 없는 100% 오프라인 실행\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "오프라인 3D 퍼즐 & 보스 액션! 크리스탈을 모아 업그레이드하고 두뇌를 훈련하세요.",
           "keywords": [
             "3D 퍼즐",
             "오프라인 게임",
@@ -821,6 +874,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "离线3D解谜与首领激战！收集能量水晶，升级装备，随时锻炼空间思维。",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nMTT Games出品：60帧次世代3D PBR画质，支持100%无网络离线畅玩。\n\n• 5秒即可上手的极简触控体验\n• 独特敌军造型与巨型欧米茄首领战\n• 场上直接拾取水晶，升级进度一目了然\n• 100%离线运行，随时随地畅玩\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "离线3D解谜与首领激战！收集能量水晶，升级装备，随时锻炼空间思维。",
           "keywords": [
             "3D解谜",
             "单机游戏",
@@ -836,6 +890,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "3D-головоломки и битвы с боссами без интернета! Собирай кристаллы и качайся.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\n3D PBR-графика 60 FPS и 100% офлайн-геймплей от студии MTT Games.\n\n• Понятное управление с первых 5 секунд игры\n• Уникальные враги и эпические Омега-боссы\n• Прямой сбор кристаллов на поле и наглядная шкала улучшений\n• Работает полностью без интернета\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "3D-головоломки и битвы с боссами без интернета! Собирай кристаллы и качайся.",
           "keywords": [
             "3d головоломка",
             "игры без интернета",
@@ -850,6 +905,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "ألغاز ثلاثية الأبعاد ومعارك زعماء بدون إنترنت! اجمع الكريستال وطوّر قدراتك.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nرسوميات 3D PBR بسرعة 60 إطاراً في الثانية ولعب بدون اتصال من MTT Games.\n\n• تحكم لمسي بديهي وسهل خلال 5 ثوانٍ فقط\n• أعداء متنوعون ومعارك زعماء أوميغا ملحمية\n• جمع الكريستال مباشرة من الساحة وشريط تطوير واضح\n• يعمل 100% بدون الحاجة للاتصال بالإنترنت\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "ألغاز ثلاثية الأبعاد ومعارك زعماء بدون إنترنت! اجمع الكريستال وطوّر قدراتك.",
           "keywords": [
             "ألغاز 3D",
             "ألعاب بدون نت",
@@ -865,6 +921,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "ऑफ़लाइन 3D पज़ल और बॉस एक्शन! क्रिस्टल चुनें, अपग्रेड करें और दिमाग तेज़ करें।",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nMTT Games द्वारा 60 FPS 3D PBR ग्राफ़िक्स और 100% ऑफ़लाइन गेमप्ले।\n\n• सिर्फ़ 5 सेकंड में समझ आने वाले आसान टच कंट्रोल\n• अनोखे दुश्मन और विशाल ओमेगा बॉस मुकाबले\n• मैदान से सीधे क्रिस्टल इकट्ठा करें और तुरंत अपग्रेड करें\n• बिना इंटरनेट 100% ऑफ़लाइन खेलें\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "ऑफ़लाइन 3D पज़ल और बॉस एक्शन! क्रिस्टल चुनें, अपग्रेड करें और दिमाग तेज़ करें।",
           "keywords": [
             "3d पहेली",
             "ऑफ़लाइन गेम",
@@ -880,6 +937,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "Puzzle 3D & aksi bos offline! Kumpulkan kristal, upgrade & latih fokusmu.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nGrafis 3D PBR 60 FPS berkualitas studio & 100% mode offline dari MTT Games.\n\n• Kontrol sentuh intuitif dipahami dalam 5 detik\n• Musuh unik & pertarungan Bos Omega seru\n• Ambil kristal langsung di arena & bar upgrade jelas\n• 100% bisa dimainkan offline tanpa kuota\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "Puzzle 3D & aksi bos offline! Kumpulkan kristal, upgrade & latih fokusmu.",
           "keywords": [
             "puzzle 3d",
             "game offline",
@@ -895,6 +953,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "Puzzle 3D e boss offline! Raccogli cristalli, potenzia e allena la mente.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nGrafica 3D PBR a 60 FPS e gameplay 100% offline firmato MTT Games.\n\n• Comandi touch intuitivi in soli 5 secondi\n• Nemici distinti ed epiche battaglie contro Boss Omega\n• Raccolta diretta dei cristalli e barra potenziamenti chiara\n• Giocabile al 100% senza connessione internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "Puzzle 3D e boss offline! Raccogli cristalli, potenzia e allena la mente.",
           "keywords": [
             "puzzle 3d",
             "giochi offline",
@@ -910,6 +969,7 @@
           "title": "Neon Crystal Defender 3D",
           "shortDescription": "Offline 3D-puzzel & eindbaas-actie! Verzamel kristallen, upgrade & focus.",
           "fullDescription": "Neon Crystal Defender 3D — 3D Tactical Tower & Omega Boss Defense\n\nStudio 3D PBR-graphics op 60 FPS en 100% offline speelbaar van MTT Games.\n\n• Intuïtieve touch-bediening binnen 5 seconden duidelijk\n• Unieke vijanden en epische Omega-eindbazen\n• Verzamel kristallen direct op het veld & upgrade eenvoudig\n• 100% offline te spelen zonder internet\n\n🌐 Play Free / WebGL & Offline Android Hub:\nhttps://ttepebasili.github.io/systemic-mind-store/games/neon_crystal_defender/\n",
+          "releaseNotes": "Offline 3D-puzzel & eindbaas-actie! Verzamel kristallen, upgrade & focus.",
           "keywords": [
             "3d puzzel",
             "offline spel",
