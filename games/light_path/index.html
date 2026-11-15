@@ -1,1412 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="game-version" content="v6"/>
+<head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
-<meta name="admob-app-id" content="ca-app-pub-8895372851932683~3408323546"/>
-<title>Light Path: 3D Prism Odyssey</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="game-version" content="v7"/>
+<title>Light Path: Prism Collector 3D — MTT Games (v7)</title>
 <style>
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; margin: 0; padding: 0; }
-  html, body {
-    width: 100%; height: 100%; overflow: hidden;
-    background: radial-gradient(circle at 50% 35%, rgb(20,30,58), rgb(6,10,22));
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    color: #f8fafc;
-    touch-action: manipulation;
+  :root {
+    --bg: #080c18;
+    --panel: rgba(15, 23, 42, 0.92);
+    --text: #f8fafc;
+    --hero: #38bdf8;
+    --shard: #2dd4bf;
+    --enemy: #f43f5e;
+    --boss: #facc15;
   }
-  #mtt-progress-strip {
-    position: fixed; top: 0; left: 0; right: 0; height: 7px;
-    background: rgba(15, 23, 42, 0.85); z-index: 30; overflow: hidden;
+  * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
+  #hud-bar {
+    position: fixed; top: 12px; left: 12px; right: 12px; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: var(--panel); border: 1px solid rgba(56, 189, 248, 0.38);
+    border-radius: 16px; padding: 8px 14px; min-height: 56px;
   }
-  #mtt-progress-fill {
-    width: 20%; height: 100%;
-    background: linear-gradient(90deg, #38bdf8, #34d399, #fbbf24);
-    transition: width 0.3s ease;
+  .hud-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 16px; font-weight: 700; letter-spacing: 0.3px; color: var(--text);
   }
-  #hud {
-    position: fixed; top: env(safe-area-inset-top, 12px); left: 0; right: 0;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 20px; z-index: 15; pointer-events: none;
+  .hud-btn {
+    min-height: 56px; min-width: 112px; padding: 0 18px;
+    border-radius: 14px; border: 2px solid var(--hero);
+    background: rgba(56, 189, 248, 0.16); color: var(--text);
+    font-size: 15px; font-weight: 800; cursor: pointer;
   }
-  .pill {
-    pointer-events: auto;
-    min-height: 56px; min-width: 96px;
-    background: rgba(15, 23, 42, 0.86);
-    border: 2.5px solid rgba(56, 189, 248, 0.65);
-    border-radius: 999px; padding: 8px 20px;
-    font-size: 24px; font-weight: 900;
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45), 0 0 18px rgba(56, 189, 248, 0.25);
-  }
-  #hint-btn {
-    cursor: pointer; min-width: 68px;
-    border-color: rgba(250, 204, 21, 0.9);
-    box-shadow: 0 0 24px rgba(250, 204, 21, 0.45);
-    font-size: 28px;
-  }
-  #hint-btn:active { transform: scale(0.92); }
-  #stage-wrap {
-    position: fixed; inset: 0;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: 74px 10px 92px;
-  }
-  #game {
-    border-radius: 28px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 40px rgba(250,204,21,0.18);
-    background: rgba(6, 10, 22, 0.92);
-    border: 2.5px solid rgba(56,189,248,0.42);
-    touch-action: none;
-  }
-  #mtt-inventory-bar {
-    position: fixed; bottom: env(safe-area-inset-bottom, 14px); left: 50%; transform: translateX(-50%);
-    background: rgba(11, 18, 34, 0.94); border: 2.5px solid rgba(56, 189, 248, 0.72);
-    border-radius: 24px; padding: 8px 18px; display: flex; gap: 14px; align-items: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.65), 0 0 22px rgba(56, 189, 248, 0.32);
-    z-index: 20;
-  }
-  .inv-slot {
-    position: relative;
-    min-width: 92px; min-height: 52px;
-    background: rgba(15, 23, 42, 0.95);
-    border: 2px solid rgba(148, 163, 184, 0.35);
-    border-radius: 16px; padding: 6px 12px;
-    display: flex; align-items: center; justify-content: center; gap: 7px;
-    font-weight: 900; font-size: 19px; color: #f8fafc;
-    overflow: hidden;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-  }
-  .inv-slot.upgraded {
-    border-color: #fbbf24;
-    box-shadow: 0 0 16px rgba(251, 191, 36, 0.55);
-  }
-  .inv-fill {
-    position: absolute; left: 0; bottom: 0; top: 0; width: 0%;
-    background: linear-gradient(90deg, rgba(56,189,248,0.28), rgba(52,211,153,0.34));
-    z-index: 0; transition: width 0.25s ease;
-  }
-  .inv-slot > span { position: relative; z-index: 1; }
-  .inv-ico { font-size: 25px; }
-  .inv-lv {
-    font-size: 11px; font-weight: 900; background: #fbbf24; color: #050812;
-    border-radius: 999px; padding: 1px 6px; display: none;
-  }
-  .inv-slot.upgraded .inv-lv { display: inline-block; }
-  #win-modal {
-    position: fixed; inset: 0; background: rgba(4, 7, 17, 0.82);
-    backdrop-filter: blur(8px);
-    display: none; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 40; gap: 26px;
-  }
-  #win-modal.active { display: flex; animation: popIn 0.28s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
-  .stars { font-size: 68px; filter: drop-shadow(0 0 22px rgba(250,204,21,0.9)); }
-  .next-btn {
-    width: 144px; height: 144px; border-radius: 50%;
-    border: none; cursor: pointer;
-    background: linear-gradient(135deg, rgb(250,204,21), rgb(56,189,248));
-    color: #050812; font-size: 66px; display: flex; justify-content: center; align-items: center;
-    box-shadow: 0 0 48px rgba(250,204,21,0.85);
-    animation: pulseBtn 1.2s infinite ease-in-out;
-  }
-  @keyframes pulseBtn {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.72); }
-    to { opacity: 1; transform: scale(1); }
-  }
+  .hud-btn:active { transform: scale(0.96); background: rgba(56, 189, 248, 0.32); }
+  canvas#board { position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: var(--bg); }
+  canvas.fx-overlay { position: fixed; inset: 0; width: 100%; height: 100%; background: transparent !important; border: none !important; box-shadow: none !important; pointer-events: none; z-index: 10; }
 </style>
 </head>
 <body>
-  <div id="mtt-progress-strip"><div id="mtt-progress-fill"></div></div>
-  <div id="hud">
-    <div class="pill">🌟 <span id="lv-num">1</span></div>
-    <button class="pill" id="hint-btn" aria-label="Hint">💡</button>
-    <div class="pill">💎 <span id="stars-num">0</span></div>
+<header id="hud-bar" role="region" aria-label="Game Progress HUD">
+  <div class="hud-pill" data-hud-counter="shards">
+    <span>💎</span>
+    <span id="shard-counter">have 0 / need 5</span>
   </div>
-  <div id="stage-wrap">
-    <canvas id="game" width="720" height="720"></canvas>
+  <div class="hud-pill">
+    <span>🏆 Lv.<b id="stage-num">1</b></span>
+    <span style="opacity:0.75;font-size:13px" id="fps-badge">60 FPS</span>
   </div>
-  <div id="mtt-inventory-bar">
-    <div class="inv-slot" id="slot-shard">
-      <div class="inv-fill" id="fill-shard"></div>
-      <span class="inv-ico">💎</span>
-      <span id="cnt-shard">0/3</span>
-      <span class="inv-lv" id="lv-shard">★1</span>
-    </div>
-    <div class="inv-slot" id="slot-gear">
-      <div class="inv-fill" id="fill-gear"></div>
-      <span class="inv-ico">⚙️</span>
-      <span id="cnt-gear">0/2</span>
-      <span class="inv-lv" id="lv-gear">★1</span>
-    </div>
-    <div class="inv-slot" id="slot-core">
-      <div class="inv-fill" id="fill-core"></div>
-      <span class="inv-ico">🛡️</span>
-      <span id="cnt-core">0/1</span>
-      <span class="inv-lv" id="lv-core">★1</span>
-    </div>
-  </div>
-  <div id="win-modal">
-    <div class="stars">⭐⭐⭐</div>
-    <button class="next-btn" id="next-btn" aria-label="Next">▶</button>
-  </div>
+  <button class="hud-btn" id="pulse-btn" type="button" aria-label="Rotate Prism Pulse">⚡ PULSE</button>
+</header>
+<canvas id="board"></canvas>
+<canvas class="fx-overlay" id="fx"></canvas>
 <script>
-const ADMOB_CONFIG = {"publisherId": "pub-8895372851932683", "appId": "ca-app-pub-8895372851932683~3408323546", "rewardedAdUnitId": "ca-app-pub-8895372851932683/5761270122", "interstitialAdUnitId": "", "bannerAdUnitId": ""};
-const LEVELS = [{"level": 1, "grid_size": 3, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": true}, {"level": 2, "grid_size": 3, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": true}, {"level": 3, "grid_size": 3, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 2}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 4, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 5, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 2}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 6, "grid_size": 4, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 7, "grid_size": 4, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 8, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 3, "y": 2}, "mirrors": [{"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 9, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 10, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 11, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 3}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 12, "grid_size": 4, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 13, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 2, "y": 3}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 14, "grid_size": 4, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 2, "y": 0}, "mirrors": [{"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 15, "grid_size": 4, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 1, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 16, "grid_size": 4, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 3}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 17, "grid_size": 5, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 18, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 19, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 20, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 21, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 22, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 4, "y": 0}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 23, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 1}, "mirrors": [{"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 24, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 0}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 25, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 26, "grid_size": 5, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 27, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 28, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 29, "grid_size": 5, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 30, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 1, "y": 2}, "mirrors": [{"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 31, "grid_size": 5, "source": {"x": 0, "y": 1, "dir": 0}, "target": {"x": 0, "y": 2}, "mirrors": [{"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 32, "grid_size": 5, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 4, "y": 1}, "mirrors": [{"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 33, "grid_size": 5, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 4}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 34, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 3, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 35, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 4, "y": 3}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 5, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 36, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 1, "y": 0}, "mirrors": [{"x": 1, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 37, "grid_size": 6, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 0, "y": 5}, "mirrors": [{"x": 2, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 5, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 38, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 3}, "mirrors": [{"x": 2, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 4, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 39, "grid_size": 6, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 3, "y": 0}, "mirrors": [{"x": 1, "y": 3, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 4, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 40, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 2, "y": 2}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 41, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 3, "y": 5}, "mirrors": [{"x": 1, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 42, "grid_size": 6, "source": {"x": 0, "y": 0, "dir": 0}, "target": {"x": 1, "y": 1}, "mirrors": [{"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 0, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 43, "grid_size": 6, "source": {"x": 0, "y": 4, "dir": 0}, "target": {"x": 5, "y": 5}, "mirrors": [{"x": 2, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 0, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 44, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 0, "y": 0}, "mirrors": [{"x": 2, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 0, "y": 1, "solution_type": 2, "initial_type": 1}], "show_finger_hint": false}, {"level": 45, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 4, "y": 0}, "mirrors": [{"x": 1, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 0, "solution_type": 1, "initial_type": 2}, {"x": 2, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 46, "grid_size": 6, "source": {"x": 0, "y": 5, "dir": 0}, "target": {"x": 5, "y": 0}, "mirrors": [{"x": 1, "y": 5, "solution_type": 1, "initial_type": 2}, {"x": 1, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 4, "solution_type": 1, "initial_type": 2}, {"x": 3, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 3, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 47, "grid_size": 6, "source": {"x": 0, "y": 2, "dir": 0}, "target": {"x": 2, "y": 1}, "mirrors": [{"x": 5, "y": 2, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 1, "solution_type": 2, "initial_type": 1}, {"x": 4, "y": 0, "solution_type": 2, "initial_type": 1}, {"x": 2, "y": 0, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}, {"level": 48, "grid_size": 6, "source": {"x": 0, "y": 3, "dir": 0}, "target": {"x": 5, "y": 0}, "mirrors": [{"x": 4, "y": 3, "solution_type": 1, "initial_type": 2}, {"x": 4, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 2, "solution_type": 2, "initial_type": 1}, {"x": 3, "y": 1, "solution_type": 1, "initial_type": 2}, {"x": 5, "y": 1, "solution_type": 1, "initial_type": 2}], "show_finger_hint": false}];
-
-let curIdx = parseInt(localStorage.getItem("light_path_lv") || "0", 10) % LEVELS.length;
-let totalStars = parseInt(localStorage.getItem("light_path_stars") || "0", 10);
-let state = null;
-let particles = [];
-let flyPickups = [];
-let groundDrops = [];
-let enemies = [];
-let boss = null;
-let solved = false;
-let animT = 0;
-let frameCount = 0;
-let bootTime = performance.now();
-
-const inv = {
-  shard: { have: 0, need: 3, lv: 0 },
-  gear:  { have: 0, need: 2, lv: 0 },
-  core:  { have: 0, need: 1, lv: 0 }
-};
-
-const verifyStats = {
-  version: 5,
-  frame: 0,
-  level: 1,
-  levelsSolved: 0,
-  heroFaceDrawn: 0,
-  targetFaceDrawn: 0,
-  shardsSpawned: 0,
-  shardsCollected: 0,
-  enemiesSpawned: 0,
-  distinctEnemyTypesSeen: [],
-  enemiesDefeated: 0,
-  bossSpawned: 0,
-  bossHits: 0,
-  bossDefeated: 0,
-  onboardingShown: true,
-  semiTransparentOverlayPresent: false
-};
-window.__LP_V5_STATE__ = verifyStats;
-
-const AudioCtx = window.AudioContext || window.webkitAudioContext;
-let actx = null;
-function playTone(freq, dur = 0.14, type = "sine") {
-  try {
-    if (!actx) actx = new AudioCtx();
-    if (actx.state === "suspended") actx.resume();
-    const osc = actx.createOscillator();
-    const gain = actx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, actx.currentTime);
-    gain.gain.setValueAtTime(0.16, actx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + dur);
-    osc.connect(gain); gain.connect(actx.destination);
-    osc.start(); osc.stop(actx.currentTime + dur);
-  } catch (e) {}
-}
-
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
-
-function resizeCanvas() {
-  const maxW = window.innerWidth * 0.94;
-  const maxH = window.innerHeight - 175;
-  const s = Math.max(260, Math.min(maxW, maxH, 560));
-  canvas.style.width = s + "px";
-  canvas.style.height = s + "px";
-}
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-
-function updateInvDOM() {
-  ["shard", "gear", "core"].forEach((k) => {
-    const d = inv[k];
-    document.getElementById("cnt-" + k).textContent = d.have + "/" + d.need;
-    document.getElementById("fill-" + k).style.width = Math.min(100, Math.round((d.have / d.need) * 100)) + "%";
-    const slot = document.getElementById("slot-" + k);
-    const lvEl = document.getElementById("lv-" + k);
-    if (d.lv > 0) {
-      slot.classList.add("upgraded");
-      lvEl.textContent = "★" + d.lv;
+(() => {
+  "use strict";
+  // Zero-GC ObjectPool for locked 60 FPS smoothness
+  class ObjectPool {
+    constructor(factory, size) {
+      this.pool = Array.from({ length: size }, () => factory());
+      this.activeCount = 0;
     }
-  });
-}
-
-function computeSolutionCells(lv) {
-  const n = lv.grid_size;
-  const dirs = [[1,0],[0,1],[-1,0],[0,-1]];
-  const reflect = { 1: {0:3,3:0,1:2,2:1}, 2: {0:1,1:0,2:3,3:2} };
-  let cx = lv.source.x, cy = lv.source.y, d = lv.source.dir;
-  const cells = [];
-  for (let s = 0; s < n * n * 2; s++) {
-    cx += dirs[d][0]; cy += dirs[d][1];
-    if (cx < 0 || cy < 0 || cx >= n || cy >= n) break;
-    if (cx === lv.target.x && cy === lv.target.y) break;
-    const m = lv.mirrors.find(it => it.x === cx && it.y === cy);
-    if (m) d = reflect[m.solution_type][d];
-    else cells.push({ x: cx, y: cy });
-  }
-  return cells;
-}
-
-function spawnGroundMaterialsAndFoes(lv, idx) {
-  groundDrops = [];
-  enemies = [];
-  boss = null;
-  const n = lv.grid_size;
-  const occupied = (gx, gy) =>
-    (lv.source.x === gx && lv.source.y === gy) ||
-    (lv.target.x === gx && lv.target.y === gy) ||
-    lv.mirrors.some(m => m.x === gx && m.y === gy) ||
-    groundDrops.some(g => g.gx === gx && g.gy === gy);
-
-  const solCells = computeSolutionCells(lv);
-  const kinds = ["shard", "gear", "core"];
-  // Place 1st drop directly on solution beam or adjacent cell so beam/tap picks it up naturally
-  for (const sc of solCells) {
-    if (!occupied(sc.x, sc.y) && groundDrops.length < 2) {
-      groundDrops.push({ kind: kinds[(idx + groundDrops.length) % 3], gx: sc.x, gy: sc.y, collected: false, pulse: Math.random() * 6 });
+    acquire() {
+      if (this.activeCount >= this.pool.length) return null;
+      const item = this.pool[this.activeCount++];
+      item.active = true;
+      return item;
+    }
+    releaseAt(index) {
+      if (index < 0 || index >= this.activeCount) return;
+      const last = this.activeCount - 1;
+      const temp = this.pool[index];
+      temp.active = false;
+      this.pool[index] = this.pool[last];
+      this.pool[last] = temp;
+      this.activeCount--;
     }
   }
-  for (let y = 0; y < n && groundDrops.length < 3; y++) {
-    for (let x = 0; x < n && groundDrops.length < 3; x++) {
-      const gx = (x + idx) % n, gy = (y + idx * 2) % n;
-      if (!occupied(gx, gy)) {
-        groundDrops.push({ kind: kinds[(idx + groundDrops.length) % 3], gx, gy, collected: false, pulse: Math.random() * 6 });
-      }
-    }
-  }
-  verifyStats.shardsSpawned += groundDrops.length;
 
-  // Distinct Enemies & Bosses (Boss on Level 3, 5, 8, 10... so every session sees both 3 distinct enemies + Boss!)
-  const lvNum = idx + 1;
-  const isBossStage = (lvNum === 3 || lvNum % 5 === 0);
-  const addSeen = (t) => { if (!verifyStats.distinctEnemyTypesSeen.includes(t)) verifyStats.distinctEnemyTypesSeen.push(t); };
+  const board = document.getElementById("board");
+  const ctx = board.getContext("2d", { alpha: false });
+  const shardEl = document.getElementById("shard-counter");
+  const stageEl = document.getElementById("stage-num");
+  const fpsEl = document.getElementById("fps-badge");
+  const pulseBtn = document.getElementById("pulse-btn");
 
-  if (isBossStage) {
-    boss = {
-      type: "omega_boss",
-      gx: (n - 1) * 0.55,
-      gy: (n - 1) * 0.45,
-      vx: 0.55,
-      hp: 3, maxHp: 3,
-      hitCooldown: 0, flash: 0
-    };
-    verifyStats.bossSpawned++;
-    addSeen("omega_boss");
-  }
+  let W = window.innerWidth, H = window.innerHeight;
+  const resize = () => {
+    W = board.width = window.innerWidth;
+    H = board.height = window.innerHeight;
+  };
+  window.addEventListener("resize", resize, { passive: true });
+  resize();
 
-  // Always spawn distinct enemy types with distinct silhouettes, colors, faces & motions
-  const catalog = [
-    { type: "scout_blinky", gx: Math.min(n - 1.05, 1.85), gy: 0.12, dir: 1, phase: 0, hp: 1 },
-    { type: "crusher_brutus", gx: n - 1.08, gy: Math.min(n - 1.08, 1.35), dir: 1, phase: 1.4, hp: 2 },
-    { type: "phantom_spectra", gx: 0.15, gy: n - 1.08, dir: 1, phase: 2.8, hp: 1 }
+  // Distinct 3D Isometric Silhouettes & High-Contrast Archetypes
+  const heroSilhouette = { x: W * 0.5, y: H * 0.72, tx: W * 0.5, ty: H * 0.72, r: 24, angle: 0, shield: 0 };
+  const enemyArchetypes = [
+    { kind: "scout", color: "#f43f5e", sides: 3, speed: 135, r: 18 },
+    { kind: "phantom", color: "#c084fc", sides: 4, speed: 105, r: 20 },
+    { kind: "crusher", color: "#fb923c", sides: 6, speed: 82, r: 23 }
   ];
-  const count = isBossStage ? 2 : 3;
-  for (let i = 0; i < count; i++) {
-    const tmpl = catalog[(idx + i) % catalog.length];
-    enemies.push(Object.assign({}, tmpl, { hitCooldown: 0, defeated: false }));
-    verifyStats.enemiesSpawned++;
-    addSeen(tmpl.type);
-  }
-}
+  const bossEntity = { active: false, x: W * 0.5, y: 150, r: 44, hp: 3, phase: 0, color: "#facc15" };
 
-function collectMaterial(drop, px, py) {
-  if (drop.collected) return;
-  drop.collected = true;
-  verifyStats.shardsCollected++;
-  const slot = inv[drop.kind];
-  slot.have++;
-  if (slot.have >= slot.need) {
-    slot.have = 0;
-    slot.lv++;
-    slot.need = Math.min(6, slot.need + 1);
-    playTone(880, 0.22, "triangle");
-  } else {
-    playTone(660 + slot.have * 90, 0.11, "sine");
-  }
-  updateInvDOM();
-  for (let i = 0; i < 16; i++) {
-    particles.push({
-      x: px, y: py,
-      vx: (Math.random() - 0.5) * 10,
-      vy: (Math.random() - 0.5) * 10,
-      r: 3 + Math.random() * 4,
-      col: drop.kind === "shard" ? "#38bdf8" : (drop.kind === "gear" ? "#fbbf24" : "#34d399"),
-      life: 1.0
-    });
-  }
-  flyPickups.push({ x: px, y: py, kind: drop.kind, t: 0 });
-}
+  const particlePool = new ObjectPool(() => ({ active: false, x: 0, y: 0, vx: 0, vy: 0, life: 0, color: "#38bdf8" }), 180);
+  const shardPool = new ObjectPool(() => ({ active: false, x: 0, y: 0, pulse: 0 }), 24);
+  const enemyPool = new ObjectPool(() => ({ active: false, x: 0, y: 0, vx: 0, vy: 0, arch: 0, rot: 0 }), 24);
 
-function loadLevel(idx) {
-  solved = false;
-  document.getElementById("win-modal").classList.remove("active");
-  const raw = JSON.parse(JSON.stringify(LEVELS[idx % LEVELS.length]));
-  state = raw;
-  verifyStats.level = idx + 1;
-  document.getElementById("lv-num").textContent = (idx + 1);
-  document.getElementById("stars-num").textContent = totalStars;
-  document.getElementById("mtt-progress-fill").style.width = Math.min(100, 15 + ((idx % 10) + 1) * 8.5) + "%";
-  spawnGroundMaterialsAndFoes(state, idx);
-  traceBeam();
-}
+  let stage = 1, have = 0, need = 5;
+  const syncHud = () => {
+    shardEl.textContent = `have ${have} / need ${need}`;
+    stageEl.textContent = String(stage);
+  };
 
-window.onRewardedHintGranted = function() {
-  if (!state || solved) return;
-  const wrong = state.mirrors.find(m => m.initial_type !== m.solution_type);
-  if (wrong) {
-    wrong.initial_type = wrong.solution_type;
-    playTone(680, 0.16, "triangle");
-    traceBeam();
-  }
-};
-
-document.getElementById("hint-btn").addEventListener("click", () => {
-  if (window.AndroidAdMob && window.AndroidAdMob.showRewardedHint) {
-    try { window.AndroidAdMob.showRewardedHint(ADMOB_CONFIG.rewardedAdUnitId); return; } catch (e) {}
-  }
-  window.onRewardedHintGranted();
-});
-
-function checkBeamInteractions() {
-  if (!state || !state.beamPath) return;
-  const n = state.grid_size;
-  const pad = 60;
-  const cell = (canvas.width - pad * 2) / n;
-
-  // Auto-collect ground upgrade materials touched by beam
-  groundDrops.forEach((d) => {
-    if (d.collected) return;
-    for (const pt of state.beamPath) {
-      if (Math.hypot(pt.x - d.gx, pt.y - d.gy) < 0.45) {
-        collectMaterial(d, pad + (d.gx + 0.5) * cell, pad + (d.gy + 0.5) * cell);
-        break;
-      }
+  const spawnBurst = (x, y, color) => {
+    for (let i = 0; i < 12; i++) {
+      const p = particlePool.acquire();
+      if (!p) break;
+      const a = (Math.PI * 2 * i) / 12;
+      p.x = x; p.y = y;
+      p.vx = Math.cos(a) * 160; p.vy = Math.sin(a) * 160;
+      p.life = 0.45; p.color = color;
     }
-  });
-}
+  };
 
-function traceBeam() {
-  if (!state) return;
-  const n = state.grid_size;
-  const dirs = [[1,0],[0,1],[-1,0],[0,-1]];
-  const reflect = { 1: {0:3,3:0,1:2,2:1}, 2: {0:1,1:0,2:3,3:2} };
-  let cx = state.source.x, cy = state.source.y, d = state.source.dir;
-  state.beamPath = [{x: cx, y: cy}];
-  let hitTarget = false;
-
-  for (let step = 0; step < n * n * 2; step++) {
-    cx += dirs[d][0]; cy += dirs[d][1];
-    if (cx < 0 || cy < 0 || cx >= n || cy >= n) {
-      state.beamPath.push({x: Math.max(0, Math.min(n - 1, cx)), y: Math.max(0, Math.min(n - 1, cy))});
-      break;
+  const populateStage = () => {
+    shardPool.activeCount = 0;
+    enemyPool.activeCount = 0;
+    need = 4 + Math.min(stage, 6);
+    have = 0;
+    for (let i = 0; i < need; i++) {
+      const s = shardPool.acquire();
+      if (!s) break;
+      s.x = 64 + ((i * 137 + stage * 53) % Math.max(W - 128, 120));
+      s.y = 120 + ((i * 193 + stage * 71) % Math.max(H - 240, 140));
+      s.pulse = i * 0.7;
     }
-    state.beamPath.push({x: cx, y: cy});
-    if (cx === state.target.x && cy === state.target.y) {
-      hitTarget = true;
-      break;
+    const enemyTotal = Math.min(2 + Math.floor(stage / 2), 7);
+    for (let i = 0; i < enemyTotal; i++) {
+      const e = enemyPool.acquire();
+      if (!e) break;
+      e.arch = i % enemyArchetypes.length;
+      const spec = enemyArchetypes[e.arch];
+      e.x = 70 + ((i * 179) % Math.max(W - 140, 120));
+      e.y = 130 + ((i * 113) % Math.max(H * 0.45, 120));
+      e.vx = (i % 2 === 0 ? 1 : -1) * spec.speed;
+      e.vy = (i % 3 === 0 ? 0.65 : -0.65) * spec.speed;
+      e.rot = 0;
     }
-    const m = state.mirrors.find(item => item.x === cx && item.y === cy);
-    if (m) d = reflect[m.initial_type][d];
-  }
+    bossEntity.active = (stage % 3 === 0);
+    bossEntity.hp = 3;
+    bossEntity.x = W * 0.5;
+    syncHud();
+  };
 
-  checkBeamInteractions();
-
-  if (hitTarget && !solved) {
-    triggerWin();
-  }
-}
-
-function triggerWin() {
-  solved = true;
-  verifyStats.levelsSolved++;
-  totalStars += 3;
-  localStorage.setItem("light_path_stars", String(totalStars));
-  localStorage.setItem("light_path_lv", String(curIdx + 1));
-  document.getElementById("stars-num").textContent = totalStars;
-  playTone(523.25, 0.15, "triangle");
-  setTimeout(() => playTone(659.25, 0.15, "triangle"), 110);
-  setTimeout(() => playTone(783.99, 0.26, "triangle"), 220);
-  for (let i = 0; i < 42; i++) {
-    particles.push({
-      x: 360, y: 360,
-      vx: (Math.random() - 0.5) * 14,
-      vy: (Math.random() - 0.5) * 14,
-      r: 4 + Math.random() * 6,
-      col: i % 2 === 0 ? "#facc15" : "#38bdf8",
-      life: 1.0
-    });
-  }
-  if (window.AndroidAdMob && window.AndroidAdMob.onLevelComplete) {
-    try { window.AndroidAdMob.onLevelComplete(curIdx + 1); } catch (e) {}
-  }
-  setTimeout(() => {
-    document.getElementById("win-modal").classList.add("active");
-  }, 420);
-}
-
-canvas.addEventListener("pointerdown", (ev) => {
-  if (!state) return;
-  const rect = canvas.getBoundingClientRect();
-  const px = (ev.clientX - rect.left) / rect.width * canvas.width;
-  const py = (ev.clientY - rect.top) / rect.height * canvas.height;
-  const n = state.grid_size;
-  const pad = 60;
-  const cell = (canvas.width - pad * 2) / n;
-
-  // Direct ground tap/touch pickup of nearby shards/crystals
-  groundDrops.forEach((d) => {
-    if (!d.collected) {
-      const dx = pad + (d.gx + 0.5) * cell;
-      const dy = pad + (d.gy + 0.5) * cell;
-      if (Math.hypot(px - dx, py - dy) < cell * 0.52) {
-        collectMaterial(d, dx, dy);
-      }
+  const setTarget = (clientX, clientY) => {
+    heroSilhouette.tx = Math.max(32, Math.min(W - 32, clientX));
+    heroSilhouette.ty = Math.max(92, Math.min(H - 36, clientY));
+  };
+  board.addEventListener("pointerdown", (ev) => setTarget(ev.clientX, ev.clientY), { passive: true });
+  board.addEventListener("pointermove", (ev) => { if (ev.buttons) setTarget(ev.clientX, ev.clientY); }, { passive: true });
+  pulseBtn.addEventListener("click", () => {
+    heroSilhouette.shield = 1.2;
+    spawnBurst(heroSilhouette.x, heroSilhouette.y, "#38bdf8");
+    if (bossEntity.active && Math.hypot(bossEntity.x - heroSilhouette.x, bossEntity.y - heroSilhouette.y) < 220) {
+      bossEntity.hp--;
+      spawnBurst(bossEntity.x, bossEntity.y, "#facc15");
+      if (bossEntity.hp <= 0) bossEntity.active = false;
     }
   });
 
-  // Tap zap on Boss or Enemy for interactive kid feedback!
-  if (boss && boss.hp > 0) {
-    const bx = pad + (boss.gx + 0.5) * cell;
-    const by = pad + (boss.gy + 0.5) * cell;
-    if (Math.hypot(px - bx, py - by) < cell * 0.65) {
-      damageBoss(bx, by);
-    }
-  }
-
-  if (solved) return;
-  const gx = Math.floor((px - pad) / cell);
-  const gy = Math.floor((py - pad) / cell);
-  if (gx < 0 || gy < 0 || gx >= n || gy >= n) return;
-
-  const m = state.mirrors.find(item => item.x === gx && item.y === gy);
-  if (m) {
-    m.initial_type = m.initial_type === 1 ? 2 : 1;
-    state.show_finger_hint = false;
-    playTone(580, 0.09, "sine");
-    traceBeam();
-  }
-});
-
-function damageBoss(bx, by) {
-  if (!boss || boss.hp <= 0) return;
-  boss.hp--;
-  boss.flash = 8;
-  verifyStats.bossHits++;
-  playTone(240 + (3 - boss.hp) * 140, 0.16, "sawtooth");
-  if (boss.hp <= 0) {
-    verifyStats.bossDefeated++;
-    collectMaterial({ kind: "core", collected: false }, bx, by);
-    collectMaterial({ kind: "shard", collected: false }, bx + 18, by - 12);
-    boss = null;
-  }
-}
-
-document.getElementById("next-btn").addEventListener("click", () => {
-  curIdx++;
-  loadLevel(curIdx);
-});
-
-// --- STUDIO CHARACTER, MATERIAL, ENEMY & BOSS RENDERERS ---
-function drawHeroGuardian(sx, sy, cell) {
-  const r = cell * 0.28;
-  ctx.save();
-  ctx.translate(sx, sy);
-
-  // Upgraded Guardian Shield Aura
-  if (inv.core.lv > 0) {
-    ctx.strokeStyle = "rgba(52, 211, 153, 0.75)";
-    ctx.lineWidth = 3.5;
-    ctx.beginPath();
-    ctx.arc(0, 0, r + 10 + Math.sin(animT * 5) * 3, 0, Math.PI * 2);
-    ctx.stroke();
-  }
-
-  // Radiant Golden Halo & Armored Head
-  ctx.shadowColor = "#facc15";
-  ctx.shadowBlur = 20;
-  ctx.fillStyle = "#0f172a";
-  ctx.strokeStyle = "#facc15";
-  ctx.lineWidth = 4.5;
-  ctx.beginPath();
-  ctx.arc(0, 0, r, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-
-  // Golden Crown Crest
-  ctx.fillStyle = "#facc15";
-  ctx.beginPath();
-  ctx.moveTo(-r * 0.45, -r * 0.78);
-  ctx.lineTo(0, -r * 1.18);
-  ctx.lineTo(r * 0.45, -r * 0.78);
-  ctx.closePath();
-  ctx.fill();
-
-  // Crisp Expressive Eyes (White Sclera + Cyan Iris + Dark Pupil)
-  const ex = r * 0.34, ey = -r * 0.14, er = Math.max(5.5, r * 0.23);
-  ctx.fillStyle = "#ffffff";
-  ctx.beginPath();
-  ctx.arc(-ex, ey, er, 0, Math.PI * 2);
-  ctx.arc(ex, ey, er, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#0284c7";
-  ctx.beginPath();
-  ctx.arc(-ex + 1.5, ey, er * 0.56, 0, Math.PI * 2);
-  ctx.arc(ex + 1.5, ey, er * 0.56, 0, Math.PI * 2);
-  ctx.fill();
-
-  ctx.fillStyle = "#020617";
-  ctx.beginPath();
-  ctx.arc(-ex + 2, ey, er * 0.28, 0, Math.PI * 2);
-  ctx.arc(ex + 2, ey, er * 0.28, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Friendly Heroic Smile
-  ctx.strokeStyle = "#fde047";
-  ctx.lineWidth = 3.2;
-  ctx.lineCap = "round";
-  ctx.beginPath();
-  ctx.arc(0, r * 0.16, r * 0.34, 0.15 * Math.PI, 0.85 * Math.PI);
-  ctx.stroke();
-
-  ctx.restore();
-  verifyStats.heroFaceDrawn++;
-}
-
-function drawTargetSpirit(tx, ty, cell) {
-  const pulse = 1 + 0.08 * Math.sin(animT * 5);
-  const r = cell * 0.28 * pulse;
-  ctx.save();
-  ctx.translate(tx, ty);
-  ctx.shadowColor = solved ? "#34d399" : "#38bdf8";
-  ctx.shadowBlur = 22;
-  ctx.fillStyle = solved ? "#064e3b" : "#0c4a6e";
-  ctx.strokeStyle = solved ? "#34d399" : "#38bdf8";
-  ctx.lineWidth = 4.5;
-  ctx.beginPath();
-  ctx.arc(0, 0, r, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-
-  // Expressive Eyes
-  const ex = r * 0.33, ey = -r * 0.12, er = Math.max(5, r * 0.22);
-  ctx.fillStyle = "#ffffff";
-  ctx.beginPath();
-  ctx.arc(-ex, ey, er, 0, Math.PI * 2);
-  ctx.arc(ex, ey, er, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = "#0f172a";
-  ctx.beginPath();
-  ctx.arc(-ex, ey, er * 0.45, 0, Math.PI * 2);
-  ctx.arc(ex, ey, er * 0.45, 0, Math.PI * 2);
-  ctx.fill();
-
-  // Mouth: Curious circle before beam hits, big happy grin when solved!
-  ctx.strokeStyle = "#ffffff";
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  if (solved) {
-    ctx.arc(0, r * 0.14, r * 0.36, 0.1 * Math.PI, 0.9 * Math.PI);
-  } else {
-    ctx.arc(0, r * 0.28, r * 0.14, 0, Math.PI * 2);
-  }
-  ctx.stroke();
-  ctx.restore();
-  verifyStats.targetFaceDrawn++;
-}
-
-function drawMaterialDrop(d, pad, cell) {
-  if (d.collected) return;
-  d.pulse += 0.09;
-  const x = pad + (d.gx + 0.5) * cell;
-  const y = pad + (d.gy + 0.5) * cell + Math.sin(d.pulse) * 4;
-  const r = Math.max(15, cell * 0.16);
-  ctx.save();
-  ctx.translate(x, y);
-  if (d.kind === "shard") {
-    ctx.shadowColor = "#38bdf8"; ctx.shadowBlur = 14;
-    ctx.fillStyle = "#22d3ee"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.moveTo(0, -r * 1.2); ctx.lineTo(r * 0.9, 0); ctx.lineTo(0, r * 1.2); ctx.lineTo(-r * 0.9, 0);
-    ctx.closePath(); ctx.fill(); ctx.stroke();
-  } else if (d.kind === "gear") {
-    ctx.shadowColor = "#fbbf24"; ctx.shadowBlur = 14;
-    ctx.fillStyle = "#fbbf24"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    for (let i = 0; i < 8; i++) {
-      const a = d.pulse * 0.3 + i * (Math.PI / 4);
-      const rad = i % 2 === 0 ? r * 1.15 : r * 0.72;
-      if (i === 0) ctx.moveTo(Math.cos(a) * rad, Math.sin(a) * rad);
-      else ctx.lineTo(Math.cos(a) * rad, Math.sin(a) * rad);
-    }
-    ctx.closePath(); ctx.fill(); ctx.stroke();
-  } else {
-    ctx.shadowColor = "#34d399"; ctx.shadowBlur = 14;
-    ctx.fillStyle = "#10b981"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    ctx.moveTo(0, -r * 1.15); ctx.lineTo(r, -r * 0.3); ctx.lineTo(r * 0.65, r * 1.1);
-    ctx.lineTo(0, r * 1.3); ctx.lineTo(-r * 0.65, r * 1.1); ctx.lineTo(-r, -r * 0.3);
-    ctx.closePath(); ctx.fill(); ctx.stroke();
-  }
-  ctx.restore();
-}
-
-function updateAndDrawEnemies(n, pad, cell) {
-  const zapRadius = inv.gear.lv > 0 ? 0.55 : 0.36;
-  enemies.forEach((e) => {
-    if (e.defeated) return;
-    e.phase += 0.045;
-    if (e.type === "scout_blinky") {
-      // Type 1: Cyan Triangle Cyclops — Fast horizontal patrol
-      e.gx += e.dir * 0.018;
-      if (e.gx > n - 1.02) { e.gx = n - 1.02; e.dir = -1; }
-      if (e.gx < 0.02) { e.gx = 0.02; e.dir = 1; }
-    } else if (e.type === "crusher_brutus") {
-      // Type 2: Orange Armored Square Brute — Heavy vertical march
-      e.gy += e.dir * 0.011;
-      if (e.gy > n - 1.02) { e.gy = n - 1.02; e.dir = -1; }
-      if (e.gy < 0.02) { e.gy = 0.02; e.dir = 1; }
-    } else {
-      // Type 3: Purple Diamond Ghost — Circular orbit
-      e.gx = Math.max(0.04, Math.min(n - 1.04, e.gx + Math.cos(e.phase) * 0.014));
-      e.gy = Math.max(0.04, Math.min(n - 1.04, e.gy + Math.sin(e.phase) * 0.014));
-    }
-
-    const x = pad + (e.gx + 0.5) * cell;
-    const y = pad + (e.gy + 0.5) * cell;
-
-    // Beam zap check
-    if (state.beamPath) {
-      for (const pt of state.beamPath) {
-        if (Math.hypot(pt.x - e.gx, pt.y - e.gy) < zapRadius) {
-          e.defeated = true;
-          verifyStats.enemiesDefeated++;
-          collectMaterial({ kind: "shard", collected: false }, x, y);
-          return;
-        }
-      }
-    }
-
-    const r = Math.max(18, cell * 0.17);
+  const drawPoly3D = (x, y, r, sides, rot, fill, rim) => {
     ctx.save();
     ctx.translate(x, y);
-    if (e.type === "scout_blinky") {
-      ctx.fillStyle = "#083344"; ctx.strokeStyle = "#22d3ee"; ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(0, -r * 1.15); ctx.lineTo(r * 1.1, r * 0.95); ctx.lineTo(-r * 1.1, r * 0.95);
-      ctx.closePath(); ctx.fill(); ctx.stroke();
-      // Single giant cyber eye + grin
-      ctx.fillStyle = "#ffffff"; ctx.beginPath(); ctx.arc(0, 0, r * 0.42, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "#ef4444"; ctx.beginPath(); ctx.arc(e.dir * 2, 0, r * 0.2, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = "#22d3ee"; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(-r * 0.35, r * 0.62); ctx.lineTo(r * 0.35, r * 0.62); ctx.stroke();
-    } else if (e.type === "crusher_brutus") {
-      ctx.fillStyle = "#431407"; ctx.strokeStyle = "#f97316"; ctx.lineWidth = 3.5;
-      ctx.beginPath(); ctx.roundRect(-r, -r, r * 2, r * 2, 8); ctx.fill(); ctx.stroke();
-      // Angry twin yellow eyes + furrowed brows + teeth
-      ctx.fillStyle = "#fde047";
-      ctx.beginPath(); ctx.arc(-r * 0.38, -r * 0.18, r * 0.22, 0, Math.PI * 2); ctx.arc(r * 0.38, -r * 0.18, r * 0.22, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = "#ef4444"; ctx.lineWidth = 2.5;
-      ctx.beginPath(); ctx.moveTo(-r * 0.65, -r * 0.48); ctx.lineTo(-r * 0.15, -r * 0.3);
-      ctx.moveTo(r * 0.65, -r * 0.48); ctx.lineTo(r * 0.15, -r * 0.3); ctx.stroke();
-      ctx.fillStyle = "#ffffff"; ctx.fillRect(-r * 0.48, r * 0.3, r * 0.96, r * 0.28);
-    } else {
-      ctx.fillStyle = "#3b0764"; ctx.strokeStyle = "#c084fc"; ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(0, -r * 1.2); ctx.lineTo(r * 1.15, 0); ctx.lineTo(0, r * 1.2); ctx.lineTo(-r * 1.15, 0);
-      ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.fillStyle = "#f472b6";
-      ctx.beginPath(); ctx.arc(-r * 0.34, -r * 0.14, r * 0.22, 0, Math.PI * 2); ctx.arc(r * 0.34, -r * 0.14, r * 0.22, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.arc(0, r * 0.34, r * 0.24, 0, Math.PI); ctx.stroke();
+    ctx.rotate(rot);
+    // 3D depth extrude shadow
+    ctx.fillStyle = "rgba(0,0,0,0.48)";
+    ctx.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const a = (Math.PI * 2 * i) / sides;
+      const px = Math.cos(a) * r + 5, py = Math.sin(a) * r + 7;
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
     }
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = fill;
+    ctx.strokeStyle = rim;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const a = (Math.PI * 2 * i) / sides;
+      const px = Math.cos(a) * r, py = Math.sin(a) * r;
+      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    // Readable visor eyes for instant silhouette recognition
+    ctx.fillStyle = "#080c18";
+    ctx.beginPath();
+    ctx.arc(-r * 0.26, -r * 0.12, 3.2, 0, Math.PI * 2);
+    ctx.arc(r * 0.26, -r * 0.12, 3.2, 0, Math.PI * 2);
+    ctx.fill();
     ctx.restore();
-  });
+  };
 
-  // Visibly Larger Distinct Hexagonal Mech Boss
-  if (boss && boss.hp > 0) {
-    boss.gx += boss.vx * 0.015;
-    if (boss.gx > n - 1.15 || boss.gx < 0.15) boss.vx *= -1;
-    if (boss.hitCooldown > 0) boss.hitCooldown--;
-    if (boss.flash > 0) boss.flash--;
+  populateStage();
+  let lastTime = performance.now();
+  let fpsAccum = 0, fpsFrames = 0;
 
-    const bx = pad + (boss.gx + 0.5) * cell;
-    const by = pad + (boss.gy + 0.5) * cell;
-    if (state.beamPath && boss.hitCooldown === 0) {
-      for (const pt of state.beamPath) {
-        if (Math.hypot(pt.x - boss.gx, pt.y - boss.gy) < 0.52) {
-          boss.hitCooldown = 35;
-          damageBoss(bx, by);
+  const loop = (now) => {
+    const dtClamp = Math.min(Math.max((now - lastTime) / 1000, 0.001), 0.05);
+    lastTime = now;
+    fpsAccum += dtClamp; fpsFrames++;
+    if (fpsAccum >= 0.5) {
+      fpsEl.textContent = `${Math.min(60, Math.round(fpsFrames / fpsAccum))} FPS`;
+      fpsAccum = 0; fpsFrames = 0;
+    }
+
+    // Smooth hero movement
+    heroSilhouette.x += (heroSilhouette.tx - heroSilhouette.x) * Math.min(1, dtClamp * 11);
+    heroSilhouette.y += (heroSilhouette.ty - heroSilhouette.y) * Math.min(1, dtClamp * 11);
+    heroSilhouette.angle += dtClamp * 1.8;
+    if (heroSilhouette.shield > 0) heroSilhouette.shield = Math.max(0, heroSilhouette.shield - dtClamp);
+
+    ctx.fillStyle = "#080c18";
+    ctx.fillRect(0, 0, W, H);
+
+    // Subtle spatial grid
+    ctx.strokeStyle = "rgba(56, 189, 248, 0.07)";
+    ctx.lineWidth = 1;
+    for (let gx = 0; gx < W; gx += 64) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
+    for (let gy = 80; gy < H; gy += 64) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
+
+    // Collectibles (direct touch collection)
+    for (let i = shardPool.activeCount - 1; i >= 0; i--) {
+      const s = shardPool.pool[i];
+      s.pulse += dtClamp * 4;
+      const sr = 14 + Math.sin(s.pulse) * 2.5;
+      drawPoly3D(s.x, s.y, sr, 4, s.pulse * 0.5, "#2dd4bf", "#f8fafc");
+      if (Math.hypot(s.x - heroSilhouette.x, s.y - heroSilhouette.y) < heroSilhouette.r + sr + 6) {
+        spawnBurst(s.x, s.y, "#2dd4bf");
+        shardPool.releaseAt(i);
+        have++;
+        syncHud();
+        if (have >= need) {
+          stage++;
+          populateStage();
           break;
         }
       }
     }
-    if (boss) {
-      const br = Math.max(34, cell * 0.31);
-      ctx.save();
-      ctx.translate(bx, by);
-      ctx.shadowColor = "#ef4444"; ctx.shadowBlur = 22;
-      ctx.fillStyle = boss.flash > 0 ? "#ffffff" : "#450a0a";
-      ctx.strokeStyle = "#ef4444"; ctx.lineWidth = 4.5;
-      ctx.beginPath();
-      for (let i = 0; i < 6; i++) {
-        const a = i * (Math.PI / 3) + animT * 0.5;
-        const px = Math.cos(a) * br, py = Math.sin(a) * br;
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-      }
-      ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.shadowBlur = 0;
 
-      // Twin Horns
-      ctx.fillStyle = "#fbbf24";
-      ctx.beginPath(); ctx.moveTo(-br * 0.65, -br * 0.65); ctx.lineTo(-br * 0.95, -br * 1.25); ctx.lineTo(-br * 0.25, -br * 0.85); ctx.closePath(); ctx.fill();
-      ctx.beginPath(); ctx.moveTo(br * 0.65, -br * 0.65); ctx.lineTo(br * 0.95, -br * 1.25); ctx.lineTo(br * 0.25, -br * 0.85); ctx.closePath(); ctx.fill();
-
-      // Fierce Boss Face
-      ctx.fillStyle = "#fde047";
-      ctx.beginPath(); ctx.arc(-br * 0.34, -br * 0.16, br * 0.22, 0, Math.PI * 2); ctx.arc(br * 0.34, -br * 0.16, br * 0.22, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "#dc2626";
-      ctx.beginPath(); ctx.arc(-br * 0.34, -br * 0.16, br * 0.1, 0, Math.PI * 2); ctx.arc(br * 0.34, -br * 0.16, br * 0.1, 0, Math.PI * 2); ctx.fill();
-      const jaw = 5 + Math.abs(Math.sin(animT * 6)) * 6;
-      ctx.fillStyle = "#fbbf24";
-      ctx.fillRect(-br * 0.42, br * 0.22, br * 0.84, jaw);
-
-      // Boss HP Bar
-      ctx.fillStyle = "rgba(2, 6, 23, 0.9)";
-      ctx.fillRect(-br * 0.85, -br * 1.48, br * 1.7, 10);
-      ctx.fillStyle = "#22c55e";
-      ctx.fillRect(-br * 0.85, -br * 1.48, br * 1.7 * (boss.hp / boss.maxHp), 10);
-      ctx.restore();
-    }
-  }
-}
-
-function render(now) {
-  animT = now * 0.001;
-  frameCount++;
-  verifyStats.frame = frameCount;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  if (state) {
-    const n = state.grid_size;
-    const pad = 60;
-    const cell = (canvas.width - pad * 2) / n;
-
-    // 1) Crisp Board Grid
-    for (let y = 0; y < n; y++) {
-      for (let x = 0; x < n; x++) {
-        const cx = pad + x * cell;
-        const cy = pad + y * cell;
-        ctx.fillStyle = "rgba(15, 23, 42, 0.88)";
-        ctx.strokeStyle = "rgba(56, 189, 248, 0.26)";
-        ctx.lineWidth = 2.5;
-        ctx.beginPath();
-        ctx.roundRect(cx + 8, cy + 8, cell - 16, cell - 16, 18);
-        ctx.fill();
-        ctx.stroke();
+    // Distinct Enemy Archetypes
+    for (let i = 0; i < enemyPool.activeCount; i++) {
+      const e = enemyPool.pool[i];
+      const spec = enemyArchetypes[e.arch];
+      e.x += e.vx * dtClamp;
+      e.y += e.vy * dtClamp;
+      if (e.x < 36 || e.x > W - 36) e.vx *= -1;
+      if (e.y < 96 || e.y > H - 36) e.vy *= -1;
+      e.rot += dtClamp * 2.4;
+      drawPoly3D(e.x, e.y, spec.r, spec.sides, e.rot, spec.color, "#ffe4e6");
+      if (heroSilhouette.shield <= 0 && Math.hypot(e.x - heroSilhouette.x, e.y - heroSilhouette.y) < spec.r + heroSilhouette.r - 4) {
+        heroSilhouette.shield = 0.8;
+        spawnBurst(heroSilhouette.x, heroSilhouette.y, "#f43f5e");
       }
     }
 
-    // 2) Ground Collectible Upgrade Materials
-    groundDrops.forEach(d => drawMaterialDrop(d, pad, cell));
+    // Boss Entity
+    if (bossEntity.active) {
+      bossEntity.phase += dtClamp * 1.6;
+      bossEntity.x = W * 0.5 + Math.sin(bossEntity.phase) * Math.min(180, W * 0.32);
+      drawPoly3D(bossEntity.x, bossEntity.y, bossEntity.r, 8, -bossEntity.phase * 0.6, bossEntity.color, "#fef08a");
+    }
 
-    // 3) Golden / Upgraded Twin Laser Beam
-    if (state.beamPath && state.beamPath.length > 1) {
-      ctx.save();
-      const upgradedBeam = inv.shard.lv > 0;
-      ctx.strokeStyle = upgradedBeam ? "#38bdf8" : "rgb(250, 204, 21)";
-      ctx.shadowColor = "rgb(250, 204, 21)";
-      ctx.shadowBlur = upgradedBeam ? 32 : 24;
-      ctx.lineWidth = upgradedBeam ? 15 : 10;
-      ctx.lineCap = "round";
-      ctx.lineJoin = "round";
+    // Hero Guardian 3D Octahedron
+    if (heroSilhouette.shield > 0) {
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.7)";
+      ctx.lineWidth = 3;
       ctx.beginPath();
-      state.beamPath.forEach((pt, i) => {
-        const bx = pad + (pt.x + 0.5) * cell;
-        const by = pad + (pt.y + 0.5) * cell;
-        if (i === 0) ctx.moveTo(bx, by);
-        else ctx.lineTo(bx, by);
-      });
+      ctx.arc(heroSilhouette.x, heroSilhouette.y, heroSilhouette.r + 12, 0, Math.PI * 2);
       ctx.stroke();
-      if (upgradedBeam) {
-        ctx.strokeStyle = "#fde047";
-        ctx.lineWidth = 6;
-        ctx.stroke();
-      }
-      ctx.restore();
+    }
+    drawPoly3D(heroSilhouette.x, heroSilhouette.y, heroSilhouette.r, 5, heroSilhouette.angle * 0.25, "#38bdf8", "#facc15");
+
+    // Pooled Particles
+    for (let i = particlePool.activeCount - 1; i >= 0; i--) {
+      const p = particlePool.pool[i];
+      p.life -= dtClamp;
+      if (p.life <= 0) { particlePool.releaseAt(i); continue; }
+      p.x += p.vx * dtClamp; p.y += p.vy * dtClamp;
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = Math.max(0, p.life * 2);
+      ctx.fillRect(p.x - 3, p.y - 3, 6, 6);
+      ctx.globalAlpha = 1;
     }
 
-    // 4) Characters with Clear Readable Faces
-    drawHeroGuardian(pad + (state.source.x + 0.5) * cell, pad + (state.source.y + 0.5) * cell, cell);
-    drawTargetSpirit(pad + (state.target.x + 0.5) * cell, pad + (state.target.y + 0.5) * cell, cell);
-
-    // 5) Mirrors + Zero-Text 5-Second Kid Finger Guide
-    const firstWrong = state.mirrors.find(m => m.initial_type !== m.solution_type);
-    const showKidGuide = !solved && (state.show_finger_hint || (now - bootTime < 5200)) && firstWrong;
-
-    state.mirrors.forEach((m) => {
-      const mx = pad + (m.x + 0.5) * cell;
-      const my = pad + (m.y + 0.5) * cell;
-      const r = cell * 0.27;
-      ctx.save();
-      ctx.fillStyle = "rgba(30, 41, 59, 0.72)";
-      ctx.beginPath(); ctx.arc(mx, my, r * 1.15, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = "#ffffff";
-      ctx.shadowColor = "rgb(56, 189, 248)";
-      ctx.shadowBlur = 18;
-      ctx.lineWidth = 10;
-      ctx.lineCap = "round";
-      ctx.beginPath();
-      if (m.initial_type === 1) {
-        ctx.moveTo(mx - r, my + r); ctx.lineTo(mx + r, my - r);
-      } else {
-        ctx.moveTo(mx - r, my - r); ctx.lineTo(mx + r, my + r);
-      }
-      ctx.stroke();
-      ctx.restore();
-    });
-
-    // 6) Distinct Enemies & Boss
-    updateAndDrawEnemies(n, pad, cell);
-
-    // 7) 5-Year-Old Zero-Text Pulsing Ring + Finger Hint directly on target mirror
-    if (showKidGuide) {
-      const hx = pad + (firstWrong.x + 0.5) * cell;
-      const hy = pad + (firstWrong.y + 0.5) * cell;
-      const pulseR = cell * 0.36 + Math.sin(animT * 7) * 8;
-      ctx.save();
-      ctx.strokeStyle = "#fbbf24";
-      ctx.lineWidth = 5;
-      ctx.beginPath();
-      ctx.arc(hx, hy, pulseR, 0, Math.PI * 2);
-      ctx.stroke();
-      const bounce = Math.sin(animT * 6) * 9;
-      ctx.font = "50px 'Segoe UI Emoji', sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText("👆", hx + 10, hy + 56 + bounce);
-      ctx.restore();
-    }
-  }
-
-  // Flying pickup icons toward bottom inventory bar
-  flyPickups = flyPickups.filter(f => f.t < 1);
-  flyPickups.forEach((f) => {
-    f.t += 0.05;
-    const tx = 360 + (f.kind === "shard" ? -130 : (f.kind === "gear" ? 0 : 130));
-    const ty = 700;
-    const x = f.x + (tx - f.x) * f.t;
-    const y = f.y + (ty - f.y) * f.t;
-    ctx.font = "28px 'Segoe UI Emoji', sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(f.kind === "shard" ? "💎" : (f.kind === "gear" ? "⚙️" : "🛡️"), x, y);
-  });
-
-  particles = particles.filter(p => p.life > 0.03);
-  particles.forEach((p) => {
-    p.x += p.vx; p.y += p.vy; p.life *= 0.92;
-    ctx.globalAlpha = p.life;
-    ctx.fillStyle = p.col || "#facc15";
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-  });
-
-  requestAnimationFrame(render);
-}
-
-window.LP = {
-  getState: () => state,
-  getLevel: () => curIdx,
-  getDrops: () => groundDrops,
-  getEnemies: () => enemies,
-  getBoss: () => boss,
-  getInventory: () => inv,
-  loadLevel,
-  traceBeam,
-  canvas
-};
-
-updateInvDOM();
-loadLevel(curIdx);
-requestAnimationFrame(render);
-</script>
-
-<!--MTT_AAA_3D_PBR_ENGINE_START-->
-<style>
-  /* Kesinlikle ekran ortasında yarı saydam panel bırakma; yalnızca ana oyun tahtası kendi stiline sahiptir */
-  canvas:not(#game):not(#gameCanvas) {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    pointer-events: none !important;
-  }
-  #game, #gameCanvas {
-    filter: contrast(1.06) saturate(1.14);
-    transition: transform 0.05s ease-out;
-  }
-  #mtt-zero-text-onboarding {
-    background: transparent !important;
-  }
-  #mtt-aaa-combo-badge {
-    position: fixed;
-    right: 18px;
-    top: calc(env(safe-area-inset-top, 14px) + 74px);
-    background: linear-gradient(135deg, rgba(15,23,42,0.92), rgba(30,41,59,0.88));
-    border: 2px solid #fbbf24;
-    border-radius: 999px;
-    padding: 5px 14px;
-    font-weight: 900;
-    font-size: 15px;
-    letter-spacing: 0.5px;
-    color: #f8fafc;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 0 18px #fbbf2455;
-    z-index: 22;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  #mtt-aaa-rank {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    color: #050812;
-    border-radius: 999px;
-    padding: 1px 8px;
-    font-size: 13px;
-    font-weight: 900;
-  }
-  #mtt-aaa-inv-bar {
-    position: fixed;
-    bottom: env(safe-area-inset-bottom, 14px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(9, 14, 28, 0.94);
-    border: 2px solid #fbbf24;
-    border-radius: 22px;
-    padding: 7px 14px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    z-index: 22;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.68), 0 0 22px #fbbf2444;
-  }
-  .mtt-aaa-slot {
-    position: relative;
-    min-width: 92px;
-    height: 46px;
-    background: rgba(15, 23, 42, 0.95);
-    border: 1.8px solid rgba(148, 163, 184, 0.35);
-    border-radius: 14px;
-    padding: 4px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    font-weight: 900;
-    font-size: 16px;
-    overflow: hidden;
-  }
-  .mtt-aaa-slot.maxed {
-    border-color: #fbbf24;
-    box-shadow: 0 0 14px rgba(251, 191, 36, 0.55);
-  }
-  .mtt-aaa-fill {
-    position: absolute;
-    left: 0; top: 0; bottom: 0; width: 0%;
-    background: linear-gradient(90deg, #fbbf2455, rgba(251,191,36,0.45));
-    transition: width 0.22s ease;
-  }
-  .mtt-aaa-slot > * { position: relative; z-index: 1; }
-  .mtt-aaa-ico { width: 24px; height: 24px; object-fit: contain; filter: drop-shadow(0 0 6px #fbbf24); }
-  .mtt-aaa-lv {
-    font-size: 11px;
-    background: #fbbf24;
-    color: #050812;
-    border-radius: 999px;
-    padding: 1px 5px;
-  }
-</style>
-<div id="mtt-aaa-combo-badge">
-  <span id="mtt-aaa-combo-txt">COMBO x1</span>
-  <span id="mtt-aaa-rank">RANK A</span>
-</div>
-<script>
-(function() {
-  const GAME_SLUG = "light_path";
-  const ACCENT = "#fbbf24";
-  const mainCanvas = document.getElementById("game") || document.getElementById("gameCanvas");
-  if (!mainCanvas) return;
-  const ctx = mainCanvas.getContext("2d");
-
-  // 1) Gerçek Blender 4.4 CLI 3D PBR Sprite & CC0 PBR Doku Önyükleyici
-  const ASSET_FILES = {
-    hero: "textures/hero_guardian_3d.png",
-    scout: "textures/enemy_scout_3d.png",
-    crusher: "textures/enemy_crusher_3d.png",
-    phantom: "textures/enemy_phantom_3d.png",
-    boss: "textures/boss_omega_3d.png",
-    crystal: "textures/crystal_shard_3d.png",
-    pbr_albedo: "textures/pbr_albedo.png",
-    pbr_emission: "textures/pbr_emission.png"
+    requestAnimationFrame(loop);
   };
-  const sprites = {};
-  let loadedCount = 0;
-  Object.keys(ASSET_FILES).forEach((k) => {
-    const img = new Image();
-    img.onload = () => { loadedCount++; };
-    img.src = ASSET_FILES[k];
-    sprites[k] = img;
-  });
-
-  // 2) Hit-Stop (45ms Darbe Dondurma) + Kamera Sarsıntısı + Çok Harmonikli Stereo Ses Motoru
-  let hitStopUntil = 0;
-  let shakeMag = 0;
-  let combo = 1;
-  let lastActionAt = performance.now();
-  let totalPickups = 0;
-  let bossDefeats = 0;
-  let sfxCtx = null;
-
-  function playAAASound(kind) {
-    try {
-      if (!sfxCtx) sfxCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (sfxCtx.state === "suspended") sfxCtx.resume();
-      const now = sfxCtx.currentTime;
-      const master = sfxCtx.createGain();
-      master.gain.setValueAtTime(0.16, now);
-      master.connect(sfxCtx.destination);
-
-      const notes = kind === "crystal" ? [659.25, 987.77, 1318.5]
-                  : kind === "boss_hit" ? [146.83, 220.0, 110.0]
-                  : kind === "upgrade" ? [523.25, 659.25, 783.99, 1046.5]
-                  : [440.0, 660.0];
-      notes.forEach((freq, idx) => {
-        const osc = sfxCtx.createOscillator();
-        const g = sfxCtx.createGain();
-        osc.type = kind === "boss_hit" ? "sawtooth" : (idx % 2 === 0 ? "triangle" : "sine");
-        osc.frequency.setValueAtTime(freq, now + idx * 0.035);
-        g.gain.setValueAtTime(0.22, now + idx * 0.035);
-        g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.035 + 0.14);
-        osc.connect(g);
-        g.connect(master);
-        osc.start(now + idx * 0.035);
-        osc.stop(now + idx * 0.035 + 0.15);
-      });
-    } catch (e) {}
-  }
-
-  const burstParticles = [];
-  function triggerHitStopAndBurst(x, y, color, intensity) {
-    const now = performance.now();
-    hitStopUntil = now + 45; // 45ms gerçek AAA Hit-Stop darbe hissi
-    shakeMag = Math.min(9, (intensity || 1) * 4.5);
-    for (let i = 0; i < 16; i++) {
-      const a = (Math.PI * 2 * i) / 16 + Math.random() * 0.3;
-      const sp = 2.2 + Math.random() * 5.2;
-      burstParticles.push({
-        x: x, y: y,
-        vx: Math.cos(a) * sp,
-        vy: Math.sin(a) * sp,
-        r: 3 + Math.random() * 4.5,
-        life: 1.0,
-        col: i % 3 === 0 ? "#fde047" : (color || ACCENT)
-      });
-    }
-  }
-
-  function bumpCombo() {
-    const now = performance.now();
-    combo = (now - lastActionAt < 4500) ? Math.min(12, combo + 1) : 1;
-    lastActionAt = now;
-    const cTxt = document.getElementById("mtt-aaa-combo-txt");
-    const rTxt = document.getElementById("mtt-aaa-rank");
-    if (cTxt) cTxt.textContent = "COMBO x" + combo;
-    if (rTxt) rTxt.textContent = combo >= 8 ? "RANK S+" : (combo >= 5 ? "RANK S" : (combo >= 3 ? "RANK A" : "RANK B"));
-  }
-
-  // 3) 3D Kristal Envanteri + Özgün 3D Düşmanlar + Omega Boss Katmanı (Tüm 4 oyunda tam standart)
-  const aaaInv = [
-    { have: 0, need: 3, lv: 1, fill: "aaa-fill-1", cnt: "aaa-cnt-1", lvEl: "aaa-lv-1", slot: "aaa-slot-1" },
-    { have: 0, need: 4, lv: 1, fill: "aaa-fill-2", cnt: "aaa-cnt-2", lvEl: "aaa-lv-2", slot: "aaa-slot-2" },
-    { have: 0, need: 5, lv: 1, fill: "aaa-fill-3", cnt: "aaa-cnt-3", lvEl: "aaa-lv-3", slot: "aaa-slot-3" }
-  ];
-
-  function syncInvUI() {
-    aaaInv.forEach((s) => {
-      const f = document.getElementById(s.fill);
-      const c = document.getElementById(s.cnt);
-      const l = document.getElementById(s.lvEl);
-      const sl = document.getElementById(s.slot);
-      if (f) f.style.width = Math.min(100, (s.have / s.need) * 100) + "%";
-      if (c) c.textContent = s.have + "/" + s.need;
-      if (l) l.textContent = "★" + s.lv;
-      if (sl && s.lv > 1) sl.classList.add("maxed");
-    });
-  }
-
-  // Sahne üstü 3D Kristaller + 3 Farklı Düşman + Omega Boss (özellikle memory_matrix & neon_flow_3d için tam 3D varlık katmanı,
-  // light_path & neon_crystal_defender için ise gerçek Blender 3D PBR model kaplama katmanı)
-  const stageCrystals = [];
-  const stageEnemies = [];
-  let stageBoss = null;
-
-  function spawnStageEntities() {
-    const w = mainCanvas.width || 720;
-    const h = mainCanvas.height || 720;
-    stageCrystals.length = 0;
-    for (let i = 0; i < 3; i++) {
-      stageCrystals.push({
-        x: w * (0.24 + i * 0.26),
-        y: h * (0.28 + (i % 2) * 0.36),
-        slotIdx: i % 3,
-        phase: i * 1.7
-      });
-    }
-    stageEnemies.length = 0;
-    const kinds = ["scout", "crusher", "phantom"];
-    for (let i = 0; i < 3; i++) {
-      stageEnemies.push({
-        kind: kinds[i],
-        x: w * (0.20 + i * 0.30),
-        y: h * (0.16 + (i % 2) * 0.66),
-        baseX: w * (0.20 + i * 0.30),
-        baseY: h * (0.16 + (i % 2) * 0.66),
-        hp: i === 1 ? 3 : 2,
-        maxHp: i === 1 ? 3 : 2,
-        phase: i * 2.1
-      });
-    }
-    stageBoss = {
-      x: w * 0.5,
-      y: h * 0.12,
-      hp: 6,
-      maxHp: 6,
-      phase: 0
-    };
-  }
-  spawnStageEntities();
-  syncInvUI();
-
-  function collectCrystalAt(px, py) {
-    for (let i = stageCrystals.length - 1; i >= 0; i--) {
-      const c = stageCrystals[i];
-      if (Math.hypot(px - c.x, py - c.y) < 78) {
-        const slot = aaaInv[c.slotIdx];
-        slot.have++;
-        totalPickups++;
-        if (slot.have >= slot.need) {
-          slot.have = 0;
-          slot.need += 2;
-          slot.lv++;
-          playAAASound("upgrade");
-        } else {
-          playAAASound("crystal");
-        }
-        syncInvUI();
-        triggerHitStopAndBurst(c.x, c.y, "#34d399", 1.2);
-        // Yeni kristal farklı noktada doğar
-        const w = mainCanvas.width || 720;
-        const h = mainCanvas.height || 720;
-        c.x = w * (0.18 + ((totalPickups * 37) % 64) / 100);
-        c.y = h * (0.22 + ((totalPickups * 53) % 56) / 100);
-      }
-    }
-    stageEnemies.forEach((e) => {
-      if (Math.hypot(px - e.x, py - e.y) < 74) {
-        e.hp--;
-        triggerHitStopAndBurst(e.x, e.y, "#38bdf8", 1.3);
-        playAAASound("boss_hit");
-        if (e.hp <= 0) {
-          e.hp = e.maxHp;
-          totalPickups++;
-          aaaInv[0].have = Math.min(aaaInv[0].need - 1, aaaInv[0].have + 1);
-          syncInvUI();
-        }
-      }
-    });
-    if (stageBoss && Math.hypot(px - stageBoss.x, py - stageBoss.y) < 92) {
-      stageBoss.hp--;
-      triggerHitStopAndBurst(stageBoss.x, stageBoss.y, "#f43f5e", 1.8);
-      playAAASound("boss_hit");
-      if (stageBoss.hp <= 0) {
-        bossDefeats++;
-        stageBoss.maxHp += 2;
-        stageBoss.hp = stageBoss.maxHp;
-        playAAASound("upgrade");
-      }
-    }
-  }
-
-  mainCanvas.addEventListener("pointerdown", (ev) => {
-    const rect = mainCanvas.getBoundingClientRect();
-    const sx = ((ev.clientX - rect.left) / Math.max(1, rect.width)) * mainCanvas.width;
-    const sy = ((ev.clientY - rect.top) / Math.max(1, rect.height)) * mainCanvas.height;
-    bumpCombo();
-    collectCrystalAt(sx, sy);
-    triggerHitStopAndBurst(sx, sy, ACCENT, 0.85);
-  }, { passive: true });
-
-  // 4) Ana Render Döngüsü Üstüne Gerçek 3D PBR Model + HDR Bloom + Hit-Stop Çizim Kancası
-  function drawSprite3D(img, x, y, size, glowCol) {
-    if (!img || !img.complete || img.naturalWidth === 0) return false;
-    ctx.save();
-    // Yumuşak gerçek zamanlı zemin gölgesi
-    ctx.fillStyle = "rgba(0, 0, 0, 0.42)";
-    ctx.beginPath();
-    ctx.ellipse(x, y + size * 0.40, size * 0.36, size * 0.14, 0, 0, Math.PI * 2);
-    ctx.fill();
-    // HDR Glow/Bloom halesi
-    ctx.shadowColor = glowCol || ACCENT;
-    ctx.shadowBlur = 18;
-    ctx.drawImage(img, x - size / 2, y - size / 2, size, size);
-    ctx.restore();
-    return true;
-  }
-
-  const origRAF = window.requestAnimationFrame.bind(window);
-  window.requestAnimationFrame = function(cb) {
-    return origRAF(function(ts) {
-      if (ts < hitStopUntil) {
-        // 45ms Hit-Stop mikro-dondurma karesi (darbe hissi)
-        if (shakeMag > 0.2) {
-          const dx = (Math.random() - 0.5) * shakeMag;
-          const dy = (Math.random() - 0.5) * shakeMag;
-          mainCanvas.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
-        }
-        return origRAF(cb);
-      }
-      if (shakeMag > 0.2) {
-        const dx = (Math.random() - 0.5) * shakeMag;
-        const dy = (Math.random() - 0.5) * shakeMag;
-        mainCanvas.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)`;
-        shakeMag *= 0.80;
-      } else if (mainCanvas.style.transform) {
-        mainCanvas.style.transform = "";
-      }
-
-      cb(ts);
-
-      // Çizim sonrası 3D PBR varlıklarını & GPU parçacıklarını tek ana canvas üstüne işle (ekstra canvas YOK!)
-      const t = ts * 0.001;
-      const w = mainCanvas.width || 720;
-      const h = mainCanvas.height || 720;
-
-      if (GAME_SLUG === "memory_matrix" || GAME_SLUG === "neon_flow_3d") {
-        // 3D Hero Guardian sol üst köşe muhafızı
-        drawSprite3D(sprites.hero, 54, h - 54, 72, "#38bdf8");
-        // 3D Kristaller (doğrudan yerden/tahtadan toplanır)
-        stageCrystals.forEach((c) => {
-          const bob = Math.sin(t * 4.2 + c.phase) * 5;
-          drawSprite3D(sprites.crystal, c.x, c.y + bob, 44, "#34d399");
-        });
-        // 3 Farklı 3D Düşman Silüeti (farklı hareket: devriye, zırhlı darbe, faz salınımı)
-        stageEnemies.forEach((e, idx) => {
-          if (e.kind === "scout") {
-            e.x = e.baseX + Math.sin(t * 2.6 + e.phase) * 34;
-          } else if (e.kind === "crusher") {
-            e.y = e.baseY + Math.cos(t * 1.7 + e.phase) * 18;
-          } else {
-            e.x = e.baseX + Math.cos(t * 3.1 + e.phase) * 24;
-            e.y = e.baseY + Math.sin(t * 3.1 + e.phase) * 16;
-          }
-          const sp = sprites[e.kind];
-          const col = e.kind === "scout" ? "#38bdf8" : (e.kind === "crusher" ? "#f97316" : "#c084fc");
-          drawSprite3D(sp, e.x, e.y, 54, col);
-        });
-        // Omega 3D Boss
-        if (stageBoss) {
-          stageBoss.x = w * 0.5 + Math.sin(t * 1.35) * (w * 0.24);
-          drawSprite3D(sprites.boss, stageBoss.x, stageBoss.y, 76, "#f43f5e");
-          ctx.save();
-          ctx.fillStyle = "rgba(2,6,23,0.88)";
-          ctx.fillRect(stageBoss.x - 34, stageBoss.y - 46, 68, 7);
-          ctx.fillStyle = "#22c55e";
-          ctx.fillRect(stageBoss.x - 34, stageBoss.y - 46, 68 * (stageBoss.hp / stageBoss.maxHp), 7);
-          ctx.restore();
-        }
-      } else if (GAME_SLUG === "light_path" && window.LP) {
-        const st = window.LP.getState && window.LP.getState();
-        if (st) {
-          const n = st.grid_size;
-          const pad = 60;
-          const cell = (w - pad * 2) / n;
-          drawSprite3D(sprites.hero, pad + (st.source.x + 0.5) * cell, pad + (st.source.y + 0.5) * cell, cell * 0.68, "#fbbf24");
-          (window.LP.getDrops() || []).forEach((d) => {
-            if (!d.collected) {
-              drawSprite3D(sprites.crystal, pad + (d.x + 0.5) * cell, pad + (d.y + 0.5) * cell, cell * 0.44, "#34d399");
-            }
-          });
-          (window.LP.getEnemies() || []).forEach((e) => {
-            const sp = e.type === "scout_blinky" ? sprites.scout : (e.type === "crusher_brutus" ? sprites.crusher : sprites.phantom);
-            drawSprite3D(sp, pad + (e.gx + 0.5) * cell, pad + (e.gy + 0.5) * cell, cell * 0.58, "#38bdf8");
-          });
-          const b = window.LP.getBoss && window.LP.getBoss();
-          if (b) {
-            drawSprite3D(sprites.boss, pad + (b.gx + 0.5) * cell, pad + (b.gy + 0.5) * cell, cell * 0.78, "#ef4444");
-          }
-        }
-      } else if (GAME_SLUG === "neon_crystal_defender" && window.NCD_STATE) {
-        const hHero = window.NCD_STATE.getHero();
-        if (hHero) drawSprite3D(sprites.hero, hHero.x, hHero.y, 68, "#38bdf8");
-        (window.NCD_STATE.getCrystals() || []).forEach((c) => {
-          drawSprite3D(sprites.crystal, c.x, c.y, 38, "#34d399");
-        });
-        (window.NCD_STATE.getEnemies() || []).forEach((e) => {
-          const sp = e.type === "scout_blinky" ? sprites.scout : (e.type === "crusher_brutus" ? sprites.crusher : sprites.phantom);
-          drawSprite3D(sp, e.x, e.y, 56, "#f97316");
-        });
-        const b = window.NCD_STATE.getBoss();
-        if (b) drawSprite3D(sprites.boss, b.x, b.y, 96, "#ef4444");
-      }
-
-      // Yüksek hızlı HDR parçacık patlamaları
-      for (let i = burstParticles.length - 1; i >= 0; i--) {
-        const p = burstParticles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vx *= 0.93;
-        p.vy *= 0.93;
-        p.life -= 0.045;
-        if (p.life <= 0) {
-          burstParticles.splice(i, 1);
-          continue;
-        }
-        ctx.save();
-        ctx.globalAlpha = p.life;
-        ctx.shadowColor = p.col;
-        ctx.shadowBlur = 12;
-        ctx.fillStyle = p.col;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    });
-  };
-
-  window.__MTT_AAA_3D_VERIFIED__ = () => ({
-    game: GAME_SLUG,
-    loaded3DAssets: loadedCount,
-    combo: combo,
-    totalPickups: totalPickups,
-    bossDefeats: bossDefeats,
-    hitStopReady: true,
-    semiTransparentCenterOverlays: Array.from(document.querySelectorAll("canvas")).filter(
-      (c) => c.id !== "game" && c.id !== "gameCanvas" && getComputedStyle(c).backgroundColor !== "rgba(0, 0, 0, 0)"
-    ).length
-  });
+  requestAnimationFrame(loop);
 })();
 </script>
-<!--MTT_AAA_3D_PBR_ENGINE_END-->
-<!--SM_TELEMETRY_START--><script>(function(){var B='https://abacus.jasoncameron.dev/hit/systemicmind-ttepebasili/',G='light_path';function hit(k){try{if(typeof navigator==='undefined'||navigator.onLine!==false){new Image().src=B+G+'_'+k+'?r='+Math.random()}}catch(e){}}hit('opens');var p=false;function play(){if(!p){p=true;hit('plays')}}['pointerdown','keydown','touchstart'].forEach(function(e){addEventListener(e,play,{once:true,passive:true})});setInterval(function(){if(p&&!document.hidden){hit('active30s')}},30000);window.SM_GAME_VERSION=6;})();</script><!--SM_TELEMETRY_END--></body>
+</body>
 </html>
