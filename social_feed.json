@@ -1,0 +1,608 @@
+{
+  "updated_at": "2026-11-15T00:02:10.499434+00:00",
+  "daily_cap_per_platform": 2,
+  "items": [
+    {
+      "video_id": "837a2413653",
+      "concept": "@SystemicMind",
+      "title": "Engineering Quality at Scale #shorts",
+      "youtube_url": "https://www.youtube.com/@systemicmind",
+      "utm_links": {
+        "x_twitter": "https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40&utm_source=x_twitter&utm_medium=cinema60fps&utm_campaign=sm_vip_bundle_001",
+        "instagram": "https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40&utm_source=instagram&utm_medium=cinema60fps&utm_campaign=sm_vip_bundle_001",
+        "pinterest": "https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40&utm_source=pinterest&utm_medium=cinema60fps&utm_campaign=sm_vip_bundle_001",
+        "reddit": "https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40&utm_source=reddit&utm_medium=cinema60fps&utm_campaign=sm_vip_bundle_001"
+      },
+      "published_at_utc": "2026-11-15T00:02:10.499419+00:00",
+      "anti_shadowban_cap": "<= 2/day"
+    },
+    {
+      "dispatched_at": "2026-11-12T20:51:40.148673+00:00",
+      "identity": "thealgorithmshift@gmail.com",
+      "video_key": "Be4oeJJDGic",
+      "title": "Stop Paying $300/Mo for AI Stacks: Zero-Cost Python Pipeline #Shorts",
+      "hook_first_3s": "Stop paying $300 a month for fragile AI automation stacks that break every weekend.",
+      "youtube_url": "https://www.youtube.com/watch?v=Be4oeJJDGic",
+      "public_lufs14_mp4_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/omni_Be4oeJJDGic_lufs14.mp4",
+      "lufs_integrated": -15.02,
+      "coupon_code": "MIND40",
+      "platforms": {
+        "youtube": {
+          "handle": "@SystemicMind (UC0FszzuBK9lSJftH7wX3YRQ)",
+          "status": "uploaded_primary",
+          "url": "https://www.youtube.com/watch?v=Be4oeJJDGic",
+          "lufs": -15.02
+        },
+        "reddit": {
+          "handle": "u/SystemicMind",
+          "status": "skipped_anti_shadowban_daily_cap_reached",
+          "detail": "anti_shadowban_daily_cap_reached (2/2)",
+          "posts_today": 2,
+          "daily_cap": 2,
+          "url": "https://www.reddit.com/user/SystemicMind/"
+        },
+        "instagram_reels": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "session_verified_syndicated_feed",
+          "url": "https://www.instagram.com/systemicmindhq/",
+          "detail": "HTTP 200 active session + syndicated to omni feed",
+          "posts_today": 2,
+          "daily_cap": 2
+        },
+        "tiktok": {
+          "handle": "@aicontentkitlab",
+          "handle_alias": "@alcontentkitlab",
+          "status": "session_verified_syndicated_feed",
+          "url": "https://www.tiktok.com/@alcontentkitlab",
+          "detail": "HTTP 200 active session + syndicated to omni feed",
+          "posts_today": 2,
+          "daily_cap": 2
+        },
+        "x_native_video": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "session_verified_syndicated_feed",
+          "url": "https://x.com/systemicmindhq",
+          "detail": "HTTP 200 active session + syndicated to omni feed",
+          "posts_today": 2,
+          "daily_cap": 2
+        },
+        "pinterest_video": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "session_verified_syndicated_feed",
+          "url": "https://www.pinterest.com/systemicmindhq/",
+          "detail": "HTTP 200 active session + syndicated to omni feed",
+          "posts_today": 2,
+          "daily_cap": 2
+        }
+      }
+    },
+    {
+      "dispatched_at": "2026-11-12T20:46:55.759238+00:00",
+      "identity": "thealgorithmshift@gmail.com",
+      "video_key": "sha_830191eead55d361",
+      "title": "Stop Paying $300/Mo for AI Stacks: Zero-Cost Python Pipeline #Shorts",
+      "hook_first_3s": "Stop paying $300 a month for fragile AI automation stacks that break every weekend.",
+      "youtube_url": "",
+      "public_lufs14_mp4_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/omni_sha_830191eead55d361_lufs14.mp4",
+      "lufs_integrated": -15.03,
+      "coupon_code": "MIND40",
+      "platforms": {
+        "youtube": {
+          "handle": "@SystemicMind (UC0FszzuBK9lSJftH7wX3YRQ)",
+          "status": "ready_primary",
+          "url": "https://www.youtube.com/channel/UC0FszzuBK9lSJftH7wX3YRQ",
+          "lufs": -15.03
+        },
+        "reddit": {
+          "handle": "u/SystemicMind",
+          "status": "queued_feed_awaiting_reddit_jwt",
+          "url": "https://www.reddit.com/user/SystemicMind/",
+          "detail": "Reddit JWT yenileme bekliyor; social_feed.json güncellendi",
+          "posts_today": 2,
+          "daily_cap": 2
+        },
+        "instagram_reels": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "session_verified_syndicated_feed",
+          "url": "https://www.instagram.com/systemicmindhq/",
+          "detail": "HTTP 200 active session + syndicated to omni feed",
+          "posts_today": 1,
+          "daily_cap": 2
+        },
+        "tiktok": {
+          "handle": "@aicontentkitlab",
+          "handle_alias": "@alcontentkitlab",
+          "status": "session_verified_syndicated_feed",
+          "url": "https://www.tiktok.com/@alcontentkitlab",
+          "detail": "HTTP 200 active session + syndicated to omni feed",
+          "posts_today": 1,
+          "daily_cap": 2
+        },
+        "x_native_video": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "session_verified_syndicated_feed",
+          "url": "https://x.com/systemicmindhq",
+          "detail": "HTTP 200 active session + syndicated to omni feed",
+          "posts_today": 1,
+          "daily_cap": 2
+        },
+        "pinterest_video": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "session_verified_syndicated_feed",
+          "url": "https://www.pinterest.com/systemicmindhq/",
+          "detail": "HTTP 200 active session + syndicated to omni feed",
+          "posts_today": 1,
+          "daily_cap": 2
+        }
+      }
+    },
+    {
+      "dispatched_at": "2026-11-12T19:50:15.624229+00:00",
+      "identity": "thealgorithmshift@gmail.com",
+      "video_key": "Ol9YDjlj6II",
+      "title": "The Cognitive & Neon Game Architect Pro Bundle (Playbook + 2D/3D Engines + AI Prompt Vault)",
+      "hook_first_3s": "Stop building flat prototypes and blind roadmaps—deploy the exact 40-70 & 3D solver stack in 15 minutes.",
+      "youtube_url": "https://www.youtube.com/watch?v=Ol9YDjlj6II",
+      "public_lufs14_mp4_url": "https://github.com/ttepebasili/systemic-mind-store/releases/download/v1.0.0-digital-store/omni_Ol9YDjlj6II_lufs14.mp4",
+      "lufs_integrated": -14.86,
+      "coupon_code": "MIND40",
+      "platforms": {
+        "youtube": {
+          "handle": "@SystemicMind (UC0FszzuBK9lSJftH7wX3YRQ)",
+          "status": "uploaded_primary",
+          "url": "https://www.youtube.com/watch?v=Ol9YDjlj6II",
+          "lufs": -14.86
+        },
+        "reddit": {
+          "handle": "u/SystemicMind",
+          "status": "queued_feed_awaiting_reddit_jwt",
+          "url": "https://www.reddit.com/user/SystemicMind/",
+          "detail": "Reddit JWT yenileme bekliyor; social_feed.json güncellendi",
+          "posts_today": 1,
+          "daily_cap": 2
+        },
+        "instagram_reels": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "syndicated_omni_feed_headless_fallback",
+          "url": "https://www.instagram.com/systemicmindhq/",
+          "detail": "BrowserType.launch: Executable doesn't exist at C:\\Users\\tahir\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\",
+          "posts_today": 1,
+          "daily_cap": 2
+        },
+        "tiktok": {
+          "handle": "@aicontentkitlab",
+          "handle_alias": "@alcontentkitlab",
+          "status": "syndicated_omni_feed_headless_fallback",
+          "url": "https://www.tiktok.com/@alcontentkitlab",
+          "detail": "BrowserType.launch: Executable doesn't exist at C:\\Users\\tahir\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\",
+          "posts_today": 1,
+          "daily_cap": 2
+        },
+        "x_native_video": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "syndicated_omni_feed_headless_fallback",
+          "url": "https://x.com/systemicmindhq",
+          "detail": "BrowserType.launch: Executable doesn't exist at C:\\Users\\tahir\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\",
+          "posts_today": 1,
+          "daily_cap": 2
+        },
+        "pinterest_video": {
+          "handle": "@systemicmindhq",
+          "handle_alias": "",
+          "status": "syndicated_omni_feed_headless_fallback",
+          "url": "https://www.pinterest.com/systemicmindhq/",
+          "detail": "BrowserType.launch: Executable doesn't exist at C:\\Users\\tahir\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1248\\",
+          "posts_today": 1,
+          "daily_cap": 2
+        }
+      }
+    },
+    {
+      "timestamp": "2026-11-12T22:37:12",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "[HackerNews] Jensen Huang resigns",
+      "title": "Is Your Portfolio Just a Leather Jacket Fan Club?",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Is Your Portfolio Just a Leather Jacket Fan Club?\n\n🧠 Jensen Huang resigning is like finding out Santa Claus is retiring and taking the reindeer with him. We have spent a decade treating one man's leather jacket as a fundamental law of physics, and now the simulation is finally glitching.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/_V1va3XjztI\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store\n\n#JensenHuang #NVIDIA #TechPanic #AIBubble #SystemicMind",
+      "youtube_url": "https://youtu.be/_V1va3XjztI",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store",
+      "hashtags": [
+        "#JensenHuang",
+        "#NVIDIA",
+        "#TechPanic",
+        "#AIBubble",
+        "#SystemicMind"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-12T20:43:56",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "[Google Trends] nvidia cmp 170hx voltage mod",
+      "title": "Why Everyone Is Panicking About nvidia cmp 170hx voltage mod",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Everyone Is Panicking About nvidia cmp 170hx voltage mod\n\n🧠 Everyone on the internet is losing their minds over 'nvidia cmp 170hx voltage mod', while their actual decision system is still running on Windows 95.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/_V1va3XjztI\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store\n\n#TechTrends #AI #MentalModels #Productivity #SystemicMind",
+      "youtube_url": "https://youtu.be/_V1va3XjztI",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store",
+      "hashtags": [
+        "#TechTrends",
+        "#AI",
+        "#MentalModels",
+        "#Productivity",
+        "#SystemicMind"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-11T01:02:40",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "[HackerNews] Smart home devices should work without the internet",
+      "title": "Why Your Lightbulb Needs Wi-Fi to Turn Off",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Your Lightbulb Needs Wi-Fi to Turn Off\n\n🧠 We live in an era where your smart fridge can text you about milk, but if Comcast sneezes, you're trapped in the dark like a Victorian chimney sweep. Congratulations on upgrading your home to a high-tech hostage situation.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/_V1va3XjztI\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#SmartHome #TechHumor #SystemicMind #InternetOfThings #DrGlitch",
+      "youtube_url": "https://youtu.be/_V1va3XjztI",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#SmartHome",
+        "#TechHumor",
+        "#SystemicMind",
+        "#InternetOfThings",
+        "#DrGlitch"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T19:16:54",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "[HackerNews] Humans will never again create a project like Wikipedia",
+      "title": "Why Your ADHD Brain Could Never Build Wikipedia",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Your ADHD Brain Could Never Build Wikipedia\n\n🧠 We live in an era where people won't even read a recipe without a 12-page life story, yet we're shocked we can't build a global encyclopedia anymore. We can't even agree on whether a hotdog is a sandwich, let alone the geopolitical nuances of the Byzantine Empire.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/_V1va3XjztI\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#Wikipedia #TechTrends #CognitiveBias #InternetHistory #SystemicMind",
+      "youtube_url": "https://youtu.be/_V1va3XjztI",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#Wikipedia",
+        "#TechTrends",
+        "#CognitiveBias",
+        "#InternetHistory",
+        "#SystemicMind"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T19:16:13",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "Jacobi Inversion Model",
+      "title": "Inversion: How Stoics & Billionaires Solve Impossible Problems Backwards",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Inversion: How Stoics & Billionaires Solve Impossible Problems Backwards\n\n🧠 Stop asking how to succeed. Ask how to guarantee total failure—then systematically avoid every item on that list.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/CcZ55-XfFz4\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#Inversion #CharlieMunger #SystemicMind #DrGlitch #DeepDive",
+      "youtube_url": "https://youtu.be/CcZ55-XfFz4",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#Inversion",
+        "#CharlieMunger",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#DeepDive"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T19:16:13",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "Midnight Dopamine Illusion",
+      "title": "Why Your Brain Starts a 5-Year Plan at 11:59 PM (Zeigarnik & Dopamine Loop)",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Your Brain Starts a 5-Year Plan at 11:59 PM (Zeigarnik & Dopamine Loop)\n\n🧠 At 11:59 PM you're a Navy SEAL philosopher. At 7:00 AM snooze button wins 4-0.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/_V1va3XjztI\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#Dopamine #StandUpScience #SystemicMind #DrGlitch #Habits",
+      "youtube_url": "https://youtu.be/_V1va3XjztI",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#Dopamine",
+        "#StandUpScience",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#Habits"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T19:16:13",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "Bike-Shedding Effect",
+      "title": "Why You Spend 3 Hours Buying a $12 Mug (Parkinson's Law of Triviality)",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why You Spend 3 Hours Buying a $12 Mug (Parkinson's Law of Triviality)\n\n🧠 We approve a $10M Reactor in 4 minutes, then argue for 3 hours over the breakroom coffee beans.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/fR4VMhBElxA\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#BikeShedding #Overthinking #SystemicMind #DrGlitch #BrainHacks",
+      "youtube_url": "https://youtu.be/fR4VMhBElxA",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#BikeShedding",
+        "#Overthinking",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#BrainHacks"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T19:16:13",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "The Outside View",
+      "title": "Why Your Brain Lies About Deadlines (The Outside View Breakdown)",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Your Brain Lies About Deadlines (The Outside View Breakdown)\n\n🧠 Your Inside View says 'This project will take 2 days.' Base-rate statistics say 'See you in 3 weeks!'\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/iKxJF6sEDNU\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#CognitiveBias #PlanningFallacy #SystemicMind #DrGlitch #Psychology",
+      "youtube_url": "https://youtu.be/iKxJF6sEDNU",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#CognitiveBias",
+        "#PlanningFallacy",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#Psychology"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T19:16:13",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "The 40-70 Rule",
+      "title": "Why Jeff Bezos Makes Decisions With Only 70% Info (The 40-70 Rule)",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Jeff Bezos Makes Decisions With Only 70% Info (The 40-70 Rule)\n\n🧠 Waiting for 100% certainty isn't being careful—it's just expensive procrastination in a tuxedo!\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/k687BhPtLoc\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#MentalModels #DecisionMaking #SystemicMind #DrGlitch #Productivity",
+      "youtube_url": "https://youtu.be/k687BhPtLoc",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#MentalModels",
+        "#DecisionMaking",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#Productivity"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "YouTube (Systemic Mind)"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T00:34:56",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "[HackerNews] Goldman Sachs Is Pulling Claude Code from Its Bankers and Traders",
+      "title": "Why Goldman Sachs is Afraid of a Chatbot",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Goldman Sachs is Afraid of a Chatbot\n\n🧠 Goldman Sachs just banned Claude Code because they realized an AI can hallucinate a financial crisis faster than a junior analyst on four espressos. It’s the ultimate corporate flex: banning the tool that actually works because they’re terrified it might accidentally automate the 'prestige' right out of the building.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/_V1va3XjztI\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#GoldmanSachs #ClaudeAI #FinTech #ArtificialIntelligence #SystemicMind",
+      "youtube_url": "https://youtu.be/_V1va3XjztI",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#GoldmanSachs",
+        "#ClaudeAI",
+        "#FinTech",
+        "#ArtificialIntelligence",
+        "#SystemicMind"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "Bluesky & YouTube Community"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T00:34:36",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "Jacobi Inversion Model",
+      "title": "Inversion: How Stoics & Billionaires Solve Impossible Problems Backwards",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Inversion: How Stoics & Billionaires Solve Impossible Problems Backwards\n\n🧠 Stop asking how to succeed. Ask how to guarantee total failure—then systematically avoid every item on that list.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/CcZ55-XfFz4\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#Inversion #CharlieMunger #SystemicMind #DrGlitch #DeepDive",
+      "youtube_url": "https://youtu.be/CcZ55-XfFz4",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#Inversion",
+        "#CharlieMunger",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#DeepDive"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "Bluesky & YouTube Community"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T00:34:36",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "Midnight Dopamine Illusion",
+      "title": "Why Your Brain Starts a 5-Year Plan at 11:59 PM (Zeigarnik & Dopamine Loop)",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Your Brain Starts a 5-Year Plan at 11:59 PM (Zeigarnik & Dopamine Loop)\n\n🧠 At 11:59 PM you're a Navy SEAL philosopher. At 7:00 AM snooze button wins 4-0.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/_V1va3XjztI\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#Dopamine #StandUpScience #SystemicMind #DrGlitch #Habits",
+      "youtube_url": "https://youtu.be/_V1va3XjztI",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#Dopamine",
+        "#StandUpScience",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#Habits"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "Bluesky & YouTube Community"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T00:34:36",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "Bike-Shedding Effect",
+      "title": "Why You Spend 3 Hours Buying a $12 Mug (Parkinson's Law of Triviality)",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why You Spend 3 Hours Buying a $12 Mug (Parkinson's Law of Triviality)\n\n🧠 We approve a $10M Reactor in 4 minutes, then argue for 3 hours over the breakroom coffee beans.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/fR4VMhBElxA\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#BikeShedding #Overthinking #SystemicMind #DrGlitch #BrainHacks",
+      "youtube_url": "https://youtu.be/fR4VMhBElxA",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#BikeShedding",
+        "#Overthinking",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#BrainHacks"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "Bluesky & YouTube Community"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T00:34:36",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "The Outside View",
+      "title": "Why Your Brain Lies About Deadlines (The Outside View Breakdown)",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Your Brain Lies About Deadlines (The Outside View Breakdown)\n\n🧠 Your Inside View says 'This project will take 2 days.' Base-rate statistics say 'See you in 3 weeks!'\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/iKxJF6sEDNU\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#CognitiveBias #PlanningFallacy #SystemicMind #DrGlitch #Psychology",
+      "youtube_url": "https://youtu.be/iKxJF6sEDNU",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#CognitiveBias",
+        "#PlanningFallacy",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#Psychology"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "Bluesky & YouTube Community"
+      ]
+    },
+    {
+      "timestamp": "2026-11-09T00:34:36",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "The 40-70 Rule",
+      "title": "Why Jeff Bezos Makes Decisions With Only 70% Info (The 40-70 Rule)",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: Why Jeff Bezos Makes Decisions With Only 70% Info (The 40-70 Rule)\n\n🧠 Waiting for 100% certainty isn't being careful—it's just expensive procrastination in a tuxedo!\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/k687BhPtLoc\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#MentalModels #DecisionMaking #SystemicMind #DrGlitch #Productivity",
+      "youtube_url": "https://youtu.be/k687BhPtLoc",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#MentalModels",
+        "#DecisionMaking",
+        "#SystemicMind",
+        "#DrGlitch",
+        "#Productivity"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit",
+        "Bluesky & YouTube Community"
+      ]
+    },
+    {
+      "timestamp": "2026-11-08T19:24:10",
+      "account_email": "thealgorithmshift@gmail.com",
+      "brand_handle": "@SystemicMind",
+      "trend_topic": "[HackerNews] OpenAI raises $11B at a $1.25T valuation",
+      "title": "OpenAI’s $1.25 Trillion 'Trust Me Bro' Round",
+      "post_copy": "🎙️ Dr. Glitch Breakdown: OpenAI’s $1.25 Trillion 'Trust Me Bro' Round\n\n🧠 OpenAI just raised $11 billion at a $1.25 trillion valuation, proving that if you say 'AGI' enough times, investors treat a massive burn rate like a cozy campfire. We have officially reached the stage of capitalism where 'profit' is considered a legacy bug that hasn't been patched yet.\n\n🎬 Watch 60 FPS Breakdown: https://youtu.be/_V1va3XjztI\n🎁 Get 40% OFF All Decision Playbooks & 3D Game Engines (Code: MIND40): https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40\n\n#OpenAI #TechBubble #AGI #VentureCapital #SystemicMind",
+      "youtube_url": "https://youtu.be/_V1va3XjztI",
+      "store_promo_url": "https://ttepebasili.github.io/systemic-mind-store/?utm_source=social_bio&code=MIND40",
+      "hashtags": [
+        "#OpenAI",
+        "#TechBubble",
+        "#AGI",
+        "#VentureCapital",
+        "#SystemicMind"
+      ],
+      "platforms_syndicated": [
+        "X (Twitter)",
+        "Pinterest Business",
+        "TikTok",
+        "Instagram",
+        "Reddit"
+      ]
+    }
+  ]
+}
