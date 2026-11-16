@@ -1,1 +1,7 @@
-{"version": 5, "telemetry": true, "updated": "2026-11-10T22:40:37"}
+{
+  "game": "neon_flow_3d",
+  "studio": "Prism Veld / MTT Games",
+  "version": 11,
+  "fps_target": 60,
+  "updated_at": "2026-11-16T21:48:56.541078+00:00"
+}

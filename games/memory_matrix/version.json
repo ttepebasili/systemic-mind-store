@@ -1,1 +1,7 @@
-{"version": 5, "telemetry": true, "updated": "2026-11-10T22:39:45"}
+{
+  "game": "memory_matrix",
+  "studio": "Prism Veld / MTT Games",
+  "version": 12,
+  "fps_target": 60,
+  "updated_at": "2026-11-16T21:48:57.553308+00:00"
+}

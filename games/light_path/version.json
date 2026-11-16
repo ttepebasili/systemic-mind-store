@@ -1,1 +1,7 @@
-{"version": 6, "telemetry": true, "updated": "2026-11-10T22:38:53"}
+{
+  "game": "light_path",
+  "studio": "Prism Veld / MTT Games",
+  "version": 10,
+  "fps_target": 60,
+  "updated_at": "2026-11-16T21:48:55.581668+00:00"
+}

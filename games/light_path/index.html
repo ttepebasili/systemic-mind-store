@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-<meta name="game-version" content="v7"/>
-<title>Light Path: Prism Collector 3D — MTT Games (v7)</title>
+<meta name="game-version" content="v10"/>
+<meta name="admob-publisher" content="pub-8895372851932683"/>
+<title>Light Path: Prism Collector 3D — Prism Veld Studio (v10)</title>
 <style>
   :root {
     --bg: #080c18;
@@ -19,23 +20,30 @@
   html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; }
   #hud-bar {
     position: fixed; top: 12px; left: 12px; right: 12px; z-index: 20;
-    display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    background: var(--panel); border: 1px solid rgba(56, 189, 248, 0.38);
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    background: var(--panel); border: 1px solid rgba(56, 189, 248, 0.42);
     border-radius: 16px; padding: 8px 14px; min-height: 56px;
   }
   .hud-pill {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 16px; font-weight: 700; letter-spacing: 0.3px; color: var(--text);
+    font-size: 15px; font-weight: 700; letter-spacing: 0.3px; color: var(--text);
   }
+  .hud-actions { display: inline-flex; gap: 8px; }
   .hud-btn {
-    min-height: 56px; min-width: 112px; padding: 0 18px;
+    min-height: 56px; min-width: 104px; padding: 0 14px;
     border-radius: 14px; border: 2px solid var(--hero);
     background: rgba(56, 189, 248, 0.16); color: var(--text);
-    font-size: 15px; font-weight: 800; cursor: pointer;
+    font-size: 14px; font-weight: 800; cursor: pointer;
   }
-  .hud-btn:active { transform: scale(0.96); background: rgba(56, 189, 248, 0.32); }
+  .hud-btn-gold { border-color: var(--boss); background: rgba(250, 204, 21, 0.16); color: var(--boss); }
+  .hud-btn:active { transform: scale(0.96); }
+  #admob-banner-slot {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 50px; z-index: 20;
+    background: rgba(8, 12, 24, 0.94); border-top: 1px solid rgba(56, 189, 248, 0.25);
+    display: flex; align-items: center; justify-content: center; font-size: 12px; color: #94a3b8;
+  }
   canvas#board { position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: var(--bg); }
-  canvas.fx-overlay { position: fixed; inset: 0; width: 100%; height: 100%; background: transparent !important; border: none !important; box-shadow: none !important; pointer-events: none; z-index: 10; }
+  canvas.fx-overlay { position: fixed; inset: 0; width: 100%; height: 100%; background: transparent !important; border: none !important; pointer-events: none; z-index: 10; }
 </style>
 </head>
 <body>
@@ -46,16 +54,29 @@
   </div>
   <div class="hud-pill">
     <span>🏆 Lv.<b id="stage-num">1</b></span>
-    <span style="opacity:0.75;font-size:13px" id="fps-badge">60 FPS</span>
+    <span style="opacity:0.78;font-size:12px" id="fps-badge">60 FPS</span>
   </div>
-  <button class="hud-btn" id="pulse-btn" type="button" aria-label="Rotate Prism Pulse">⚡ PULSE</button>
+  <div class="hud-actions">
+    <button class="hud-btn hud-btn-gold" id="reward-btn" type="button" aria-label="Rewarded Overdrive Boost">🛡️ OVERDRIVE</button>
+    <button class="hud-btn" id="pulse-btn" type="button" aria-label="Trigger Prism Pulse">⚡ PULSE</button>
+  </div>
 </header>
 <canvas id="board"></canvas>
 <canvas class="fx-overlay" id="fx"></canvas>
+<footer id="admob-banner-slot" data-admob-banner="ca-app-pub-8895372851932683/4419827361">
+  Prism Veld Studio • 60 FPS Sovereign Optics Engine
+</footer>
 <script>
 (() => {
   "use strict";
-  // Zero-GC ObjectPool for locked 60 FPS smoothness
+  window.__PRISM_ADMOB_SPEC__ = {
+    publisherId: "pub-8895372851932683",
+    appId: "ca-app-pub-8895372851932683~3408323546",
+    bannerUnit: "ca-app-pub-8895372851932683/4419827361",
+    interstitialUnit: "ca-app-pub-8895372851932683/7738192045",
+    rewardedUnit: "ca-app-pub-8895372851932683/5761270122"
+  };
+
   class ObjectPool {
     constructor(factory, size) {
       this.pool = Array.from({ length: size }, () => factory());
@@ -84,8 +105,12 @@
   const stageEl = document.getElementById("stage-num");
   const fpsEl = document.getElementById("fps-badge");
   const pulseBtn = document.getElementById("pulse-btn");
+  const rewardBtn = document.getElementById("reward-btn");
 
   let W = window.innerWidth, H = window.innerHeight;
+  let audioMutedForAd = false;
+  window.__PRISM_SET_MUTE__ = (flag) => { audioMutedForAd = Boolean(flag); };
+
   const resize = () => {
     W = board.width = window.innerWidth;
     H = board.height = window.innerHeight;
@@ -93,18 +118,21 @@
   window.addEventListener("resize", resize, { passive: true });
   resize();
 
-  // Distinct 3D Isometric Silhouettes & High-Contrast Archetypes
-  const heroSilhouette = { x: W * 0.5, y: H * 0.72, tx: W * 0.5, ty: H * 0.72, r: 24, angle: 0, shield: 0 };
-  const enemyArchetypes = [
-    { kind: "scout", color: "#f43f5e", sides: 3, speed: 135, r: 18 },
-    { kind: "phantom", color: "#c084fc", sides: 4, speed: 105, r: 20 },
-    { kind: "crusher", color: "#fb923c", sides: 6, speed: 82, r: 23 }
-  ];
-  const bossEntity = { active: false, x: W * 0.5, y: 150, r: 44, hp: 3, phase: 0, color: "#facc15" };
+  if (window.PrismVeldAdBridge && typeof window.PrismVeldAdBridge.showBannerAd === "function") {
+    try { window.PrismVeldAdBridge.showBannerAd(); } catch (e) {}
+  }
 
-  const particlePool = new ObjectPool(() => ({ active: false, x: 0, y: 0, vx: 0, vy: 0, life: 0, color: "#38bdf8" }), 180);
-  const shardPool = new ObjectPool(() => ({ active: false, x: 0, y: 0, pulse: 0 }), 24);
-  const enemyPool = new ObjectPool(() => ({ active: false, x: 0, y: 0, vx: 0, vy: 0, arch: 0, rot: 0 }), 24);
+  const heroSilhouette = { x: W * 0.5, y: H * 0.68, tx: W * 0.5, ty: H * 0.68, r: 25, angle: 0, shield: 0, beamLen: 150 };
+  const enemyArchetypes = [
+    { kind: "refract_scout", color: "#f43f5e", sides: 3, speed: 138, r: 18 },
+    { kind: "void_prism", color: "#c084fc", sides: 4, speed: 108, r: 20 },
+    { kind: "obsidian_warden", color: "#fb923c", sides: 6, speed: 84, r: 24 }
+  ];
+  const bossEntity = { active: false, x: W * 0.5, y: 156, r: 46, hp: 3, phase: 0, color: "#facc15" };
+
+  const particlePool = new ObjectPool(() => ({ active: false, x: 0, y: 0, vx: 0, vy: 0, life: 0, color: "#38bdf8" }), 200);
+  const shardPool = new ObjectPool(() => ({ active: false, x: 0, y: 0, pulse: 0 }), 28);
+  const enemyPool = new ObjectPool(() => ({ active: false, x: 0, y: 0, vx: 0, vy: 0, arch: 0, rot: 0 }), 28);
 
   let stage = 1, have = 0, need = 5;
   const syncHud = () => {
@@ -113,38 +141,55 @@
   };
 
   const spawnBurst = (x, y, color) => {
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 14; i++) {
       const p = particlePool.acquire();
       if (!p) break;
-      const a = (Math.PI * 2 * i) / 12;
+      const a = (Math.PI * 2 * i) / 14;
       p.x = x; p.y = y;
-      p.vx = Math.cos(a) * 160; p.vy = Math.sin(a) * 160;
-      p.life = 0.45; p.color = color;
+      p.vx = Math.cos(a) * 175; p.vy = Math.sin(a) * 175;
+      p.life = 0.48; p.color = color;
     }
   };
+
+  window.onRewardedAdGranted = () => {
+    heroSilhouette.shield = 6.0;
+    heroSilhouette.beamLen = 280;
+    spawnBurst(heroSilhouette.x, heroSilhouette.y, "#facc15");
+  };
+
+  rewardBtn.addEventListener("click", () => {
+    if (window.PrismVeldAdBridge && typeof window.PrismVeldAdBridge.showRewardedAd === "function") {
+      try { window.PrismVeldAdBridge.showRewardedAd(); return; } catch (e) {}
+    }
+    if (window.__PORTAL_REWARDED_AD__) {
+      window.__PORTAL_REWARDED_AD__(window.onRewardedAdGranted);
+      return;
+    }
+    window.onRewardedAdGranted();
+  });
 
   const populateStage = () => {
     shardPool.activeCount = 0;
     enemyPool.activeCount = 0;
-    need = 4 + Math.min(stage, 6);
+    need = 4 + Math.min(stage, 7);
     have = 0;
     for (let i = 0; i < need; i++) {
       const s = shardPool.acquire();
       if (!s) break;
-      s.x = 64 + ((i * 137 + stage * 53) % Math.max(W - 128, 120));
-      s.y = 120 + ((i * 193 + stage * 71) % Math.max(H - 240, 140));
-      s.pulse = i * 0.7;
+      s.x = 64 + ((i * 149 + stage * 59) % Math.max(W - 128, 120));
+      s.y = 116 + ((i * 197 + stage * 73) % Math.max(H - 250, 140));
+      s.pulse = i * 0.65;
     }
-    const enemyTotal = Math.min(2 + Math.floor(stage / 2), 7);
+    const enemyTotal = Math.min(2 + Math.floor(stage / 2), 8);
     for (let i = 0; i < enemyTotal; i++) {
       const e = enemyPool.acquire();
       if (!e) break;
       e.arch = i % enemyArchetypes.length;
       const spec = enemyArchetypes[e.arch];
-      e.x = 70 + ((i * 179) % Math.max(W - 140, 120));
-      e.y = 130 + ((i * 113) % Math.max(H * 0.45, 120));
+      e.x = 72 + ((i * 181) % Math.max(W - 144, 120));
+      e.y = 132 + ((i * 117) % Math.max(H * 0.44, 120));
       e.vx = (i % 2 === 0 ? 1 : -1) * spec.speed;
-      e.vy = (i % 3 === 0 ? 0.65 : -0.65) * spec.speed;
+      e.vy = (i % 3 === 0 ? 0.68 : -0.68) * spec.speed;
       e.rot = 0;
     }
     bossEntity.active = (stage % 3 === 0);
@@ -155,14 +200,14 @@
 
   const setTarget = (clientX, clientY) => {
     heroSilhouette.tx = Math.max(32, Math.min(W - 32, clientX));
-    heroSilhouette.ty = Math.max(92, Math.min(H - 36, clientY));
+    heroSilhouette.ty = Math.max(92, Math.min(H - 68, clientY));
   };
   board.addEventListener("pointerdown", (ev) => setTarget(ev.clientX, ev.clientY), { passive: true });
   board.addEventListener("pointermove", (ev) => { if (ev.buttons) setTarget(ev.clientX, ev.clientY); }, { passive: true });
   pulseBtn.addEventListener("click", () => {
-    heroSilhouette.shield = 1.2;
+    heroSilhouette.shield = Math.max(heroSilhouette.shield, 1.5);
     spawnBurst(heroSilhouette.x, heroSilhouette.y, "#38bdf8");
-    if (bossEntity.active && Math.hypot(bossEntity.x - heroSilhouette.x, bossEntity.y - heroSilhouette.y) < 220) {
+    if (bossEntity.active && Math.hypot(bossEntity.x - heroSilhouette.x, bossEntity.y - heroSilhouette.y) < 240) {
       bossEntity.hp--;
       spawnBurst(bossEntity.x, bossEntity.y, "#facc15");
       if (bossEntity.hp <= 0) bossEntity.active = false;
@@ -173,8 +218,7 @@
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(rot);
-    // 3D depth extrude shadow
-    ctx.fillStyle = "rgba(0,0,0,0.48)";
+    ctx.fillStyle = "rgba(0,0,0,0.5)";
     ctx.beginPath();
     for (let i = 0; i < sides; i++) {
       const a = (Math.PI * 2 * i) / sides;
@@ -196,11 +240,10 @@
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
-    // Readable visor eyes for instant silhouette recognition
     ctx.fillStyle = "#080c18";
     ctx.beginPath();
-    ctx.arc(-r * 0.26, -r * 0.12, 3.2, 0, Math.PI * 2);
-    ctx.arc(r * 0.26, -r * 0.12, 3.2, 0, Math.PI * 2);
+    ctx.arc(-r * 0.26, -r * 0.12, 3.3, 0, Math.PI * 2);
+    ctx.arc(r * 0.26, -r * 0.12, 3.3, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
   };
@@ -212,39 +255,57 @@
   const loop = (now) => {
     const dtClamp = Math.min(Math.max((now - lastTime) / 1000, 0.001), 0.05);
     lastTime = now;
+    if (audioMutedForAd) {
+      requestAnimationFrame(loop);
+      return;
+    }
     fpsAccum += dtClamp; fpsFrames++;
     if (fpsAccum >= 0.5) {
       fpsEl.textContent = `${Math.min(60, Math.round(fpsFrames / fpsAccum))} FPS`;
       fpsAccum = 0; fpsFrames = 0;
     }
 
-    // Smooth hero movement
-    heroSilhouette.x += (heroSilhouette.tx - heroSilhouette.x) * Math.min(1, dtClamp * 11);
-    heroSilhouette.y += (heroSilhouette.ty - heroSilhouette.y) * Math.min(1, dtClamp * 11);
-    heroSilhouette.angle += dtClamp * 1.8;
+    heroSilhouette.x += (heroSilhouette.tx - heroSilhouette.x) * Math.min(1, dtClamp * 11.5);
+    heroSilhouette.y += (heroSilhouette.ty - heroSilhouette.y) * Math.min(1, dtClamp * 11.5);
+    heroSilhouette.angle += dtClamp * 1.9;
     if (heroSilhouette.shield > 0) heroSilhouette.shield = Math.max(0, heroSilhouette.shield - dtClamp);
 
     ctx.fillStyle = "#080c18";
     ctx.fillRect(0, 0, W, H);
 
-    // Subtle spatial grid
-    ctx.strokeStyle = "rgba(56, 189, 248, 0.07)";
+    ctx.strokeStyle = "rgba(56, 189, 248, 0.08)";
     ctx.lineWidth = 1;
     for (let gx = 0; gx < W; gx += 64) { ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke(); }
-    for (let gy = 80; gy < H; gy += 64) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
+    for (let gy = 80; gy < H - 50; gy += 64) { ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke(); }
 
-    // Collectibles (direct touch collection)
+    // Optical refraction ray
+    const bx = heroSilhouette.x + Math.cos(heroSilhouette.angle) * heroSilhouette.beamLen;
+    const by = heroSilhouette.y + Math.sin(heroSilhouette.angle) * heroSilhouette.beamLen;
+    ctx.strokeStyle = "rgba(250, 204, 21, 0.45)";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(heroSilhouette.x, heroSilhouette.y);
+    ctx.lineTo(bx, by);
+    ctx.stroke();
+
     for (let i = shardPool.activeCount - 1; i >= 0; i--) {
       const s = shardPool.pool[i];
-      s.pulse += dtClamp * 4;
+      s.pulse += dtClamp * 4.2;
       const sr = 14 + Math.sin(s.pulse) * 2.5;
       drawPoly3D(s.x, s.y, sr, 4, s.pulse * 0.5, "#2dd4bf", "#f8fafc");
-      if (Math.hypot(s.x - heroSilhouette.x, s.y - heroSilhouette.y) < heroSilhouette.r + sr + 6) {
+      if (Math.hypot(s.x - heroSilhouette.x, s.y - heroSilhouette.y) < heroSilhouette.r + sr + 8) {
         spawnBurst(s.x, s.y, "#2dd4bf");
         shardPool.releaseAt(i);
         have++;
         syncHud();
         if (have >= need) {
+          if (stage % 2 === 0) {
+            if (window.PrismVeldAdBridge && typeof window.PrismVeldAdBridge.showInterstitialAd === "function") {
+              try { window.PrismVeldAdBridge.showInterstitialAd(stage); } catch (e) {}
+            } else if (window.__PORTAL_MIDGAME_AD__) {
+              window.__PORTAL_MIDGAME_AD__();
+            }
+          }
           stage++;
           populateStage();
           break;
@@ -252,40 +313,36 @@
       }
     }
 
-    // Distinct Enemy Archetypes
     for (let i = 0; i < enemyPool.activeCount; i++) {
       const e = enemyPool.pool[i];
       const spec = enemyArchetypes[e.arch];
       e.x += e.vx * dtClamp;
       e.y += e.vy * dtClamp;
       if (e.x < 36 || e.x > W - 36) e.vx *= -1;
-      if (e.y < 96 || e.y > H - 36) e.vy *= -1;
-      e.rot += dtClamp * 2.4;
+      if (e.y < 96 || e.y > H - 72) e.vy *= -1;
+      e.rot += dtClamp * 2.5;
       drawPoly3D(e.x, e.y, spec.r, spec.sides, e.rot, spec.color, "#ffe4e6");
       if (heroSilhouette.shield <= 0 && Math.hypot(e.x - heroSilhouette.x, e.y - heroSilhouette.y) < spec.r + heroSilhouette.r - 4) {
-        heroSilhouette.shield = 0.8;
+        heroSilhouette.shield = 0.85;
         spawnBurst(heroSilhouette.x, heroSilhouette.y, "#f43f5e");
       }
     }
 
-    // Boss Entity
     if (bossEntity.active) {
-      bossEntity.phase += dtClamp * 1.6;
-      bossEntity.x = W * 0.5 + Math.sin(bossEntity.phase) * Math.min(180, W * 0.32);
+      bossEntity.phase += dtClamp * 1.7;
+      bossEntity.x = W * 0.5 + Math.sin(bossEntity.phase) * Math.min(185, W * 0.32);
       drawPoly3D(bossEntity.x, bossEntity.y, bossEntity.r, 8, -bossEntity.phase * 0.6, bossEntity.color, "#fef08a");
     }
 
-    // Hero Guardian 3D Octahedron
     if (heroSilhouette.shield > 0) {
-      ctx.strokeStyle = "rgba(56, 189, 248, 0.7)";
-      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(250, 204, 21, 0.85)";
+      ctx.lineWidth = 3.5;
       ctx.beginPath();
-      ctx.arc(heroSilhouette.x, heroSilhouette.y, heroSilhouette.r + 12, 0, Math.PI * 2);
+      ctx.arc(heroSilhouette.x, heroSilhouette.y, heroSilhouette.r + 13, 0, Math.PI * 2);
       ctx.stroke();
     }
-    drawPoly3D(heroSilhouette.x, heroSilhouette.y, heroSilhouette.r, 5, heroSilhouette.angle * 0.25, "#38bdf8", "#facc15");
+    drawPoly3D(heroSilhouette.x, heroSilhouette.y, heroSilhouette.r, 5, heroSilhouette.angle * 0.3, "#38bdf8", "#facc15");
 
-    // Pooled Particles
     for (let i = particlePool.activeCount - 1; i >= 0; i--) {
       const p = particlePool.pool[i];
       p.life -= dtClamp;

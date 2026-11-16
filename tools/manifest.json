@@ -1,0 +1,16 @@
+{
+  "identity": "thealgorithmshift@gmail.com",
+  "hub_url": "https://ttepebasili.github.io/systemic-mind-store/tools/",
+  "tools": [
+    "https://ttepebasili.github.io/systemic-mind-store/tools/cloud-finops-simulator/",
+    "https://ttepebasili.github.io/systemic-mind-store/tools/kelly-decision-matrix/",
+    "https://ttepebasili.github.io/systemic-mind-store/tools/global-cpm-ab-forecaster/"
+  ],
+  "affiliate_redirects": [
+    "https://ttepebasili.github.io/systemic-mind-store/go/cloud-finops/",
+    "https://ttepebasili.github.io/systemic-mind-store/go/gpu-compute/",
+    "https://ttepebasili.github.io/systemic-mind-store/go/studio-voice/",
+    "https://ttepebasili.github.io/systemic-mind-store/go/vip-blueprint/"
+  ],
+  "updated_at_utc": "2026-11-16T21:48:41.773185+00:00"
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Kelly Criterion &amp; Expected-Value Capital Simulator — Axiom Veld Tools</title>
+<style>
+  :root {
+    --bg: #070b14; --panel: #0f172a; --card: #131e36; --border: #1e293b;
+    --cyan: #38bdf8; --gold: #facc15; --emerald: #34d399; --rose: #f43f5e;
+    --text: #f8fafc; --muted: #94a3b8;
+  }
+  * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+  body { margin: 0; background: var(--bg); color: var(--text); padding: 20px 16px; line-height: 1.55; }
+  .wrap { max-width: 1140px; margin: 0 auto; }
+  .topbar { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;
+            background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:12px 18px; margin-bottom:18px; }
+  .topbar a { color: var(--cyan); text-decoration:none; font-weight:700; font-size:14px; }
+  .promo-strip { background: linear-gradient(90deg, #172554, #0f172a, #1e1b4b); border: 1px solid var(--gold);
+                 border-radius: 14px; padding: 14px 18px; margin-bottom: 20px; display:flex; flex-wrap:wrap;
+                 justify-content:space-between; align-items:center; gap:12px; }
+  .btn { display:inline-block; padding:10px 16px; border-radius:10px; font-weight:800; font-size:13.5px;
+         text-decoration:none; cursor:pointer; border:none; }
+  .btn-gold { background: var(--gold); color: #070b14; }
+  .btn-cyan { background: var(--cyan); color: #070b14; }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--cyan); }
+  .grid-2 { display:grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap:20px; }
+  .grid-3 { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:18px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+  label { display:block; font-size:13px; color:var(--muted); margin:10px 0 4px; font-weight:600; }
+  input[type=range], input[type=number], select {
+    width:100%; background:#080e1e; color:var(--text); border:1px solid #334155; border-radius:8px; padding:8px 10px;
+  }
+  .kpi-row { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:12px; margin:16px 0; }
+  .kpi { background: var(--card); border:1px solid #263554; border-radius:12px; padding:14px; }
+  .kpi .val { font-size:24px; font-weight:800; color:var(--emerald); }
+  .kpi .lbl { font-size:12px; color:var(--muted); }
+  canvas { width:100%; height:240px; background:#060a14; border:1px solid #1e293b; border-radius:12px; margin-top:10px; }
+  .aff-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:14px; margin-top:22px; }
+  .aff-card { background: var(--card); border: 1px solid #334155; border-radius: 12px; padding: 14px; }
+  .ad-slot { margin-top:22px; padding:16px; border-radius:14px; border:1px dashed var(--cyan);
+             background:rgba(56,189,248,0.06); display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topbar">
+    <div><b>AXIOM VELD // QUANT DECISION MATRIX</b></div>
+    <div style="display:flex;gap:16px;">
+      <a href="../">&larr; All Tools</a>
+      <a href="https://ttepebasili.github.io/systemic-mind-store/">Digital Storefront</a>
+      <a href="https://ttepebasili.github.io/systemic-mind-store/games/">60 FPS Arcade</a>
+    </div>
+  </nav>
+  <div class="promo-strip">
+    <div><b>Quantitative Decision Playbook:</b> Full Python Solvers + Executive Frameworks — <b>40% OFF Code MIND40</b></div>
+    <a class="btn btn-gold" href="https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40&utm_source=micro_saas_tools" target="_blank" rel="noopener">Unlock Playbook (MIND40)</a>
+  </div>
+  <div class="grid-2">
+    <section class="panel">
+      <h1 style="margin-top:0;font-size:24px;">Kelly Criterion &amp; Variance Survival Engine</h1>
+      <p style="color:var(--muted);font-size:14px;">Compute optimal fractional capital allocation and simulate 100 sequential compounding decisions without ruin.</p>
+      <label>Win Probability (%): <b id="lbl-win">58%</b></label>
+      <input type="range" id="in-win" min="20" max="90" step="1" value="58"/>
+      <label>Reward-to-Risk Payoff Multiple (b): <b id="lbl-odds">1.8x</b></label>
+      <input type="range" id="in-odds" min="0.5" max="5.0" step="0.1" value="1.8"/>
+      <label>Safety Dampener (Half/Quarter Kelly): <b id="lbl-frac">0.50x</b></label>
+      <input type="range" id="in-frac" min="0.25" max="1.0" step="0.05" value="0.50"/>
+      <button class="btn btn-cyan" style="margin-top:16px;" type="button" id="btn-resim">Run New 25-Path Monte Carlo</button>
+    </section>
+    <section class="panel">
+      <h2 style="margin-top:0;font-size:20px;">Optimal Allocation &amp; Compounding Curve</h2>
+      <div class="kpi-row">
+        <div class="kpi"><div class="lbl">Full Kelly Fraction</div><div class="val" id="kpi-full">0%</div></div>
+        <div class="kpi"><div class="lbl">Safe Fractional Size</div><div class="val" id="kpi-safe" style="color:var(--gold);">0%</div></div>
+        <div class="kpi"><div class="lbl">Expected Edge / Step</div><div class="val" id="kpi-ev" style="color:var(--cyan);">0%</div></div>
+      </div>
+      <canvas id="mc-canvas" width="520" height="240"></canvas>
+    </section>
+  </div>
+  
+  <div class="ad-slot" role="complementary" aria-label="Sponsor and Interactive Arcade">
+    <div>
+      <div style="font-size:11px;color:var(--cyan);font-weight:800;">SPONSORED ECOSYSTEM • PRISM VELD 60 FPS WEBGL</div>
+      <div style="font-weight:700;">Take a 90-Second Cognitive Break: Play Sovereign Optics &amp; Light Path 3D in Browser (Zero Install)</div>
+    </div>
+    <a class="btn btn-cyan" href="https://ttepebasili.github.io/systemic-mind-store/games/?utm_source=tool_kelly_decision_matrix" target="_blank" rel="noopener">Play 60 FPS WebGL &rarr;</a>
+  </div>
+
+  <h3 style="margin-top:28px;color:var(--gold);">Recommended Cloud, FinOps &amp; Engineering Blueprints</h3>
+  <div class="aff-grid">
+    <div class="aff-card"><div style="font-size:11px;color:var(--cyan);font-weight:800;">30% Recurring Monthly</div><div style="font-weight:700;margin:6px 0;">Cloud FinOps Cost Ledger & Infrastructure Stack</div><a class="btn btn-outline" style="margin-top:6px;font-size:12px;padding:7px 12px;" href="https://ttepebasili.github.io/systemic-mind-store/go/cloud-finops/?utm_source=micro_saas_kelly_decision_matrix" target="_blank" rel="noopener">Open Stack &rarr;</a></div><div class="aff-card"><div style="font-size:11px;color:var(--cyan);font-weight:800;">25% Recurring Revenue</div><div style="font-weight:700;margin:6px 0;">Elastic Compute & Quantitative Simulation Engine</div><a class="btn btn-outline" style="margin-top:6px;font-size:12px;padding:7px 12px;" href="https://ttepebasili.github.io/systemic-mind-store/go/gpu-compute/?utm_source=micro_saas_kelly_decision_matrix" target="_blank" rel="noopener">Open Stack &rarr;</a></div><div class="aff-card"><div style="font-size:11px;color:var(--cyan);font-weight:800;">22% Recurring Annual/Monthly</div><div style="font-weight:700;margin:6px 0;">8-Language Broadcast Dubbing & CPM Forecaster</div><a class="btn btn-outline" style="margin-top:6px;font-size:12px;padding:7px 12px;" href="https://ttepebasili.github.io/systemic-mind-store/go/studio-voice/?utm_source=micro_saas_kelly_decision_matrix" target="_blank" rel="noopener">Open Stack &rarr;</a></div><div class="aff-card"><div style="font-size:11px;color:var(--cyan);font-weight:800;">100% Direct Net Margin</div><div style="font-weight:700;margin:6px 0;">Full Python Engineering Blueprint (40% OFF Code: MIND40)</div><a class="btn btn-outline" style="margin-top:6px;font-size:12px;padding:7px 12px;" href="https://ttepebasili.github.io/systemic-mind-store/go/vip-blueprint/?utm_source=micro_saas_kelly_decision_matrix" target="_blank" rel="noopener">Open Stack &rarr;</a></div>
+  </div>
+
+</div>
+<script>
+(() => {
+  const winEl = document.getElementById("in-win");
+  const oddsEl = document.getElementById("in-odds");
+  const fracEl = document.getElementById("in-frac");
+  const canvas = document.getElementById("mc-canvas");
+  const ctx = canvas.getContext("2d");
+  let seedBase = 42;
+
+  const nextRand = () => {
+    seedBase = (seedBase * 1664525 + 1013904223) % 4294967296;
+    return seedBase / 4294967296;
+  };
+
+  const draw = () => {
+    const p = Number(winEl.value) / 100;
+    const q = 1 - p;
+    const b = Number(oddsEl.value);
+    const damp = Number(fracEl.value);
+
+    document.getElementById("lbl-win").textContent = Math.round(p * 100) + "%";
+    document.getElementById("lbl-odds").textContent = b.toFixed(1) + "x";
+    document.getElementById("lbl-frac").textContent = damp.toFixed(2) + "x";
+
+    const fullKelly = Math.max(0, (b * p - q) / b);
+    const safeStake = Math.min(0.45, fullKelly * damp);
+    const ev = p * b - q;
+
+    document.getElementById("kpi-full").textContent = (fullKelly * 100).toFixed(1) + "%";
+    document.getElementById("kpi-safe").textContent = (safeStake * 100).toFixed(1) + "%";
+    document.getElementById("kpi-ev").textContent = (ev >= 0 ? "+" : "") + (ev * 100).toFixed(1) + "%";
+
+    ctx.fillStyle = "#060a14";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const steps = 60;
+    for (let pathIdx = 0; pathIdx < 22; pathIdx++) {
+      let eq = 1.0;
+      ctx.beginPath();
+      ctx.strokeStyle = pathIdx === 0 ? "#facc15" : "rgba(56,189,248,0.28)";
+      ctx.lineWidth = pathIdx === 0 ? 2.6 : 1.1;
+      for (let s = 0; s <= steps; s++) {
+        const x = 16 + (s / steps) * (canvas.width - 32);
+        const yNorm = Math.log10(Math.max(0.1, Math.min(100, eq))) / 2.0;
+        const y = 185 - yNorm * 150;
+        if (s === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        if (nextRand() < p) eq *= (1 + safeStake * b);
+        else eq *= Math.max(0.05, 1 - safeStake);
+      }
+      ctx.stroke();
+    }
+  };
+  [winEl, oddsEl, fracEl].forEach((el) => el.addEventListener("input", draw));
+  document.getElementById("btn-resim").addEventListener("click", () => { seedBase += 97; draw(); });
+  draw();
+})();
+</script>
+</body>
+</html>
