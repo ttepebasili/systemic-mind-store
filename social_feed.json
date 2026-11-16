@@ -1,7 +1,24 @@
 {
-  "updated_at": "2026-11-16T18:37:57.689031+00:00",
+  "updated_at": "2026-11-16T21:59:16.833276+00:00",
   "daily_cap_per_platform": 2,
   "items": [
+    {
+      "video_id": "cloud_finops_margin_ledger",
+      "concept": "Axiom Veld 8-Language High-CPM",
+      "title": "Stop 42% Cloud Margin Leakage: The Deterministic FinOps Ledger #Shorts",
+      "youtube_url": "https://www.youtube.com/shorts/zJjeOm2zSYY",
+      "youtube_long_url": "https://www.youtube.com/watch?v=HyqCq8aMciM",
+      "tools_url": "https://ttepebasili.github.io/systemic-mind-store/tools/",
+      "affiliate_links": {
+        "cloud-finops": "https://ttepebasili.github.io/systemic-mind-store/go/cloud-finops/",
+        "gpu-compute": "https://ttepebasili.github.io/systemic-mind-store/go/gpu-compute/",
+        "studio-voice": "https://ttepebasili.github.io/systemic-mind-store/go/studio-voice/",
+        "vip-blueprint": "https://ttepebasili.github.io/systemic-mind-store/go/vip-blueprint/"
+      },
+      "tiktok_ready": true,
+      "instagram_reels_ready": true,
+      "published_at_utc": "2026-11-16T21:59:16.833265+00:00"
+    },
     {
       "video_id": "wKiYYbKGww8",
       "concept": "@SystemicMind",
