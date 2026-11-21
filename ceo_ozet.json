@@ -1,6 +1,6 @@
 {
-  "son_guncelleme_ts": "2026-11-22 00:28 TSİ",
-  "son_guncelleme_utc": "2026-11-21T21:28:30Z",
+  "son_guncelleme_ts": "2026-11-22 00:44 TSİ",
+  "son_guncelleme_utc": "2026-11-21T21:44:25Z",
   "doviz": {
     "usd_try": 50.5343,
     "kaynak": "canli_kur"
@@ -70,10 +70,10 @@
       "oyun_adi": "Light Path",
       "aktif_surum": "v63",
       "surum_kodu": 63,
-      "yayin_kanali": "closed testing",
-      "durum_rozeti": "Kapalı Testte",
-      "durum_kodu": "aktif_bekleniyor",
-      "performans_ozeti": "Kararlı Sürüm • Vitals ve app-ads.txt Doğrulandı",
+      "yayin_kanali": "production",
+      "durum_rozeti": "Yayında",
+      "durum_kodu": "aktif",
+      "performans_ozeti": "Google Play'de Yayında • 60 FPS Kararlı",
       "magaza_linki": "https://play.google.com/store/apps/details?id=com.mttgames.lightpath"
     }
   ]
