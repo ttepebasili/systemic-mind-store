@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>MTT Games — Interactive 360° 3D GLB Asset Showcase &amp; Micro-SaaS Portal</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Systemic Mind &amp; MTT Games — Official Storefront, Mobile Games &amp; Digital Toolkits</title>
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 <style>
   :root {
@@ -11,23 +11,25 @@
     --cyan:#38bdf8; --gold:#facc15; --emerald:#10b981; --rose:#f43f5e;
     --text:#f8fafc; --muted:#94a3b8;
   }
-  * { box-sizing:border-box; font-family:'Segoe UI',system-ui,sans-serif; }
-  body { margin:0; background:var(--bg); color:var(--text); line-height:1.5; }
-  .wrap { max-width:1280px; margin:0 auto; padding:24px 18px 64px; }
+  * { box-sizing:border-box; font-family:'Segoe UI',system-ui,-apple-system,sans-serif; }
+  body { margin:0; background:var(--bg); color:var(--text); line-height:1.55; }
+  .wrap { max-width:1280px; margin:0 auto; padding:24px 16px 64px; }
   .hero {
     background:linear-gradient(135deg,#0f172a 0%,#0b1329 55%,#172554 100%);
     border:1px solid var(--cyan); border-radius:20px; padding:28px; margin-bottom:24px;
     display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:18px;
   }
-  .hero h1 { margin:0 0 8px; font-size:28px; }
+  .hero h1 { margin:0 0 8px; font-size:clamp(22px,4vw,30px); }
   .pbr-bar {
     background:var(--panel); border:1px solid var(--border); border-radius:14px;
     padding:14px 18px; margin-bottom:24px; display:flex; flex-wrap:wrap; gap:16px; align-items:center;
   }
   .pbr-bar label { font-size:13px; color:var(--muted); font-weight:600; display:flex; align-items:center; gap:8px; }
-  .sec-title { font-size:21px; color:var(--gold); margin:28px 0 14px; border-left:4px solid var(--cyan); padding-left:12px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:20px; }
+  .sec-title { font-size:21px; color:var(--gold); margin:30px 0 14px; border-left:4px solid var(--cyan); padding-left:12px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr)); gap:20px; }
   .card { background:var(--card); border:1px solid var(--border); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; }
+  .flagship-card { border:1.5px solid var(--emerald); box-shadow:0 12px 32px rgba(16,185,129,0.12); }
+  .featured-card { border:1.5px solid rgba(56,189,248,0.45); }
   .bundle-card { border-color:var(--gold); }
   .viewer-wrap { position:relative; height:290px; background:radial-gradient(circle at 50% 40%,#172554,#060a14); }
   model-viewer { width:100%; height:100%; --poster-color:transparent; }
@@ -36,14 +38,22 @@
     font-size:11.5px; font-weight:800; background:rgba(6,10,20,0.86); border:1px solid var(--cyan); color:var(--cyan);
   }
   .badge-pack { border-color:var(--gold); color:var(--gold); }
-  .card-body { padding:18px; display:flex; flex-direction:column; flex:1; }
+  .pill-live {
+    display:inline-block; width:fit-content; padding:4px 10px; border-radius:999px;
+    font-size:11px; font-weight:800; background:rgba(16,185,129,0.16); color:#34d399; border:1px solid rgba(16,185,129,0.4); margin-bottom:8px;
+  }
+  .pill-prod {
+    display:inline-block; width:fit-content; padding:4px 10px; border-radius:999px;
+    font-size:11px; font-weight:800; background:rgba(250,204,21,0.14); color:var(--gold); border:1px solid rgba(250,204,21,0.38); margin-bottom:8px;
+  }
+  .card-body { padding:20px; display:flex; flex-direction:column; flex:1; }
   .meta-tag { font-size:11px; font-weight:800; color:var(--cyan); letter-spacing:0.6px; }
-  .card-body h3 { margin:6px 0 8px; font-size:18px; }
-  .muted { color:var(--muted); font-size:13.5px; margin:0 0 14px; flex:1; }
+  .card-body h3 { margin:6px 0 8px; font-size:19px; }
+  .muted { color:var(--muted); font-size:13.8px; margin:0 0 16px; flex:1; }
   .cta-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:auto; }
   .btn {
-    display:inline-flex; align-items:center; justify-content:center; padding:9px 10px;
-    border-radius:10px; font-size:12.5px; font-weight:800; text-decoration:none; text-align:center;
+    display:inline-flex; align-items:center; justify-content:center; padding:10px 12px;
+    border-radius:10px; font-size:12.8px; font-weight:800; text-decoration:none; text-align:center;
     transition:transform .12s ease, opacity .12s ease; cursor:pointer; border:none;
   }
   .btn:hover { transform:translateY(-1px); opacity:0.94; }
@@ -51,29 +61,86 @@
   .btn-gumroad { background:#ff90e8; color:#090d16; }
   .btn-shopier { background:#38bdf8; color:#06101e; }
   .btn-play { background:#10b981; color:#04130e; }
-  .btn-launch { width:100%; margin-bottom:10px; background:var(--gold); color:#070b14; padding:10px 14px; }
+  .btn-launch { width:100%; margin-bottom:10px; background:var(--gold); color:#070b14; padding:11px 14px; }
+  .site-footer {
+    margin-top:42px; padding-top:20px; border-top:1px solid var(--border);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; font-size:13px; color:var(--muted);
+  }
+  .site-footer a { color:var(--cyan); text-decoration:none; font-weight:600; }
+  @media (max-width:600px) {
+    .hero { padding:20px 16px; }
+    .cta-grid { grid-template-columns:1fr; }
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
     <div>
-      <div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:4px;">MTT GAMES • GITHUB PAGES 3D PBR STOREFRONT &amp; MICRO-SAAS HUB</div>
-      <h1>Interactive 360° 3D GLB Showcase &amp; Micro-SaaS Portal</h1>
-      <div style="color:var(--muted);font-size:14px;">Inspect Auto-QA (&ge; 8.0/10) game-ready PBR meshes in real time • Flagship Android Game: <code>com.mttgames.lightpath</code></div>
+      <div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:4px;letter-spacing:0.8px;">SYSTEMIC MIND &times; MTT GAMES — OFFICIAL STOREFRONT</div>
+      <h1>Mobile Games, Executive Playbooks &amp; 3D Engine Assets</h1>
+      <div style="color:var(--muted);font-size:14px;">Google Play Flagship: <code>com.mttgames.lightpath</code> &bull; Digital Toolkits &amp; 360° PBR Showcase</div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <a class="btn btn-play" style="padding:12px 18px;font-size:13.5px;" href="https://play.google.com/store/apps/details?id=com.mttgames.lightpath" target="_blank" rel="noopener">Google Play: Lightpath</a>
+      <a class="btn btn-play" style="padding:12px 18px;font-size:13.5px;" href="https://play.google.com/store/apps/details?id=com.mttgames.lightpath" target="_blank" rel="noopener">Google Play: Light Path</a>
       <a class="btn btn-itch" style="padding:12px 18px;font-size:13.5px;" href="https://mttgames.itch.io" target="_blank" rel="noopener">mttgames.itch.io</a>
+      <a class="btn btn-gumroad" style="padding:12px 16px;font-size:13px;" href="tools/">Web Tools</a>
+      <a class="btn btn-shopier" style="padding:12px 16px;font-size:13px;" href="games/">WebGL Arcade</a>
+      <a class="btn btn-shopier" style="padding:12px 16px;font-size:13px;" href="./privacy.html">Privacy Policy</a>
     </div>
   </header>
 
-  <section class="pbr-bar" aria-label="360 PBR Model Inspector Controls">
+  <h2 class="sec-title">Flagship Google Play Game &amp; Featured Digital Products</h2>
+  <div class="grid">
+    <article class="card flagship-card" id="light-path-3d-laser-puzzle">
+      <div class="card-body">
+        <span class="pill-live">GOOGLE PLAY &bull; LIVE (v63)</span>
+        <div class="meta-tag">MTT GAMES &bull; ANDROID PUZZLE (com.mttgames.lightpath)</div>
+        <h3>Light Path: 3D Laser Puzzle</h3>
+        <p class="muted">Guide golden laser conduits across refractive crystal shrines and obsidian mirrors at locked 60 FPS. Includes 50+ handcrafted optical logic arenas and seasonal challenges.</p>
+        <a class="btn btn-play" style="width:100%;margin-bottom:8px;padding:12px;" href="https://play.google.com/store/apps/details?id=com.mttgames.lightpath" target="_blank" rel="noopener">Download Free on Google Play &rarr;</a>
+        <div class="cta-grid">
+          <a class="btn btn-itch" href="https://mttgames.itch.io/light-path" target="_blank" rel="noopener">Play WebGL on itch.io</a>
+          <a class="btn btn-shopier" href="./privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card featured-card" id="elite-decision-architecture-playbook">
+      <div class="card-body">
+        <span class="pill-prod">SYSTEMIC MIND &bull; EXECUTIVE PLAYBOOK + TOOLKIT</span>
+        <div class="meta-tag">DIGITAL EDITION &bull; PDF + INTERACTIVE HTML5 MATRIX</div>
+        <h3>The Elite Decision Architecture Playbook</h3>
+        <p class="muted">Master the 40–70 Information Threshold, Outside View reference-class forecasting, second-order cascade mapping, and Type-1 vs. Type-2 decision matrices.</p>
+        <a class="btn btn-launch" href="https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40" target="_blank" rel="noopener">Get Playbook (40% OFF: MIND40) &rarr;</a>
+        <div class="cta-grid">
+          <a class="btn btn-itch" href="https://mttgames.itch.io" target="_blank" rel="noopener">itch.io (mttgames)</a>
+          <a class="btn btn-shopier" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">Shopier (TR)</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="card featured-card" id="neon-puzzle-engine-starter-asset-pack">
+      <div class="card-body">
+        <span class="pill-prod">MTT GAMES &bull; 2D/3D GAME ENGINE STARTER PACK</span>
+        <div class="meta-tag">GODOT / UNITY / WEBGL &bull; SOLVERS + GLSL SHADERS</div>
+        <h3>Neon Puzzle Engine Starter Asset Pack</h3>
+        <p class="muted">Complete 2D/3D NeonLaserSolver, IsometricFlow3DEngine, SpatialMemoryMatrixEngine, procedural 3D meshes, holographic GLSL shaders, and cyber HUD UI kit.</p>
+        <a class="btn btn-launch" href="https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40" target="_blank" rel="noopener">Get Starter Asset Pack (MIND40) &rarr;</a>
+        <div class="cta-grid">
+          <a class="btn btn-itch" href="https://mttgames.itch.io" target="_blank" rel="noopener">itch.io (mttgames)</a>
+          <a class="btn btn-shopier" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">Shopier (TR)</a>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <section class="pbr-bar" style="margin-top:28px;" aria-label="360 PBR Model Inspector Controls">
     <strong style="color:var(--cyan);font-size:13.5px;">360° PBR Inspector:</strong>
     <label><input type="checkbox" id="chk-rotate" checked/> Auto-Rotate 360°</label>
     <label>PBR Exposure: <input type="range" id="rng-exp" min="0.5" max="2.2" step="0.05" value="1.15"/> <span id="lbl-exp">1.15</span></label>
     <label>Shadow Intensity: <input type="range" id="rng-shd" min="0" max="2.5" step="0.1" value="1.2"/> <span id="lbl-shd">1.2</span></label>
-    <span style="margin-left:auto;font-size:12px;color:var(--muted);">Catalog JSON: <a href="catalog.json" style="color:var(--gold);">docs/catalog.json</a> (1 Models • 0 Packs)</span>
+    <span style="margin-left:auto;font-size:12px;color:var(--muted);">Catalog JSON: <a href="catalog.json" style="color:var(--gold);">catalog.json</a> (1 Models • 0 Packs)</span>
   </section>
 
   
@@ -87,6 +154,15 @@
   <div class="grid">
     <article class="card saas-card" data-kind="saas"><div class="card-body"><div class="meta-tag">INTERACTIVE MICRO-SAAS WEB TOOL</div><h3>Enterprise Cloud FinOps &amp; Margin Leakage Simulator</h3><p class="muted">Interactive Kubernetes/Serverless idle compute &amp; NAT egress cash-flow recovery calculator.</p><a class="btn btn-launch" href="https://ttepebasili.github.io/systemic-mind-store/tools/cloud-finops-simulator/" target="_blank" rel="noopener">Launch Interactive Web Tool &rarr;</a><div class="cta-grid"><a class="btn btn-itch" href="https://mttgames.itch.io" target="_blank" rel="noopener">itch.io (mttgames)</a><a class="btn btn-gumroad" href="https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40" target="_blank" rel="noopener">Gumroad</a><a class="btn btn-shopier" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">Shopier</a><a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.mttgames.lightpath" target="_blank" rel="noopener">Google Play (Lightpath)</a></div></div></article><article class="card saas-card" data-kind="saas"><div class="card-body"><div class="meta-tag">INTERACTIVE MICRO-SAAS WEB TOOL</div><h3>Kelly Criterion &amp; Monte Carlo Capital Sizing Engine</h3><p class="muted">25-path stochastic compounding simulator with fractional drawdown protection.</p><a class="btn btn-launch" href="https://ttepebasili.github.io/systemic-mind-store/tools/kelly-decision-matrix/" target="_blank" rel="noopener">Launch Interactive Web Tool &rarr;</a><div class="cta-grid"><a class="btn btn-itch" href="https://mttgames.itch.io" target="_blank" rel="noopener">itch.io (mttgames)</a><a class="btn btn-gumroad" href="https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40" target="_blank" rel="noopener">Gumroad</a><a class="btn btn-shopier" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">Shopier</a><a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.mttgames.lightpath" target="_blank" rel="noopener">Google Play (Lightpath)</a></div></div></article><article class="card saas-card" data-kind="saas"><div class="card-body"><div class="meta-tag">INTERACTIVE MICRO-SAAS WEB TOOL</div><h3>Multi-Language High-RPM &amp; A/B CTR Yield Forecaster</h3><p class="muted">Forecast international subtitle RPM lift (ES, PT, DE, JA, HI) and 24h A/B thumbnail ROI.</p><a class="btn btn-launch" href="https://ttepebasili.github.io/systemic-mind-store/tools/global-cpm-ab-forecaster/" target="_blank" rel="noopener">Launch Interactive Web Tool &rarr;</a><div class="cta-grid"><a class="btn btn-itch" href="https://mttgames.itch.io" target="_blank" rel="noopener">itch.io (mttgames)</a><a class="btn btn-gumroad" href="https://tepebasili.gumroad.com/l/sm-vip-bundle-001?offer_code=MIND40" target="_blank" rel="noopener">Gumroad</a><a class="btn btn-shopier" href="https://www.shopier.com/MTTGames" target="_blank" rel="noopener">Shopier</a><a class="btn btn-play" href="https://play.google.com/store/apps/details?id=com.mttgames.lightpath" target="_blank" rel="noopener">Google Play (Lightpath)</a></div></div></article>
   </div>
+
+  <footer class="site-footer">
+    <div>&copy; 2026 Systemic Mind &amp; MTT Games Studio</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="./privacy.html">Privacy Policy / Gizlilik Politikası</a>
+      <a href="./app-ads.txt">app-ads.txt</a>
+      <a href="https://mttgames.itch.io" target="_blank" rel="noopener">mttgames.itch.io</a>
+    </div>
+  </footer>
 </div>
 <script>
 (() => {
