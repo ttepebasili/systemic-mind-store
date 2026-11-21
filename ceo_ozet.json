@@ -1,0 +1,80 @@
+{
+  "son_guncelleme_ts": "2026-11-21 23:50 TSİ",
+  "son_guncelleme_utc": "2026-11-21T20:50:40Z",
+  "doviz": {
+    "usd_try": 50.5343,
+    "kaynak": "canli_kur"
+  },
+  "guvenlik": {
+    "pin_aktif": false,
+    "pin_sha256": ""
+  },
+  "net_gelir_kasasi": {
+    "durum": "aktif_bekleniyor",
+    "gunluk_usd": 0.0,
+    "gunluk_try": 0.0,
+    "aylik_usd": 0.0,
+    "aylik_try": 0.0,
+    "toplam_usd": 0.0,
+    "toplam_try": 0.0
+  },
+  "kaynaklar": {
+    "admob": {
+      "baslik": "AdMob",
+      "durum": "aktif_bekleniyor",
+      "gunluk_usd": 0.0,
+      "gunluk_try": 0.0,
+      "aylik_usd": 0.0,
+      "aylik_try": 0.0,
+      "toplam_usd": 0.0,
+      "toplam_try": 0.0
+    },
+    "youtube": {
+      "baslik": "YouTube",
+      "durum": "aktif_bekleniyor",
+      "gunluk_usd": 0.0,
+      "gunluk_try": 0.0,
+      "aylik_usd": 0.0,
+      "aylik_try": 0.0,
+      "toplam_usd": 0.0,
+      "toplam_try": 0.0
+    },
+    "itchio_magaza": {
+      "baslik": "itch.io / Mağaza",
+      "durum": "aktif_bekleniyor",
+      "gunluk_usd": 0.0,
+      "gunluk_try": 0.0,
+      "aylik_usd": 0.0,
+      "aylik_try": 0.0,
+      "toplam_usd": 0.0,
+      "toplam_try": 0.0,
+      "urunler": [
+        {
+          "ad": "The Elite Decision Architecture Playbook",
+          "durum": "aktif_bekleniyor",
+          "toplam_usd": 0.0,
+          "toplam_try": 0.0
+        },
+        {
+          "ad": "Neon Puzzle Engine Starter Asset Pack",
+          "durum": "aktif_bekleniyor",
+          "toplam_usd": 0.0,
+          "toplam_try": 0.0
+        }
+      ]
+    }
+  },
+  "oyunlar": [
+    {
+      "paket_adi": "com.mttgames.lightpath",
+      "oyun_adi": "Light Path",
+      "aktif_surum": "v63",
+      "surum_kodu": 63,
+      "yayin_kanali": "closed testing",
+      "durum_rozeti": "Kapalı Testte",
+      "durum_kodu": "aktif_bekleniyor",
+      "performans_ozeti": "Kararlı Sürüm • Vitals ve app-ads.txt Doğrulandı",
+      "magaza_linki": "https://play.google.com/store/apps/details?id=com.mttgames.lightpath"
+    }
+  ]
+}
