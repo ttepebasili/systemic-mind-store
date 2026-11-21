@@ -1,13 +1,13 @@
 {
-  "son_guncelleme_ts": "2026-11-22 00:17 TSİ",
-  "son_guncelleme_utc": "2026-11-21T21:17:39Z",
+  "son_guncelleme_ts": "2026-11-22 00:28 TSİ",
+  "son_guncelleme_utc": "2026-11-21T21:28:30Z",
   "doviz": {
     "usd_try": 50.5343,
     "kaynak": "canli_kur"
   },
   "guvenlik": {
-    "pin_aktif": false,
-    "pin_sha256": ""
+    "pin_aktif": true,
+    "pin_sha256": "653541a0193d05f2d93274e9fb77607ba1e447356fd1ba4f47c3b9d97baae63e"
   },
   "net_gelir_kasasi": {
     "durum": "aktif_bekleniyor",
