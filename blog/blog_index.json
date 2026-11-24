@@ -1,7 +1,55 @@
 {
-  "updated_at_utc": "2026-11-24T18:42:35+00:00",
-  "total_posts": 6,
+  "updated_at_utc": "2026-11-24T19:14:38+00:00",
+  "total_posts": 7,
   "posts": [
+    {
+      "episode_slug": "self-healing-nanomaterials-from-theory-to-real-w-191437",
+      "topic": "Self‑Healing Nanomaterials: From Theory to Real‑World Repr",
+      "languages": [
+        "tr",
+        "en",
+        "es"
+      ],
+      "mascots_featured": [
+        "atlas",
+        "lara",
+        "kaan"
+      ],
+      "mascot_promo_1920x1080": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/self-healing-nanomaterials-from-theory-to-real-w-191437/mascot_promo_1920x1080.png",
+      "itch_mascot_promo_630x500": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/self-healing-nanomaterials-from-theory-to-real-w-191437/itch_mascot_promo_630x500.png",
+      "integrated_products": {
+        "elite_decision_architecture_playbook": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/elite-decision-playbook"
+        },
+        "neon_puzzle_engine_starter_asset_pack": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/neon-puzzle-engine-starter-pack"
+        }
+      },
+      "articles": {
+        "tr": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/self-healing-nanomaterials-from-theory-to-real-w-191437/article_tr.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/self-healing-nanomaterials-from-theory-to-real-w-191437/article_tr.html",
+          "title": "Self‑Healing Nanomaterials: From Theory to Real‑World Repr — Atlas, Lara ve Kaan ile Mimari Derinlik Analizi"
+        },
+        "en": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/self-healing-nanomaterials-from-theory-to-real-w-191437/article_en.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/self-healing-nanomaterials-from-theory-to-real-w-191437/article_en.html",
+          "title": "Self‑Healing Nanomaterials: From Theory to Real‑World Repr — Deep Systems Breakdown with Atlas, Lara & Kaan"
+        },
+        "es": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/self-healing-nanomaterials-from-theory-to-real-w-191437/article_es.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/self-healing-nanomaterials-from-theory-to-real-w-191437/article_es.html",
+          "title": "Self‑Healing Nanomaterials: From Theory to Real‑World Repr — Análisis de Arquitectura con Atlas, Lara y Kaan"
+        }
+      },
+      "queued_for_stores": [
+        "systemic-mind-store",
+        "mttgames.itch.io"
+      ],
+      "created_at_utc": "2026-11-24T19:14:38+00:00"
+    },
     {
       "episode_slug": "distributed-gpu-cluster-topology-zero-egress-com-184234",
       "topic": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics",
