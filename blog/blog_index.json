@@ -1,10 +1,10 @@
 {
-  "updated_at_utc": "2026-11-24T21:39:10+00:00",
+  "updated_at_utc": "2026-11-24T21:25:53+00:00",
   "total_posts": 8,
   "posts": [
     {
-      "episode_slug": "why-self-healing-materials-collapse-to-stop-syst-213910",
-      "topic": "Why self-healing materials collapse to stop systemic collapse",
+      "episode_slug": "distributed-gpu-cluster-topology-zero-egress-com-212553",
+      "topic": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics",
       "languages": [
         "tr",
         "en",
@@ -15,8 +15,8 @@
         "lara",
         "kaan"
       ],
-      "mascot_promo_1920x1080": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/why-self-healing-materials-collapse-to-stop-syst-213910/mascot_promo_1920x1080.png",
-      "itch_mascot_promo_630x500": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/why-self-healing-materials-collapse-to-stop-syst-213910/itch_mascot_promo_630x500.png",
+      "mascot_promo_1920x1080": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-212553/mascot_promo_1920x1080.png",
+      "itch_mascot_promo_630x500": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-212553/itch_mascot_promo_630x500.png",
       "integrated_products": {
         "elite_decision_architecture_playbook": {
           "gumroad_url": "https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40",
@@ -29,26 +29,26 @@
       },
       "articles": {
         "tr": {
-          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/why-self-healing-materials-collapse-to-stop-syst-213910/article_tr.md",
-          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/why-self-healing-materials-collapse-to-stop-syst-213910/article_tr.html",
-          "title": "Why self-healing materials collapse to stop systemic collapse — Atlas, Lara ve Kaan ile Mimari Derinlik Analizi"
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-212553/article_tr.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-212553/article_tr.html",
+          "title": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics — Atlas, Lara ve Kaan ile Mimari Derinlik Analizi"
         },
         "en": {
-          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/why-self-healing-materials-collapse-to-stop-syst-213910/article_en.md",
-          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/why-self-healing-materials-collapse-to-stop-syst-213910/article_en.html",
-          "title": "Why self-healing materials collapse to stop systemic collapse — Deep Systems Breakdown with Atlas, Lara & Kaan"
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-212553/article_en.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-212553/article_en.html",
+          "title": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics — Deep Systems Breakdown with Atlas, Lara & Kaan"
         },
         "es": {
-          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/why-self-healing-materials-collapse-to-stop-syst-213910/article_es.md",
-          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/why-self-healing-materials-collapse-to-stop-syst-213910/article_es.html",
-          "title": "Why self-healing materials collapse to stop systemic collapse — Análisis de Arquitectura con Atlas, Lara y Kaan"
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-212553/article_es.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-212553/article_es.html",
+          "title": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics — Análisis de Arquitectura con Atlas, Lara y Kaan"
         }
       },
       "queued_for_stores": [
         "systemic-mind-store",
         "mttgames.itch.io"
       ],
-      "created_at_utc": "2026-11-24T21:39:10+00:00"
+      "created_at_utc": "2026-11-24T21:25:53+00:00"
     },
     {
       "episode_slug": "self-healing-nanomaterials-from-theory-to-real-w-191437",
