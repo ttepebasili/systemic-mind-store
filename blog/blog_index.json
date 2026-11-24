@@ -1,7 +1,55 @@
 {
-  "updated_at_utc": "2026-11-21T21:00:30+00:00",
-  "total_posts": 2,
+  "updated_at_utc": "2026-11-24T02:44:48+00:00",
+  "total_posts": 3,
   "posts": [
+    {
+      "episode_slug": "distributed-gpu-cluster-topology-zero-egress-com-024447",
+      "topic": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics",
+      "languages": [
+        "tr",
+        "en",
+        "es"
+      ],
+      "mascots_featured": [
+        "atlas",
+        "lara",
+        "kaan"
+      ],
+      "mascot_promo_1920x1080": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-024447/mascot_promo_1920x1080.png",
+      "itch_mascot_promo_630x500": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-024447/itch_mascot_promo_630x500.png",
+      "integrated_products": {
+        "elite_decision_architecture_playbook": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/elite-decision-playbook"
+        },
+        "neon_puzzle_engine_starter_asset_pack": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/neon-puzzle-engine-starter-pack"
+        }
+      },
+      "articles": {
+        "tr": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-024447/article_tr.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-024447/article_tr.html",
+          "title": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics — Atlas, Lara ve Kaan ile Mimari Derinlik Analizi"
+        },
+        "en": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-024447/article_en.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-024447/article_en.html",
+          "title": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics — Deep Systems Breakdown with Atlas, Lara & Kaan"
+        },
+        "es": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-024447/article_es.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/distributed-gpu-cluster-topology-zero-egress-com-024447/article_es.html",
+          "title": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics — Análisis de Arquitectura con Atlas, Lara y Kaan"
+        }
+      },
+      "queued_for_stores": [
+        "systemic-mind-store",
+        "mttgames.itch.io"
+      ],
+      "created_at_utc": "2026-11-24T02:44:48+00:00"
+    },
     {
       "episode_slug": "distributed-gpu-cluster-topology-zero-egress-com-210030",
       "topic": "Distributed GPU Cluster Topology & Zero-Egress Compute Economics",
