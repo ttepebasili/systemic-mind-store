@@ -1,8 +1,8 @@
 {
-  "son_guncelleme_ts": "2026-11-25 02:24 TSİ",
-  "son_guncelleme_utc": "2026-11-24T23:24:27Z",
+  "son_guncelleme_ts": "2026-11-25 04:44 TSİ",
+  "son_guncelleme_utc": "2026-11-25T01:44:14Z",
   "doviz": {
-    "usd_try": 50.6215,
+    "usd_try": 50.6692,
     "kaynak": "canli_kur"
   },
   "guvenlik": {
@@ -68,8 +68,8 @@
     {
       "paket_adi": "com.mttgames.lightpath",
       "oyun_adi": "Light Path",
-      "aktif_surum": "v63",
-      "surum_kodu": 63,
+      "aktif_surum": "v64",
+      "surum_kodu": 64,
       "yayin_kanali": "production",
       "durum_rozeti": "Yayında",
       "durum_kodu": "aktif",
