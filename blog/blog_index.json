@@ -1,7 +1,55 @@
 {
-  "updated_at_utc": "2026-11-25T20:47:44+00:00",
-  "total_posts": 13,
+  "updated_at_utc": "2026-11-26T16:26:37+00:00",
+  "total_posts": 14,
   "posts": [
+    {
+      "episode_slug": "engineering-management-traps-the-hidden-cost-of--162636",
+      "topic": "Engineering Management Traps: The Hidden Cost of Parkinson's Law",
+      "languages": [
+        "tr",
+        "en",
+        "es"
+      ],
+      "mascots_featured": [
+        "atlas",
+        "lara",
+        "kaan"
+      ],
+      "mascot_promo_1920x1080": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/engineering-management-traps-the-hidden-cost-of--162636/mascot_promo_1920x1080.png",
+      "itch_mascot_promo_630x500": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/engineering-management-traps-the-hidden-cost-of--162636/itch_mascot_promo_630x500.png",
+      "integrated_products": {
+        "elite_decision_architecture_playbook": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/elite-decision-playbook"
+        },
+        "neon_puzzle_engine_starter_asset_pack": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/neon-puzzle-engine-starter-pack"
+        }
+      },
+      "articles": {
+        "tr": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/engineering-management-traps-the-hidden-cost-of--162636/article_tr.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/engineering-management-traps-the-hidden-cost-of--162636/article_tr.html",
+          "title": "Engineering Management Traps: The Hidden Cost of Parkinson's Law — Atlas, Lara ve Kaan ile Mimari Derinlik Analizi"
+        },
+        "en": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/engineering-management-traps-the-hidden-cost-of--162636/article_en.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/engineering-management-traps-the-hidden-cost-of--162636/article_en.html",
+          "title": "Engineering Management Traps: The Hidden Cost of Parkinson's Law — Deep Systems Breakdown with Atlas, Lara & Kaan"
+        },
+        "es": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/engineering-management-traps-the-hidden-cost-of--162636/article_es.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/engineering-management-traps-the-hidden-cost-of--162636/article_es.html",
+          "title": "Engineering Management Traps: The Hidden Cost of Parkinson's Law — Análisis de Arquitectura con Atlas, Lara y Kaan"
+        }
+      },
+      "queued_for_stores": [
+        "systemic-mind-store",
+        "mttgames.itch.io"
+      ],
+      "created_at_utc": "2026-11-26T16:26:37+00:00"
+    },
     {
       "episode_slug": "the-cost-of-one-millisecond-invisible-chokepoint-204744",
       "topic": "The Cost of One Millisecond: Invisible chokepoints in Distributed Systems",
