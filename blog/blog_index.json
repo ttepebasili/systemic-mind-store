@@ -1,7 +1,55 @@
 {
-  "updated_at_utc": "2026-11-26T16:26:37+00:00",
-  "total_posts": 14,
+  "updated_at_utc": "2026-11-27T00:12:22+00:00",
+  "total_posts": 15,
   "posts": [
+    {
+      "episode_slug": "sub-millisecond-ring-buffers-deterministic-fault-001221",
+      "topic": "Sub-Millisecond Ring Buffers & Deterministic Fault-Tolerant Kernels",
+      "languages": [
+        "tr",
+        "en",
+        "es"
+      ],
+      "mascots_featured": [
+        "atlas",
+        "lara",
+        "kaan"
+      ],
+      "mascot_promo_1920x1080": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/sub-millisecond-ring-buffers-deterministic-fault-001221/mascot_promo_1920x1080.png",
+      "itch_mascot_promo_630x500": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/sub-millisecond-ring-buffers-deterministic-fault-001221/itch_mascot_promo_630x500.png",
+      "integrated_products": {
+        "elite_decision_architecture_playbook": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/elite-decision-playbook"
+        },
+        "neon_puzzle_engine_starter_asset_pack": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/neon-puzzle-engine-starter-pack"
+        }
+      },
+      "articles": {
+        "tr": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/sub-millisecond-ring-buffers-deterministic-fault-001221/article_tr.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/sub-millisecond-ring-buffers-deterministic-fault-001221/article_tr.html",
+          "title": "Sub-Millisecond Ring Buffers & Deterministic Fault-Tolerant Kernels — Atlas, Lara ve Kaan ile Mimari Derinlik Analizi"
+        },
+        "en": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/sub-millisecond-ring-buffers-deterministic-fault-001221/article_en.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/sub-millisecond-ring-buffers-deterministic-fault-001221/article_en.html",
+          "title": "Sub-Millisecond Ring Buffers & Deterministic Fault-Tolerant Kernels — Deep Systems Breakdown with Atlas, Lara & Kaan"
+        },
+        "es": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/sub-millisecond-ring-buffers-deterministic-fault-001221/article_es.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/sub-millisecond-ring-buffers-deterministic-fault-001221/article_es.html",
+          "title": "Sub-Millisecond Ring Buffers & Deterministic Fault-Tolerant Kernels — Análisis de Arquitectura con Atlas, Lara y Kaan"
+        }
+      },
+      "queued_for_stores": [
+        "systemic-mind-store",
+        "mttgames.itch.io"
+      ],
+      "created_at_utc": "2026-11-27T00:12:22+00:00"
+    },
     {
       "episode_slug": "engineering-management-traps-the-hidden-cost-of--162636",
       "topic": "Engineering Management Traps: The Hidden Cost of Parkinson's Law",
