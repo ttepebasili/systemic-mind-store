@@ -1,7 +1,55 @@
 {
-  "updated_at_utc": "2026-11-27T23:51:46+00:00",
-  "total_posts": 17,
+  "updated_at_utc": "2026-11-28T15:05:54+00:00",
+  "total_posts": 18,
   "posts": [
+    {
+      "episode_slug": "quantitative-decision-architecture-applying-frac-150553",
+      "topic": "Quantitative Decision Architecture: Applying Fractional Kelly Sizing to neural Infrastructure Spend",
+      "languages": [
+        "tr",
+        "en",
+        "es"
+      ],
+      "mascots_featured": [
+        "atlas",
+        "lara",
+        "kaan"
+      ],
+      "mascot_promo_1920x1080": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/quantitative-decision-architecture-applying-frac-150553/mascot_promo_1920x1080.png",
+      "itch_mascot_promo_630x500": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/quantitative-decision-architecture-applying-frac-150553/itch_mascot_promo_630x500.png",
+      "integrated_products": {
+        "elite_decision_architecture_playbook": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/elite-decision-playbook?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/elite-decision-playbook"
+        },
+        "neon_puzzle_engine_starter_asset_pack": {
+          "gumroad_url": "https://tepebasili.gumroad.com/l/neon-puzzle-starter-pack?offer_code=MIND40",
+          "itch_url": "https://mttgames.itch.io/neon-puzzle-engine-starter-pack"
+        }
+      },
+      "articles": {
+        "tr": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/quantitative-decision-architecture-applying-frac-150553/article_tr.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/quantitative-decision-architecture-applying-frac-150553/article_tr.html",
+          "title": "Quantitative Decision Architecture: Applying Fractional Kelly Sizing to neural Infrastructure Spend — Atlas, Lara ve Kaan ile Mimari Derinlik Analizi"
+        },
+        "en": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/quantitative-decision-architecture-applying-frac-150553/article_en.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/quantitative-decision-architecture-applying-frac-150553/article_en.html",
+          "title": "Quantitative Decision Architecture: Applying Fractional Kelly Sizing to neural Infrastructure Spend — Deep Systems Breakdown with Atlas, Lara & Kaan"
+        },
+        "es": {
+          "markdown_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/quantitative-decision-architecture-applying-frac-150553/article_es.md",
+          "html_path": "/home/runner/work/systemic-mind-autonomous-empire/systemic-mind-autonomous-empire/storefront/blog/quantitative-decision-architecture-applying-frac-150553/article_es.html",
+          "title": "Quantitative Decision Architecture: Applying Fractional Kelly Sizing to neural Infrastructure Spend — Análisis de Arquitectura con Atlas, Lara y Kaan"
+        }
+      },
+      "queued_for_stores": [
+        "systemic-mind-store",
+        "mttgames.itch.io"
+      ],
+      "created_at_utc": "2026-11-28T15:05:54+00:00"
+    },
     {
       "episode_slug": "the-financial-cost-of-structural-architecture-er-235146",
       "topic": "The Financial Cost of Structural Architecture Errors",
